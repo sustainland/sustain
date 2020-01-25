@@ -9,6 +9,7 @@
     "author": "Labidi Aymen 2 ",
     "license": "MIT",
     "scripts": {
+        "dev": "node dev",
         "start": "npm run serve",
         "serve": "node dist/app.js",
         "build": "tsc",
@@ -19,6 +20,7 @@
         "@types/node": "^12.7.8"
     },
     "dependencies": {
-        "reflect-metadata": "^0.1.13"
+        "reflect-metadata": "^0.1.13",
+        "source-map-support": "^0.5.16"
     }
 }
