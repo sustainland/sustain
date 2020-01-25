@@ -1,5 +1,5 @@
 import { getControllersMethods } from "../utils/extract-methods.util";
-import { PATH_METADATA } from "../constants";
+import { PATH_METADATA, MATCH_METADATA, INTERCEPTORS } from "../constants";
 import { PATH_TYPE } from "../constants";
 import { METHOD_METADATA } from "../constants";
 import { PATH_TYPES } from "../constants";
@@ -20,6 +20,8 @@ export function loadControllers(controllers: any) {
             getControllersMethods(instance)
                 .forEach((method: string) => {
                     const metadatas = {
+                        INTERCEPTORS: Reflect.getMetadata(INTERCEPTORS, Object.assign(instance)[method]),
+                        MATCH_METADATA: Reflect.getMetadata(MATCH_METADATA, Object.assign(instance)[method]),
                         PATH_METADATA: Reflect.getMetadata(PATH_METADATA, Object.assign(instance)[method]),
                         METHOD_METADATA: Reflect.getMetadata(METHOD_METADATA, Object.assign(instance)[method]),
                         PATH_TYPE: Reflect.getMetadata(PATH_TYPE, Object.assign(instance)[method]),
@@ -29,8 +31,10 @@ export function loadControllers(controllers: any) {
                             Http_Requests[metadatas.METHOD_METADATA] = [];
                         }
                         Http_Requests[metadatas.METHOD_METADATA].push({
+                            interceptors : metadatas.INTERCEPTORS,
                             path: {
                                 value: metadatas.PATH_METADATA,
+                                match: metadatas.MATCH_METADATA,
                                 type: metadatas.PATH_TYPE || PATH_TYPES.String
                             },
                             handler: Object.assign(instance)[method]
