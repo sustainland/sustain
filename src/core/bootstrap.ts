@@ -31,7 +31,7 @@ export function loadControllers(controllers: any) {
                             Http_Requests[metadatas.METHOD_METADATA] = [];
                         }
                         Http_Requests[metadatas.METHOD_METADATA].push({
-                            interceptors : metadatas.INTERCEPTORS,
+                            interceptors: metadatas.INTERCEPTORS,
                             path: {
                                 value: metadatas.PATH_METADATA,
                                 match: metadatas.MATCH_METADATA,
