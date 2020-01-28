@@ -18,3 +18,14 @@ function createDecorator(method: RequestMethod) {
 export const Get = createDecorator(RequestMethod.GET);
 export const Post = createDecorator(RequestMethod.POST);
 
+//Parameter decorator
+const RequestParamFactory = (type?: string) => {
+    return () => {
+        return (target: any, key: string | symbol, index: number) => {
+            target['request']= index;
+            Reflect.defineMetadata(type, index, target.constructor, key);
+        }
+    }
+}
+
+export const Request = RequestParamFactory('request');

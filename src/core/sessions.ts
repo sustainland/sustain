@@ -10,7 +10,6 @@ export function getSession(idSession: string) {
 
 export function setSession(idSession: string, data: any) {
     sessions[idSession] = data;
-    console.log(sessions)
 }
 
 export function getCookies(request: any) {

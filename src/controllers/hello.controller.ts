@@ -3,17 +3,37 @@ import { Interceptors } from "../decorators/interceptors.decorators";
 import { isAuthenticated, validateParams } from "../auth";
 import { uniqueID } from "../utils/unique-id.util";
 import { getSession, getCookies, setSession } from "../core/sessions";
+import { Request, Response } from "../decorators/http/route-params.decorator";
 
 
 export default class HelloController {
     constructor() {
     }
     @Get('/user/:id')
-    GetUsers(req: any, res: any) {
-        const id = req.params.id;
-        res.end(`
+    GetUsers(
+        @Response() res: any,
+        @Request() resquest: any,
+        @Request() resquest2: any,
+        @Response() res2: any
+    ) {
+        const id = resquest2.params.id;
+
+        // reponce using Respense
+        res2.end(`
             user id : ${id}
         `);
+
+        // text reponce
+        // return `
+        //     a text from @get
+        // `;
+
+        // promise reponce
+        // return new Promise((resolve) => {
+        //     setTimeout(()=>{
+        //         resolve(' Ok from promise after 5sec')
+        //     },5000)
+        // })
     }
 
     @Get('/user/:id/:name/profile')
@@ -21,7 +41,7 @@ export default class HelloController {
         isAuthenticated,
         validateParams
     ])
-    GetUsersWithName(req: any, res: any) {
+    GetUsersWithName(@Request() req: any, @Response() res: any) {
         const ids = getCookies(req)['ids'];
         let userNameFromSession;
         if (!getSession(ids)) {
