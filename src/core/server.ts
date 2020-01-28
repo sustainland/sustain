@@ -1,7 +1,9 @@
 
 const { readFile } = require('fs');
 import { createServer, IncomingMessage, ServerResponse } from 'http';
-import { MATCH_METADATA } from '../constants';
+import { MATCH_METADATA, ROUTE_ARGS_METADATA } from '../constants';
+import { Injector } from './DependencyInjector';
+import { RouteParamtypes } from '../decorators/http/route-params.decorator';
 const port = 5002;
 class Request extends IncomingMessage {
     params: { [key: string]: string | undefined };
@@ -9,6 +11,8 @@ class Request extends IncomingMessage {
 export function createAppServer(requests: any) {
     const server = createServer(async (request: Request, response: ServerResponse) => {
         try {
+            Injector.set('request', request);
+            Injector.set('response', response);
             response.setHeader('x-powered-by', 'Sustain Server');
             if (requests[request.method]) {
                 const route = requestSegmentMatch(requests, request);
@@ -16,10 +20,20 @@ export function createAppServer(requests: any) {
                     if (route.interceptors) {
                         await executeInterceptor(route, request, response)
                     }
-                    route.handler(request, response);
+                    const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, route.handler) || {}
+                    const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, { request, response })
+                    const result = route.handler(...methodArgs);
+                    
+                    if (result) {
+                        if (result instanceof Promise) {
+                            response.end(await result)
+                        } else {
+                            response.end(result);
+                        }
+                    }
 
                 } else {
-                    render404Page(response);
+                   render404Page(response);
                 }
             } else {
                 render404Page(response);
@@ -66,9 +80,22 @@ async function executeInterceptor(route: any, request: any, response: any) {
 
 function render404Page(response: any) {
     response.writeHead(200, { 'Content-Type': 'text/html' });
-    readFile('../views/404.html', (err: any, data: any) => {
+    readFile('views/404.html', (err: any, data: any) => {
         if (!err) {
             response.end(data);
+        }else{
+            console.log(err)
+        }
+    })
+}
+
+function render505Page(response: any) {
+    response.writeHead(200, { 'Content-Type': 'text/html' });
+    readFile('views/505.html', (err: any, data: any) => {
+        if (!err) {
+            response.end(data);
+        }else{
+            console.log(err)
         }
     })
 }
@@ -81,4 +108,23 @@ function requestSegmentMatch(requests: any, request: any) {
             return true;
         }
     })
+}
+
+
+function fillMethodsArgs(routeParamsHandler: any, assets: any) {
+    const methodArgs: any[] = [];
+    Object.keys(routeParamsHandler).forEach((args) => {
+        const [arg_type, arg_index] = args.split(':');
+        console.log(arg_type, arg_index);
+        switch (Number(arg_type)) {
+            case RouteParamtypes.REQUEST:
+                methodArgs[Number(arg_index)] = assets.request;
+                break;
+            case RouteParamtypes.RESPONSE:
+                methodArgs[Number(arg_index)] = assets.response;
+                break;
+        }
+    });
+
+    return methodArgs;
 }

@@ -77,4 +77,4 @@ class DependencyInjector {
   }
 }
 
-export default new DependencyInjector()
+export const Injector = new DependencyInjector();
