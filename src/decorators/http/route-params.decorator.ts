@@ -1,27 +1,9 @@
-import { isNil } from "../../utils/shared.utils";
-import { isString } from "util";
 import { ROUTE_ARGS_METADATA } from "../../constants";
+import { RouteParamtypes } from "../../enums/route-params.enum";
+import { ParamData } from "../../interfaces/route-param-metadata.interface";
+import { RouteParamMetadata } from "../../interfaces/route-param-metadata.interface";
 
-export enum RouteParamtypes {
-    REQUEST,
-    RESPONSE,
-    NEXT,
-    BODY,
-    QUERY,
-    PARAM,
-    HEADERS,
-    SESSION,
-    FILE,
-    FILES,
-    HOST,
-    IP,
-}
 
-export type ParamData = object | string | number;
-export interface RouteParamMetadata {
-    index: number;
-    data?: ParamData;
-}
 
 export function assignMetadata<TParamtype = any, TArgs = any>(
     args: TArgs,
@@ -52,9 +34,6 @@ const createParamDecorator = (paramtype: RouteParamtypes) => {
             ),
             Object.assign(target)[key]
         );
-
-        let result = Reflect.getMetadataKeys(Object.assign(target)[key]);
-
     };
 };
 
