@@ -1,55 +1,84 @@
 import { getControllersMethods } from "../utils/extract-methods.util";
 import { PATH_METADATA, MATCH_METADATA, INTERCEPTORS } from "../constants";
-import { PATH_TYPE } from "../constants";
-import { METHOD_METADATA } from "../constants";
-import { PATH_TYPES } from "../constants";
+import { PATH_TYPE, METHOD_METADATA, PATH_TYPES } from "../constants";
+import { RequestMethod } from '../enums/request-method.enum';
+
 import { createAppServer } from "./server";
 
+const metadataKey = [
+    INTERCEPTORS,
+    MATCH_METADATA,
+    PATH_METADATA,
+    METHOD_METADATA,
+    PATH_TYPE
+];
+const HttpRequests: any = {};
 
-export function bootstrap(app: any): any {
+
+/**
+ * Boostratp the Application
+ * @param app 
+ */
+export function bootstrap(app: any) {
     const { controllers } = app;
     const requests = loadControllers(controllers);
     createAppServer(requests);
 }
 
-export function loadControllers(controllers: any) {
-    const Http_Requests: any = {};
+/**
+ * Prepare controllers, it functions with they metadata
+ * @param controllers 
+ * @return a list of methods {GET, POST, ...} and they routes
+ */
+export function loadControllers(controllers: any): any {
     controllers.forEach(
         (controller: any) => {
             const instance = new controller();
             getControllersMethods(instance)
-                .forEach((method: string) => {
-                    const metadatas = {
-                        INTERCEPTORS: Reflect.getMetadata(INTERCEPTORS, Object.assign(instance)[method]),
-                        MATCH_METADATA: Reflect.getMetadata(MATCH_METADATA, Object.assign(instance)[method]),
-                        PATH_METADATA: Reflect.getMetadata(PATH_METADATA, Object.assign(instance)[method]),
-                        METHOD_METADATA: Reflect.getMetadata(METHOD_METADATA, Object.assign(instance)[method]),
-                        PATH_TYPE: Reflect.getMetadata(PATH_TYPE, Object.assign(instance)[method]),
+                .forEach((method: RequestMethod) => {
+                    const payload = {
+                        instance,
+                        method
                     }
-                    if (metadatas.METHOD_METADATA) {
-                        if (!Http_Requests[metadatas.METHOD_METADATA]) {
-                            Http_Requests[metadatas.METHOD_METADATA] = [];
-                        }
-                        Http_Requests[metadatas.METHOD_METADATA].push({
-                            interceptors: metadatas.INTERCEPTORS,
-                            path: {
-                                value: metadatas.PATH_METADATA,
-                                match: metadatas.MATCH_METADATA,
-                                type: metadatas.PATH_TYPE || PATH_TYPES.String
-                            },
-                            handler: Object.assign(instance)[method]
-                        })
-                    }
-                    return {
-                        method_name: method,
-                        metadata: {
-                            PATH_METADATA: Reflect.getMetadata(PATH_METADATA, Object.assign(instance)[method])
-                        }
-                    }
+                    const metadatas = prepareMetadata(payload);
+                    buildHttpRequests(metadatas, payload);
                 });
         }
     )
-    return Http_Requests;
+    return HttpRequests;
 }
 
+/**
+ * Create the http requests object to map it with the server instance
+ * @param metadatas 
+ * @param payload 
+ */
+function buildHttpRequests(metadatas: any, payload: any) {
+    if (metadatas[METHOD_METADATA]) {
+        if (!HttpRequests[metadatas[METHOD_METADATA]]) {
+            HttpRequests[metadatas[METHOD_METADATA]] = [];
+        }
+        HttpRequests[metadatas[METHOD_METADATA]].push({
+            interceptors: metadatas[INTERCEPTORS],
+            path: {
+                value: metadatas[PATH_METADATA],
+                match: metadatas[MATCH_METADATA],
+                type: metadatas[PATH_TYPE] || PATH_TYPES.String
+            },
+            handler: Object.assign(payload.instance)[payload.method]
+        })
+    }
+}
 
+/**
+ * Grap metadatas from the controller functions
+ * @param payload 
+ * @param object of metadata  
+ */
+function prepareMetadata(payload: any): any {
+    const metadatas: any = {};
+    metadataKey.forEach((key: string) => {
+        metadatas[key] = Reflect.getMetadata(key, Object.assign(payload.instance)[payload.method])
+    });
+    return metadatas;
+}

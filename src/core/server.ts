@@ -1,9 +1,9 @@
 
 const { readFile } = require('fs');
 import { createServer, IncomingMessage, ServerResponse } from 'http';
-import { MATCH_METADATA, ROUTE_ARGS_METADATA } from '../constants';
+import { ROUTE_ARGS_METADATA } from '../constants';
 import { Injector } from './DependencyInjector';
-import { RouteParamtypes } from '../decorators/http/route-params.decorator';
+import { RouteParamtypes } from '../enums/route-params.enum';
 const port = 5002;
 class Request extends IncomingMessage {
     params: { [key: string]: string | undefined };
@@ -23,7 +23,7 @@ export function createAppServer(requests: any) {
                     const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, route.handler) || {}
                     const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, { request, response })
                     const result = route.handler(...methodArgs);
-                    
+
                     if (result) {
                         if (result instanceof Promise) {
                             response.end(await result)
@@ -33,7 +33,7 @@ export function createAppServer(requests: any) {
                     }
 
                 } else {
-                   render404Page(response);
+                    render404Page(response);
                 }
             } else {
                 render404Page(response);
@@ -83,7 +83,7 @@ function render404Page(response: any) {
     readFile('views/404.html', (err: any, data: any) => {
         if (!err) {
             response.end(data);
-        }else{
+        } else {
             console.log(err)
         }
     })
@@ -94,7 +94,7 @@ function render505Page(response: any) {
     readFile('views/505.html', (err: any, data: any) => {
         if (!err) {
             response.end(data);
-        }else{
+        } else {
             console.log(err)
         }
     })
