@@ -8,6 +8,7 @@ const port = 5002;
 class Request extends IncomingMessage {
     params: { [key: string]: string | undefined };
 }
+
 export function createAppServer(requests: any) {
     const server = createServer(async (request: Request, response: ServerResponse) => {
         try {
@@ -115,7 +116,6 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
     const methodArgs: any[] = [];
     Object.keys(routeParamsHandler).forEach((args) => {
         const [arg_type, arg_index] = args.split(':');
-        console.log(arg_type, arg_index);
         switch (Number(arg_type)) {
             case RouteParamtypes.REQUEST:
                 methodArgs[Number(arg_index)] = assets.request;

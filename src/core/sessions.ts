@@ -1,6 +1,12 @@
-const sessions: any = [];
+import SessionProviders from "./sessions-providers";
+import { SessionsProviders } from "../constants";
+
+let sessions: any = {};
+const SessionManager = new SessionProviders(SessionsProviders.File);
 
 export function getSession(idSession: string) {
+    sessions = SessionManager.provider.load();
+
     if (sessions[idSession]) {
         return Object.assign({}, sessions[idSession]);
     } else {
@@ -10,6 +16,8 @@ export function getSession(idSession: string) {
 
 export function setSession(idSession: string, data: any) {
     sessions[idSession] = data;
+    console.log(sessions)
+    SessionManager.provider.save(sessions);
 }
 
 export function getCookies(request: any) {
