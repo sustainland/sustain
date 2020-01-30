@@ -9,3 +9,9 @@ export enum PATH_TYPES {
 }
 
 
+export enum SessionsProviders {
+    File,
+    Mongo
+}
+
+export const SESSION_FILE_PATH = 'sessions.save';
