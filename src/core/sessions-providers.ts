@@ -1,15 +1,14 @@
 import { SessionsProviders, SESSION_FILE_PATH } from "../constants";
 import { existsSync, read, readFileSync, writeFileSync } from "fs";
+import { Injectable } from "./di";
 
-export default class SessionProviders {
+@Injectable()
+export class SessionProviders {
     provider: SessionFileProvider | SessionMongoProvider;
-    constructor(private providerType: SessionsProviders) {
-        this.initiateProvider();
-        console.log(this.provider);
-    }
+    constructor() {}
 
-    initiateProvider(): any {
-        switch (this.providerType) {
+    initiateProvider(providerType: SessionsProviders): any {
+        switch (providerType) {
             case SessionsProviders.File:
                 this.provider = new SessionFileProvider();
                 break;
@@ -19,6 +18,7 @@ export default class SessionProviders {
                 break;
         }
     }
+
 
 
 

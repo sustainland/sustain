@@ -2,6 +2,7 @@ import { getControllersMethods } from "../utils/extract-methods.util";
 import { PATH_METADATA, MATCH_METADATA, INTERCEPTORS } from "../constants";
 import { PATH_TYPE, METHOD_METADATA, PATH_TYPES } from "../constants";
 import { RequestMethod } from '../enums/request-method.enum';
+import { InjectedContainer } from './container';
 
 import { createAppServer } from "./server";
 
@@ -20,7 +21,10 @@ const HttpRequests: any = {};
  * @param app 
  */
 export function bootstrap(app: any) {
-    const { controllers } = app;
+    let { controllers } = app;
+    controllers = controllers.map((controller: any) => {
+        return InjectedContainer.get(controller);
+    })
     const requests = loadControllers(controllers);
     createAppServer(requests);
 }
@@ -32,8 +36,7 @@ export function bootstrap(app: any) {
  */
 export function loadControllers(controllers: any): any {
     controllers.forEach(
-        (controller: any) => {
-            const instance = new controller();
+        (instance: any) => {
             getControllersMethods(instance)
                 .forEach((method: RequestMethod) => {
                     const payload = {
@@ -65,7 +68,9 @@ function buildHttpRequests(metadatas: any, payload: any) {
                 match: metadatas[MATCH_METADATA],
                 type: metadatas[PATH_TYPE] || PATH_TYPES.String
             },
-            handler: Object.assign(payload.instance)[payload.method]
+            handler: Object.assign(payload.instance)[payload.method],
+            objectHanlder: Object.assign(payload.instance),
+            functionHandler: payload.method
         })
     }
 }
