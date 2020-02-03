@@ -4,8 +4,9 @@ import { bootstrap } from './core/bootstrap';
 import { InjectedContainer } from './core/container';
 import { SessionProviders } from './core/sessions-providers';
 import { Container, Injectable, InjectionToken, Inject } from './core/di';
-import { SomeService2 } from './services/user.service';
+import { UserService } from './services/user.service';
 import { LoggerService } from './services/logger.service';
+import UserController from './controllers/user.controller';
 // import { SessionFileProvider } from './core/sessions-providers';
 require('source-map-support').install();
 
@@ -43,20 +44,18 @@ export const API_TOKEN = new InjectionToken('api-token');
 
 // InjectedContainer.inject(InjectableClass);
 
-InjectedContainer.addProvider({ provide: HelloController, useClass: HelloController });
 
-const services = [LoggerService, SessionProviders]
+const services = [LoggerService, UserService, SessionProviders, UserController, HelloController]
 services.forEach(service => {
     InjectedContainer.addProvider({ provide: service, useClass: service });
     InjectedContainer.inject(service);
 
 });
 
-InjectedContainer.inject(HelloController);
 
 
 const app = {
-    controllers: [HelloController]
+    controllers: [HelloController, UserController]
 }
 bootstrap(app);
 

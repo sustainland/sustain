@@ -33,11 +33,12 @@ export function createAppServer(requests: any) {
                     if (result) {
                         if (result instanceof Promise) {
                             response.end(await result)
+                        } else if (typeof result == 'object') {
+                            response.end(JSON.stringify(result));
                         } else {
-                            response.end(result);
+                            response.end(String(result));
                         }
                     }
-
                 } else {
                     render404Page(response);
                 }
