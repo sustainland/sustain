@@ -1,6 +1,5 @@
 import { Get, Post } from "../decorators/http/requests.decorators";
 import { Interceptors } from "../decorators/interceptors.decorators";
-import { isAuthenticated, validateParams } from "../auth";
 import { uniqueID } from "../utils/unique-id.util";
 // import { getSession, getCookies, setSession } from "../core/sessions";
 import { Request, Response, Session } from "../decorators/http/route-params.decorator";

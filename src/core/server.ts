@@ -68,8 +68,11 @@ export function createAppServer(requests: any) {
 async function executeInterceptor(route: any, request: any, response: any) {
     const callstack = [];
     for (let interceptor of route.interceptors) {
+        const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, interceptor) || {}
+
         callstack.push(new Promise((resolve, reject) => {
-            return interceptor(request, response, resolve)
+            const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, { request, response, resolve })
+            return interceptor(...methodArgs)
         }))
     }
     return Promise.all(callstack)
@@ -129,6 +132,11 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
                 break;
             case RouteParamtypes.SESSION:
                 methodArgs[Number(arg_index)] = SessionsManager.getSession(assets.request);
+                break;
+            case RouteParamtypes.PARAMS:
+                methodArgs[Number(arg_index)] = assets.request.params;
+                break; case RouteParamtypes.NEXT:
+                methodArgs[Number(arg_index)] = assets.resolve;
                 break;
         }
     });

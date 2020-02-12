@@ -5,6 +5,7 @@ export enum RouteParamtypes {
     NEXT,
     BODY,
     QUERY,
+    PARAMS,
     PARAM,
     HEADERS,
     SESSION,

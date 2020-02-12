@@ -40,7 +40,7 @@ export class UserService {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve(JSON.stringify(this.users.find((user: any) => user._id === id)));
-            }, 5000)
+            }, 1000)
         })
     }
 
