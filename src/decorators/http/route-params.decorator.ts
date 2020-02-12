@@ -54,3 +54,8 @@ export const Session: () => ParameterDecorator = createParamDecorator(
 );
 
 
+export const Params: () => ParameterDecorator = createParamDecorator(
+    RouteParamtypes.PARAMS,
+);
+
+

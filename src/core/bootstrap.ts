@@ -21,7 +21,13 @@ const HttpRequests: any = {};
  * @param app 
  */
 export function bootstrap(app: any) {
-    let { controllers } = app;
+    let { controllers, providers } = app;
+
+    providers.forEach((provider: any) => {
+        InjectedContainer.addProvider({ provide: provider, useClass: provider });
+        InjectedContainer.inject(provider);
+    });
+
     controllers = controllers.map((controller: any) => {
         return InjectedContainer.get(controller);
     })

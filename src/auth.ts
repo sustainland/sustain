@@ -1,16 +1,24 @@
-import { isNumber } from "util";
+import { Next, Response } from "./decorators/http/route-params.decorator";
+import { Injectable } from "./core/di";
 
-export function isAuthenticated(req: any, res: any, next: any) {
-    //console.log('Enter in isAuthenticated');
-    //res.end('You are not Authenticated')
-    next();
-}
+@Injectable()
+export class Auth{
 
-export function validateParams(req: any, res: any, next: any) {
-    const { id } = req.params;
-    // throw  new Error('Hey, handling errors');
-    if (isNaN(+id)) {
-        res.end('Not a number')
+    /**
+     * @description using decorators in interceptors, passing to next interceptor or route handler function with @Next
+     * we can use all params route decorators like : @Response, @Request, @Session, @Params, @Files ....
+     */
+    static isAuthenticated(@Next() next: any, @Response() res : any) {
+        console.log('Enter in isAuthenticated');
+        next();
     }
-    next();
+    
+      validateParams(req: any, res: any, next: any) {
+        const { id } = req.params;
+        // throw  new Error('Hey, handling errors');
+        if (isNaN(+id)) {
+            res.end('Not a number')
+        }
+        next();
+    }
 }
