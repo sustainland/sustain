@@ -134,9 +134,13 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
             case RouteParamtypes.SESSION:
                 methodArgs[Number(arg_index)] = SessionsManager.getSession(assets.request);
                 break;
+            case RouteParamtypes.HEADERS:
+                methodArgs[Number(arg_index)] = assets.request.headers;
+                break;
             case RouteParamtypes.PARAMS:
                 methodArgs[Number(arg_index)] = assets.request.params;
-                break; case RouteParamtypes.NEXT:
+                break;
+            case RouteParamtypes.NEXT:
                 methodArgs[Number(arg_index)] = assets.resolve;
                 break;
         }
