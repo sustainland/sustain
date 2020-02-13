@@ -2,6 +2,7 @@ import { SessionProviders } from "./sessions-providers";
 import { SessionsProviders } from "../constants";
 import { InjectedContainer } from "./container";
 import { Injectable } from "./di";
+import { uniqueID } from "../utils/unique-id.util";
 
 InjectedContainer.addProvider({ provide: SessionProviders, useClass: SessionProviders });
 InjectedContainer.inject(SessionProviders);
@@ -10,6 +11,7 @@ SessionProvider.initiateProvider(SessionsProviders.File);
 @Injectable()
 export class SessionManager {
     sessions: any = {};
+    SESSION_ID : string = 'ids';
     constructor() {
         this.sessions = SessionProvider.provider.load();
     }
@@ -27,7 +29,7 @@ export class SessionManager {
     }
 
     getIdSessionFromCookies(request: any): string {
-        return this.getCookies(request)['ids'] || '';
+        return this.getCookies(request)[this.SESSION_ID] || '';
     }
 
     getCookies(request: any) {
@@ -38,6 +40,20 @@ export class SessionManager {
         });
         return cookies;
     };
+
+    /**
+     * TODO : add config option to customize Expires date and domain ....
+     * @param request 
+     * @param response 
+     */
+    createIfNotExistsNewSession(request: any, response: any, option? :any) {
+    
+        if (!this.getIdSessionFromCookies(request)) {
+            const ids = uniqueID();
+            response.setHeader('Set-Cookie', [`${this.SESSION_ID}=${ids}; Path=/ ;`]);
+            this.setSession(ids, { })
+        }
+    }
 
 
 }
