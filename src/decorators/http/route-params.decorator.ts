@@ -41,6 +41,10 @@ export const Request: () => ParameterDecorator = createParamDecorator(
     RouteParamtypes.REQUEST,
 );
 
+export const Headers: () => ParameterDecorator = createParamDecorator(
+    RouteParamtypes.HEADERS,
+);
+
 export const Response: () => ParameterDecorator = createParamDecorator(
     RouteParamtypes.RESPONSE,
 );
