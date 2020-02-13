@@ -19,6 +19,7 @@ export function createAppServer(requests: any) {
 
     const server = createServer(async (request: Request, response: ServerResponse) => {
         try {
+            SessionsManager.createIfNotExistsNewSession(request, response);
             response.setHeader('x-powered-by', 'Sustain Server');
             if (requests[request.method]) {
                 const route = requestSegmentMatch(requests, request);
