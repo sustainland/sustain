@@ -1,13 +1,12 @@
 import { Get, Post } from "../decorators/http/requests.decorators";
 import { Request, Params, Response } from "../decorators/http/route-params.decorator";
-import { Injectable } from "../core/di";
+import { Injectable, Controller } from "../core/di";
 import { UserService } from "../services/user.service";
 import { Interceptors } from "../decorators/interceptors.decorators";
 import { Auth } from "../auth";
 
 
-
-@Injectable()
+@Controller()
 export default class UserController {
     constructor(private userService: UserService) { }
 

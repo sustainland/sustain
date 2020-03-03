@@ -1,5 +1,5 @@
 {
-    "name": "sustain",
+    "name": "@sustain/core",
     "version": "0.0.1",
     "description": "Sustain is a Framework that is barely used despedcies to make stable and sustainable apps",
     "repository": {
@@ -8,6 +8,8 @@
     },
     "author": "Labidi Aymen 2 ",
     "license": "MIT",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "scripts": {
         "dev": "node dev",
         "start": "npm run serve",
