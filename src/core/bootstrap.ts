@@ -23,14 +23,15 @@ const HttpRequests: any = {};
 export function bootstrap(app: any) {
     let { controllers, providers } = app;
 
-    providers.forEach((provider: any) => {
+    (providers || []).forEach((provider: any) => {
         InjectedContainer.addProvider({ provide: provider, useClass: provider });
         InjectedContainer.inject(provider);
     });
 
-    controllers = controllers.map((controller: any) => {
+    controllers = (controllers || []).map((controller: any) => {
+        InjectedContainer.inject(controller);
         return InjectedContainer.get(controller);
-    })
+    }) ;
     const requests = loadControllers(controllers);
     createAppServer(requests);
 }
@@ -43,7 +44,8 @@ export function bootstrap(app: any) {
 export function loadControllers(controllers: any): any {
     controllers.forEach(
         (instance: any) => {
-            getControllersMethods(instance)
+            console.log('instance: ', instance);
+             getControllersMethods(instance)
                 .forEach((method: RequestMethod) => {
                     const payload = {
                         instance,
