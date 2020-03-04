@@ -6,7 +6,7 @@ import { RouteParamtypes } from '../enums/route-params.enum';
 import { InjectedContainer } from './container';
 import { SessionProviders } from './sessions-providers';
 import { SessionManager } from './sessions';
-const port = 5002;
+import { join } from 'path';
 const mode = "debug";
 class Request extends IncomingMessage {
     params: { [key: string]: string | undefined };
@@ -14,7 +14,7 @@ class Request extends IncomingMessage {
 const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
 
 
-export function createAppServer(requests: any) {
+export function createAppServer(requests: any, port: number) {
 
 
     const server = createServer(async (request: Request, response: ServerResponse) => {
@@ -89,7 +89,7 @@ async function executeInterceptor(route: any, request: any, response: any) {
 
 function render404Page(response: any) {
     response.writeHead(200, { 'Content-Type': 'text/html' });
-    readFile('views/404.html', (err: any, data: any) => {
+    readFile(join(__dirname,'../views/404.html'), (err: any, data: any) => {
         if (!err) {
             response.end(data);
         } else {
@@ -100,7 +100,7 @@ function render404Page(response: any) {
 
 function render505Page(response: any) {
     response.writeHead(200, { 'Content-Type': 'text/html' });
-    readFile('views/505.html', (err: any, data: any) => {
+    readFile(join(__dirname,'../views/500.html'), (err: any, data: any) => {
         if (!err) {
             response.end(data);
         } else {

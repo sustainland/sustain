@@ -5,6 +5,7 @@ import { SessionProviders } from './core/sessions-providers';
 import { UserService } from './services/user.service';
 import { LoggerService } from './services/logger.service';
 import UserController from './controllers/user.controller';
+import BaseController from './controllers/base.controlle';
 
 require('source-map-support').install();
 
@@ -12,7 +13,8 @@ require('source-map-support').install();
 const app = {
     controllers: [
         HelloController,
-        UserController
+        UserController,
+        BaseController
     ],
     providers: [
         LoggerService,
@@ -20,7 +22,8 @@ const app = {
         SessionProviders,
         UserController,
         HelloController
-    ]
+    ],
+    port : 5002
 }
 /**
  * Bootstrap the application

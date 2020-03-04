@@ -5,7 +5,7 @@ require('source-map-support').install({
     environment: 'node'
   });
 
-const TypeScriptCompileWatchProcess = exec('npm run watch-ts');
+const TypeScriptCompileWatchProcess = exec('npm run build-watch');
 let appProcess;
 
 TypeScriptCompileWatchProcess

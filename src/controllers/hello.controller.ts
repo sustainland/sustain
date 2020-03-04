@@ -14,4 +14,9 @@ export default class HelloController {
 
     }
 
+    @Get('/hello')
+    hello() {
+            return 'hello';
+    }
+
 }

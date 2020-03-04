@@ -5,7 +5,8 @@ import { RequestMethod } from '../enums/request-method.enum';
 import { InjectedContainer } from './container';
 
 import { createAppServer } from "./server";
-
+import BaseController from "../controllers/base.controlle";
+const DEFAULT_PORT = 5200;
 const metadataKey = [
     INTERCEPTORS,
     MATCH_METADATA,
@@ -22,7 +23,7 @@ const HttpRequests: any = {};
  */
 export function bootstrap(app: any) {
     let { controllers, providers } = app;
-
+        controllers.push(BaseController);
     (providers || []).forEach((provider: any) => {
         InjectedContainer.addProvider({ provide: provider, useClass: provider });
         InjectedContainer.inject(provider);
@@ -33,7 +34,8 @@ export function bootstrap(app: any) {
         return InjectedContainer.get(controller);
     }) ;
     const requests = loadControllers(controllers);
-    createAppServer(requests);
+
+    createAppServer(requests, app.port || DEFAULT_PORT);
 }
 
 /**
@@ -44,7 +46,6 @@ export function bootstrap(app: any) {
 export function loadControllers(controllers: any): any {
     controllers.forEach(
         (instance: any) => {
-            console.log('instance: ', instance);
              getControllersMethods(instance)
                 .forEach((method: RequestMethod) => {
                     const payload = {

@@ -15,7 +15,7 @@
         "start": "npm run serve",
         "serve": "node dist/app.js",
         "build": "tsc",
-        "watch-ts": "tsc -w --noImplicitAny"
+        "build-watch": "tsc -w --noImplicitAny"
     },
     "devDependencies": {
         "typescript": "^3.6.3",
