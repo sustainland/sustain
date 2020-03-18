@@ -1,5 +1,5 @@
 import { Get, Post } from "../decorators/http/requests.decorators";
-import { Request, Params, Response } from "../decorators/http/route-params.decorator";
+import { Request, Param, Response, Headers, Header, Query, Body } from "../decorators/http/route-params.decorator";
 import { Controller } from "../core/di";
 import { UserService } from "../services/user.service";
 import { Interceptors } from "../decorators/interceptors.decorators";
@@ -17,10 +17,36 @@ export default class UserController {
     }
 
     @Get('/user/:id')
-    user(@Request() request: any) {
+    singleUser(
+        @Request() request: any,
+        @Query() query: any,
+        @Query('name') name: string
+    ) {
+        console.log("UserController -> singleUser -> query", name)
         const { id } = request.params
         return this.userService.get(id);
 
+    }
+
+    @Post('/user/:id/:name/:lastname')
+    user(
+        @Param('id') id: string,
+        @Param('name') name: string,
+        @Param('lastname') lastname: string,
+        @Header('host') host: string,
+        @Query('nameFromQuery') nameFromQuery: string,
+        @Body() body: any
+        ) {
+            console.log("UserController -> constructor -> body", body)
+        return `
+                Host : ${host}
+                User details 
+                    id : ${id}
+                    name : ${name}
+                    lastname : ${lastname}
+                    nameFromQuery : ${nameFromQuery}
+                    username from body  : ${body.username}
+            `;
     }
 
     /**

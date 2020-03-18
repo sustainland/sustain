@@ -45,6 +45,18 @@ export const Headers: () => ParameterDecorator = createParamDecorator(
     RouteParamtypes.HEADERS,
 );
 
+export const Header: (name: string) => ParameterDecorator = createParamDecorator(
+    RouteParamtypes.HEADER,
+);
+
+export const Query: (name?: string) => ParameterDecorator = createParamDecorator(
+    RouteParamtypes.QUERY,
+);
+
+export const Body: (name?: string) => ParameterDecorator = createParamDecorator(
+    RouteParamtypes.BODY,
+);
+
 export const Response: () => ParameterDecorator = createParamDecorator(
     RouteParamtypes.RESPONSE,
 );
@@ -58,6 +70,9 @@ export const Session: () => ParameterDecorator = createParamDecorator(
 );
 
 
+export const Param: (name: string) => ParameterDecorator = createParamDecorator(
+    RouteParamtypes.PARAM,
+);
 export const Params: () => ParameterDecorator = createParamDecorator(
     RouteParamtypes.PARAMS,
 );

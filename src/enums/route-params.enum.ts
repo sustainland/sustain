@@ -8,6 +8,7 @@ export enum RouteParamtypes {
     PARAMS,
     PARAM,
     HEADERS,
+    HEADER,
     SESSION,
     FILE,
     FILES,
