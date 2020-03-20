@@ -10,7 +10,9 @@ import { ContentType } from '../enums/content-type.enum';
 import { SessionManager } from './sessions';
 import { join } from 'path';
 import * as  querystring from 'querystring';
+import { generateMethodSpec } from './generateOpenApi';
 const mode = "debug";
+
 class Request extends IncomingMessage {
     params: { [key: string]: string | undefined };
 }
@@ -19,11 +21,14 @@ const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
 
 export function createAppServer(requests: any, port: number) {
 
+    generateMethodSpec(requests);
 
     const server = createServer(async (request: Request, response: ServerResponse) => {
         try {
             SessionsManager.createIfNotExistsNewSession(request, response);
             response.setHeader('x-powered-by', 'Sustain Server');
+            response.setHeader('Access-Control-Allow-Origin', '*');
+
             if (requests[request.method]) {
                 let body: any = [];
                 if (request.method === RequestMethod.POST) {
@@ -131,7 +136,7 @@ function render505Page(response: any) {
         if (!err) {
             response.end(data);
         } else {
-            console.log(err)
+            console.log(err);
         }
     })
 }
@@ -140,7 +145,7 @@ function requestSegmentMatch(requests: any, request: any) {
     return requests[request.method].find((route: any) => {
         const requestRouteDetails = route.path.match(request.url.split("?")[0]);
         if (requestRouteDetails) {
-            request.params = requestRouteDetails.params
+            request.params = requestRouteDetails.params;
             return true;
         }
     })
@@ -152,7 +157,6 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
     Object.keys(routeParamsHandler).forEach((args) => {
         const [arg_type, arg_index] = args.split(':');
         const additionalData = routeParamsHandler[args].data;
-        // console.log("fillMethodsArgs -> arg_type, arg_index", arg_type, arg_index)
         switch (Number(arg_type)) {
             case RouteParamtypes.REQUEST:
                 methodArgs[Number(arg_index)] = assets.request;
@@ -167,7 +171,14 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
                 methodArgs[Number(arg_index)] = assets.request.headers;
                 break;
             case RouteParamtypes.BODY:
-                methodArgs[Number(arg_index)] = assets.body;
+                let askedBody;
+                console.log("fillMethodsArgs -> additionalData", additionalData, assets.body)
+                if (additionalData) {
+                    askedBody = assets.body[additionalData];
+                } else {
+                    askedBody = assets.body;
+                }
+                methodArgs[Number(arg_index)] = askedBody;
                 break;
             case RouteParamtypes.HEADER:
                 methodArgs[Number(arg_index)] = assets.request.headers[additionalData];

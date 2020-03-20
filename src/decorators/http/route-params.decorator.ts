@@ -9,33 +9,44 @@ export function assignMetadata<TParamtype = any, TArgs = any>(
     args: TArgs,
     paramtype: TParamtype,
     index: number,
-    data?: ParamData
+    data?: ParamData,
+    type?: string
 ) {
+
     return {
         ...args,
         [`${paramtype}:${index}`]: {
             index,
             data,
+            type
         },
     };
 }
 
 const createParamDecorator = (paramtype: RouteParamtypes) => {
     return (data?: ParamData): ParameterDecorator => (target, key, index) => {
+
         const args =
             Reflect.getMetadata(ROUTE_ARGS_METADATA, Object.assign(target)[key]) || {};
+        const designtype = Reflect.getMetadata("design:paramtypes", target, key);
+        const designtypeFunction = Reflect.getMetadata("design:returntype", target, key);
+        
+
         Reflect.defineMetadata(
             ROUTE_ARGS_METADATA,
             assignMetadata<RouteParamtypes, Record<number, RouteParamMetadata>>(
-                args,
+                { ...args },
                 paramtype,
                 index,
                 data,
+                typeof designtype[index]()
             ),
             Object.assign(target)[key]
         );
+
     };
 };
+
 
 export const Request: () => ParameterDecorator = createParamDecorator(
     RouteParamtypes.REQUEST,

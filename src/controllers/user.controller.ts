@@ -6,38 +6,40 @@ import { Interceptors } from "../decorators/interceptors.decorators";
 import { Auth } from "../auth";
 
 
-@Controller()
+@Controller('/users')
 export default class UserController {
     constructor(private userService: UserService) { }
 
-    @Get('/users')
+    @Get('/')
     users() {
         return this.userService.list();
 
     }
 
-    @Get('/user/:id')
+    @Get('/:id')
     singleUser(
         @Request() request: any,
+        @Response() response: any,
         @Query() query: any,
-        @Query('name') name: string
-    ) {
-        console.log("UserController -> singleUser -> query", name)
+        @Query('name') name: string,
+        @Query('lastname2') lastname: number
+    ): number {
+        response.setHeader('Content-Type', 'application/json');
+
         const { id } = request.params
         return this.userService.get(id);
 
     }
 
-    @Post('/user/:id/:name/:lastname')
+    @Post('/:id/:name/:lastname')
     user(
         @Param('id') id: string,
         @Param('name') name: string,
         @Param('lastname') lastname: string,
         @Header('host') host: string,
-        @Query('nameFromQuery') nameFromQuery: string,
-        @Body() body: any
-        ) {
-            console.log("UserController -> constructor -> body", body)
+        @Body('nameFromQuery') nameFromQuery: string,
+        @Body('username') username: any
+    ) {
         return `
                 Host : ${host}
                 User details 
@@ -45,7 +47,7 @@ export default class UserController {
                     name : ${name}
                     lastname : ${lastname}
                     nameFromQuery : ${nameFromQuery}
-                    username from body  : ${body.username}
+                    username from body  : ${username}
             `;
     }
 
@@ -84,7 +86,7 @@ export default class UserController {
     @Interceptors([
         Auth.isAuthenticated
     ])
-    @Get('/user/:id/details')
+    @Get('/:id/details')
     userDetails(@Request() request: any) {
         const { id } = request.params;
         return this.userService.syncGet(id);
