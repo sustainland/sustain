@@ -7,11 +7,12 @@ import { LoggerService } from './services/logger.service';
 import UserController from './controllers/user.controller';
 import BaseController from './controllers/base.controlle';
 import HttpController from './controllers/HttpController';
+import { App } from './decorators/core/app.decorator';
 
 require('source-map-support').install();
 
 
-const app = {
+@App({
     controllers: [
         HelloController,
         UserController,
@@ -30,11 +31,13 @@ const app = {
         'swagger-ui',
         ''
     ]
-}
+})
+class AppModule { }
+
 /**
  * Bootstrap the application
  */
-module.exports = bootstrap(app);
+module.exports = bootstrap(AppModule);
 
 
 
