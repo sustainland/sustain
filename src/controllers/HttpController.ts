@@ -1,5 +1,5 @@
 import { Get, Post } from "../decorators/http/requests.decorators";
-import { Request, Response, Session, Body, Params, Param } from "../decorators/http/route-params.decorator";
+import { Request, Response, Session, Body, Params, Param, Query } from "../decorators/http/route-params.decorator";
 import { Injectable, Inject, Controller } from "../core/di";
 import { LoggerService } from "../services/logger.service";
 
@@ -17,7 +17,7 @@ export default class HttpController {
     }
 
 
-    @Get('/:id')
+    @Get('/single/:id')
     getMethodAllParams(@Params() params: any) {
         return params.id;
     }
@@ -25,6 +25,18 @@ export default class HttpController {
     getMethodByParamName(@Param('id') id: string, @Param('name') name: string) {
         return `${id}-${name}`
     }
+
+    @Get('/by-query')
+    getMethodByQuery(@Query('id') id: string, @Query('name') name: string) {
+        return `${id}-${name}`
+    }
+
+    @Get('/by-queries')
+    getMethodByAllQuery(@Query() query: any) {
+        return `${query.id}-${query.name}`
+    }
+
+
     @Post()
     PostBody(@Body() body: string) {
         console.log("HttpController -> PostBodyMethod -> body", body)
