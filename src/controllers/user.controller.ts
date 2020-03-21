@@ -38,7 +38,9 @@ export default class UserController {
         @Param('lastname') lastname: string,
         @Header('host') host: string,
         @Body('nameFromQuery') nameFromQuery: string,
-        @Body('username') username: string
+        @Body('username') username: string,
+        @Body('age') age: string,
+        @Body() body: string
     ) {
         return `
                 Host : ${host}
@@ -47,7 +49,8 @@ export default class UserController {
                     name : ${name}
                     lastname : ${lastname}
                     nameFromQuery : ${nameFromQuery}
-                    username from body  : ${username}
+                    username from body  : ${username},
+                    body : ${JSON.stringify(body)}
             `;
     }
 

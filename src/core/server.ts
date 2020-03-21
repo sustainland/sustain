@@ -11,11 +11,13 @@ import { SessionManager } from './sessions';
 import { join, normalize, resolve } from 'path';
 import * as  querystring from 'querystring';
 import { generateMethodSpec } from './generateOpenApi';
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 const mode = "debug";
 
 class Request extends IncomingMessage {
     params: { [key: string]: string | undefined };
+    staticFileExist?: boolean;
+    startAt?: any;
 }
 const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
 
@@ -23,16 +25,20 @@ const serveStatic = (staticBasePath: string, request: any, response: any) => {
     var resolvedBase = resolve(staticBasePath);
     var safeSuffix = normalize(request.url).replace(/^(\.\.[\/\\])+/, '');
     var fileLoc = join(resolvedBase, safeSuffix);
-    const data = readFileSync(fileLoc);
-    if (!data) {
-        response.writeHead(404, 'Not Found');
-        response.write('404: File Not Found!');
-        return response.end();
-    } else {
-        response.statusCode = 200;
-        response.write(data);
-        return response.end();
+    if (existsSync(fileLoc)) {
+        request.staticFileExist = true;
+        const data = readFileSync(fileLoc);
+        if (!data) {
+            response.writeHead(404, 'Not Found');
+            response.write('404: File Not Found!');
+            return response.end();
+        } else {
+            response.statusCode = 200;
+            response.write(data);
+            return response.end();
+        }
     }
+
 }
 
 export function createAppServer(requests: any, port: number) {
@@ -41,69 +47,50 @@ export function createAppServer(requests: any, port: number) {
 
     const server = createServer(async (request: Request, response: ServerResponse) => {
         try {
+            request.startAt = new Date();
             SessionsManager.createIfNotExistsNewSession(request, response);
             response.setHeader('x-powered-by', 'Sustain Server');
             response.setHeader('Access-Control-Allow-Origin', '*');
-            if (requests[request.method]) {
-                let body: any = [];
-                if (request.method === RequestMethod.POST) {
-                    await new Promise((resolve, reject) => {
-                        request.on('data', (chunk) => {
-                            body.push(chunk);
-                        }).on('end', () => {
-                            body = Buffer.concat(body).toString();
-                            if (request.headers['content-type'] == ContentType.APPLICATION_JSON) {
-                                try {
-                                    body = JSON.parse(body.replace(/\\/g, ""));
-                                    console.log("body['username']", body['username'])
-                                } catch (error) {
-                                    response.statusCode = 500;
-                                    response.end(error.toString())
-                                    response.destroy();
-                                }
-                            }
-                            resolve();
-                        }).on('error', (error) => {
-                            console.log("server -> error", error)
-                            reject()
-                        });
-                    });
+            let body = await prepareBody(request, response);
+            const route = requestSegmentMatch(requests, request);
+            if (route) {
+                if (route.interceptors) {
+                    await executeInterceptor(route, request, response)
                 }
+                const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, route.handler) || {}
+                const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, { request, response, body })
+                const result = route.objectHanlder[route.functionHandler](...methodArgs);
 
-                const route = requestSegmentMatch(requests, request);
-                if (route) {
-                    if (route.interceptors) {
-                        await executeInterceptor(route, request, response)
+                if (result) {
+                    if (result instanceof Promise) {
+                        response.end(await result)
+                    } else if (typeof result == 'object') {
+                        response.end(JSON.stringify(result));
+                    } else {
+                        response.end(String(result));
                     }
-                    const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, route.handler) || {}
-
-                    const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, { request, response, body })
-                    const result = route.objectHanlder[route.functionHandler](...methodArgs);
-
-                    if (result) {
-                        if (result instanceof Promise) {
-                            response.end(await result)
-                        } else if (typeof result == 'object') {
-                            response.end(JSON.stringify(result));
-                        } else {
-                            response.end(String(result));
-                        }
-                    }
-                } else {
-                    try {
-                        serveStatic('./dist', request, response);
-                        serveStatic('./static-files', request, response);
-                    } catch (e) {
-                        // console.log(e)
-                        render404Page(response);
-                    }
-
                 }
             } else {
-                render404Page(response);
+                try {
+                    serveStatic('./dist', request, response);
+                    serveStatic('./static-files', request, response);
+                } catch (e) {
+                    console.log(request.url)
+                }
+                if (!request.staticFileExist) {
+                    render404Page(response);
+                }
             }
+
             response.on('error', (error) => {
                 console.log(error)
+            })
+            response.on('finish', () => {
+                let endTime: any = new Date();
+
+                let timeDiff: any = endTime - request.startAt; //in ms
+
+                console.log(`\x1b[32m${request.method} ${request.url}\x1b[0m `, `${response.statusCode}`, "in ", timeDiff, "ms");
             })
         } catch (error) {
             console.log(error);
@@ -122,6 +109,32 @@ export function createAppServer(requests: any, port: number) {
 
 }
 
+
+async function prepareBody(request: any, response: any) {
+    let body: any = [];
+    if (request.method === RequestMethod.POST) {
+        return await new Promise((resolve, reject) => {
+            request.on('data', (chunk: any) => {
+                body.push(chunk);
+            }).on('end', () => {
+                body = Buffer.concat(body).toString();
+                if (request.headers['content-type'] == ContentType.APPLICATION_JSON) {
+                    try {
+                        body = JSON.parse(body.replace(/\\/g, ""));
+                    } catch (error) {
+                        response.statusCode = 500;
+                        response.end(error.toString())
+                        response.destroy();
+                    }
+                }
+                resolve(body);
+            }).on('error', (error: any) => {
+                console.log("server -> error", error)
+                reject()
+            });
+        });
+    }
+}
 async function executeInterceptor(route: any, request: any, response: any) {
     const callstack = [];
     for (let interceptor of route.interceptors) {
