@@ -220,7 +220,13 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
                 methodArgs[Number(arg_index)] = askedBody;
                 break;
             case RouteParamtypes.HEADER:
-                methodArgs[Number(arg_index)] = assets.request.headers[additionalData];
+                let askedHeader;
+                if (additionalData) {
+                    askedHeader = assets.request.headers[additionalData];
+                } else {
+                    askedHeader = assets.request.headers;
+                }
+                methodArgs[Number(arg_index)] = askedHeader;
                 break;
             case RouteParamtypes.PARAMS:
                 methodArgs[Number(arg_index)] = assets.request.params;
