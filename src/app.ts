@@ -23,7 +23,10 @@ const app = {
         UserController,
         HelloController
     ],
-    port : 5002
+    port: 5002,
+    staticFolder: [
+        'swagger-ui'
+    ]
 }
 /**
  * Bootstrap the application

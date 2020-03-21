@@ -105,3 +105,4 @@ dist
 .vscode/
 package-lock.json
 sessions.save
+public/

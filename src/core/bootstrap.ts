@@ -37,7 +37,10 @@ export function bootstrap(app: any) {
     });
     const requests = loadControllers(controllers);
 
-    createAppServer(requests, app.port || DEFAULT_PORT);
+    createAppServer(requests, {
+        port: app.port || DEFAULT_PORT,
+        staticFolder: app.staticFolder || []
+    });
 }
 
 /**

@@ -21,10 +21,14 @@ class Request extends IncomingMessage {
 }
 const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
 
+
 const serveStatic = (staticBasePath: string, request: any, response: any) => {
-    var resolvedBase = resolve(staticBasePath);
+    const fullPath = `./public/${staticBasePath}`;
+    var resolvedBase = resolve(fullPath);
+    console.log("serveStatic -> resolvedBase", resolvedBase)
     var safeSuffix = normalize(request.url).replace(/^(\.\.[\/\\])+/, '');
     var fileLoc = join(resolvedBase, safeSuffix);
+    console.log("serveStatic -> fileLoc", fileLoc)
     if (existsSync(fileLoc)) {
         request.staticFileExist = true;
         const data = readFileSync(fileLoc);
@@ -41,7 +45,7 @@ const serveStatic = (staticBasePath: string, request: any, response: any) => {
 
 }
 
-export function createAppServer(requests: any, port: number) {
+export function createAppServer(requests: any, config: any) {
 
     generateMethodSpec(requests);
 
@@ -72,8 +76,9 @@ export function createAppServer(requests: any, port: number) {
                 }
             } else {
                 try {
-                    serveStatic('./dist', request, response);
-                    serveStatic('./static-files', request, response);
+                    config.staticFolder.forEach((staticFolderPath: string) => {
+                        serveStatic(staticFolderPath, request, response);
+                    });
                 } catch (e) {
                     console.log(request.url)
                 }
@@ -97,8 +102,8 @@ export function createAppServer(requests: any, port: number) {
 
         }
     });
-    server.listen(port).on('listening', () => {
-        console.log('\x1b[32m%s\x1b[0m', ' App is running', `at http://localhost:${port} in ${mode}`);  //yellow
+    server.listen(config.port).on('listening', () => {
+        console.log('\x1b[32m%s\x1b[0m', ' App is running', `at http://localhost:${config.port} in ${mode}`);  //yellow
 
 
         console.log(" Press CTRL-C to stop\n");
