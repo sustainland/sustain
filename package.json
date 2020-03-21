@@ -14,7 +14,7 @@
         "dev": "node dev",
         "start": "npm run serve",
         "serve": "node dist/app.js",
-        "tests": "jest --forceExit --detectOpenHandles",
+        "test": "jest --forceExit --detectOpenHandles",
         "build": "tsc",
         "build-watch": "tsc -w --noImplicitAny"
     },
