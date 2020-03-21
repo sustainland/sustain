@@ -9,7 +9,7 @@ import { match } from '../../utils/path-to-regex';
  * @return a function to create a decorator 
  */
 function createDecorator(method: RequestMethod): Function {
-    return (route?: any) => {
+    return (route: any = "") => {
         return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
             const designtypeFunction = Reflect.getMetadata("design:returntype", target, propertyKey);
             Reflect.defineMetadata(MATCH_METADATA, match(route, { decode: decodeURIComponent }), descriptor.value);

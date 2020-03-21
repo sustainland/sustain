@@ -10,10 +10,9 @@ import { Auth } from "../auth";
 export default class UserController {
     constructor(private userService: UserService) { }
 
-    @Get('/')
+    @Get()
     users() {
         return this.userService.list();
-
     }
 
     @Get('/:id')

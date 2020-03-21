@@ -6,6 +6,7 @@ import { UserService } from './services/user.service';
 import { LoggerService } from './services/logger.service';
 import UserController from './controllers/user.controller';
 import BaseController from './controllers/base.controlle';
+import HttpController from './controllers/HttpController';
 
 require('source-map-support').install();
 
@@ -14,7 +15,8 @@ const app = {
     controllers: [
         HelloController,
         UserController,
-        BaseController
+        BaseController,
+        HttpController
     ],
     providers: [
         LoggerService,
@@ -23,9 +25,10 @@ const app = {
         UserController,
         HelloController
     ],
-    port: 5002,
+    port: process.env.PORT || 5002,
     staticFolder: [
-        'swagger-ui'
+        'swagger-ui',
+        ''
     ]
 }
 /**

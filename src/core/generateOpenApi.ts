@@ -2,10 +2,11 @@ import { ROUTE_ARGS_METADATA, METHOD_METADATA, PATH_TYPE, PATH_METADATA, METHOD_
 import * as pathToRegexp from 'path-to-regexp'
 import { RouteParamtypes } from "../enums/route-params.enum";
 import { OpenAPITypes } from "../constants";
+import { RequestMethod } from "../enums/request-method.enum";
 
 export let OpenApi: any;
 export function generateMethodSpec(controllers: any) {
-    
+
     let OpenApiSchema: any = {
         "info": {
             "title": "Sustain API",
@@ -30,7 +31,7 @@ export function generateMethodSpec(controllers: any) {
                     ],
                     parameters: [
                         ...getPathParams(route),
-                        ...getRequestBody(route),
+                        ...getRequestBody(route, method),
                     ],
                     "responses": {
                         "200": {
@@ -74,10 +75,10 @@ function getPathParams(route: any) {
         })
 }
 
-function getRequestBody(route: any) {
+function getRequestBody(route: any, method?: any) {
     const routeArgsMetadata = Reflect.getMetadata(ROUTE_ARGS_METADATA, route.handler);
     let tokens: any = [];
-    const properties = [];
+    const properties: any = [];
     for (const paramsKeys in routeArgsMetadata) {
         if (routeArgsMetadata.hasOwnProperty(paramsKeys)) {
             const [paramType] = paramsKeys.split(':')
@@ -101,6 +102,16 @@ function getRequestBody(route: any) {
                     schema: { type: OpenAPITypes.Object, properties: { ...properties } }
                 }
             ]
+        } else {
+            if (method && method == RequestMethod.POST) {
+                tokens = [
+                    {
+                        in: 'body',
+                        name: 'body',
+                        type: OpenAPITypes.Object
+                    }
+                ]
+            }
         }
 
     }

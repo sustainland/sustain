@@ -67,6 +67,7 @@ export function createAppServer(requests: any, config: any) {
                     if (result instanceof Promise) {
                         response.end(await result)
                     } else if (typeof result == 'object') {
+                        response.writeHead(200, { 'Content-Type': 'application/json' });
                         response.end(JSON.stringify(result));
                     } else {
                         response.end(String(result));
@@ -159,8 +160,8 @@ async function executeInterceptor(route: any, request: any, response: any) {
 
 
 function render404Page(response: any) {
-    response.writeHead(200, { 'Content-Type': 'text/html' });
-    readFile(join(__dirname, '../views/404.html'), (err: any, data: any) => {
+    response.writeHead(404, { 'Content-Type': 'text/html' });
+    readFile(join(__dirname, '../../public/404.html'), (err: any, data: any) => {
         if (!err) {
             response.end(data);
         } else {
