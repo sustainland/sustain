@@ -25,10 +25,8 @@ const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
 const serveStatic = (staticBasePath: string, request: any, response: any) => {
     const fullPath = `./public/${staticBasePath}`;
     var resolvedBase = resolve(fullPath);
-    console.log("serveStatic -> resolvedBase", resolvedBase)
     var safeSuffix = normalize(request.url).replace(/^(\.\.[\/\\])+/, '');
     var fileLoc = join(resolvedBase, safeSuffix);
-    console.log("serveStatic -> fileLoc", fileLoc)
     if (existsSync(fileLoc)) {
         request.staticFileExist = true;
         const data = readFileSync(fileLoc);
@@ -111,7 +109,7 @@ export function createAppServer(requests: any, config: any) {
     server.on('error', (error: Error) => {
         console.log(error);
     });
-
+    return server;
 }
 
 

@@ -31,7 +31,7 @@ const app = {
 /**
  * Bootstrap the application
  */
-bootstrap(app);
+module.exports = bootstrap(app);
 
 
 

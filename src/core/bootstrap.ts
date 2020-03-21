@@ -23,7 +23,7 @@ const HttpRequests: any = {};
  * Boostratp the Application
  * @param app 
  */
-export function bootstrap(app: any) {
+export function bootstrap(app: any): any {
     let { controllers, providers } = app;
     controllers.push(BaseController);
     (providers || []).forEach((provider: any) => {
@@ -37,7 +37,7 @@ export function bootstrap(app: any) {
     });
     const requests = loadControllers(controllers);
 
-    createAppServer(requests, {
+    return createAppServer(requests, {
         port: app.port || DEFAULT_PORT,
         staticFolder: app.staticFolder || []
     });
