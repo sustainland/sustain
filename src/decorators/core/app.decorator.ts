@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import { APP_CONFIG } from '../../constants';
 
 function createAppDecorator(): Function {
     return (config: any = "") => {
