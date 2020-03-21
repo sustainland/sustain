@@ -19,7 +19,7 @@ export default class HelloController {
         return 'hello';
     }
     @Post('/byebye')
-    byebye(@Body('yes') yes: string) {
+    byebye(@Body('yes') yes: number) {
         return "value" + yes;
     }
 

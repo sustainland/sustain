@@ -17,3 +17,8 @@ export enum SessionsProviders {
 }
 
 export const SESSION_FILE_PATH = 'sessions.save';
+
+export enum OpenAPITypes {
+    String = 'string',
+    Object = 'object'
+}

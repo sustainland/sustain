@@ -8,9 +8,10 @@ import { InjectedContainer } from './container';
 import { SessionProviders } from './sessions-providers';
 import { ContentType } from '../enums/content-type.enum';
 import { SessionManager } from './sessions';
-import { join } from 'path';
+import { join, normalize, resolve } from 'path';
 import * as  querystring from 'querystring';
 import { generateMethodSpec } from './generateOpenApi';
+import { readFileSync } from 'fs';
 const mode = "debug";
 
 class Request extends IncomingMessage {
@@ -18,6 +19,21 @@ class Request extends IncomingMessage {
 }
 const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
 
+const serveStatic = (staticBasePath: string, request: any, response: any) => {
+    var resolvedBase = resolve(staticBasePath);
+    var safeSuffix = normalize(request.url).replace(/^(\.\.[\/\\])+/, '');
+    var fileLoc = join(resolvedBase, safeSuffix);
+    const data = readFileSync(fileLoc);
+    if (!data) {
+        response.writeHead(404, 'Not Found');
+        response.write('404: File Not Found!');
+        return response.end();
+    } else {
+        response.statusCode = 200;
+        response.write(data);
+        return response.end();
+    }
+}
 
 export function createAppServer(requests: any, port: number) {
 
@@ -28,7 +44,6 @@ export function createAppServer(requests: any, port: number) {
             SessionsManager.createIfNotExistsNewSession(request, response);
             response.setHeader('x-powered-by', 'Sustain Server');
             response.setHeader('Access-Control-Allow-Origin', '*');
-
             if (requests[request.method]) {
                 let body: any = [];
                 if (request.method === RequestMethod.POST) {
@@ -39,7 +54,8 @@ export function createAppServer(requests: any, port: number) {
                             body = Buffer.concat(body).toString();
                             if (request.headers['content-type'] == ContentType.APPLICATION_JSON) {
                                 try {
-                                    body = JSON.parse(body);
+                                    body = JSON.parse(body.replace(/\\/g, ""));
+                                    console.log("body['username']", body['username'])
                                 } catch (error) {
                                     response.statusCode = 500;
                                     response.end(error.toString())
@@ -74,7 +90,14 @@ export function createAppServer(requests: any, port: number) {
                         }
                     }
                 } else {
-                    render404Page(response);
+                    try {
+                        serveStatic('./dist', request, response);
+                        serveStatic('./static-files', request, response);
+                    } catch (e) {
+                        // console.log(e)
+                        render404Page(response);
+                    }
+
                 }
             } else {
                 render404Page(response);
@@ -172,7 +195,6 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
                 break;
             case RouteParamtypes.BODY:
                 let askedBody;
-                console.log("fillMethodsArgs -> additionalData", additionalData, assets.body)
                 if (additionalData) {
                     askedBody = assets.body[additionalData];
                 } else {

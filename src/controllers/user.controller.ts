@@ -38,7 +38,7 @@ export default class UserController {
         @Param('lastname') lastname: string,
         @Header('host') host: string,
         @Body('nameFromQuery') nameFromQuery: string,
-        @Body('username') username: any
+        @Body('username') username: string
     ) {
         return `
                 Host : ${host}

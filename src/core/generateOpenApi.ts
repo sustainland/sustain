@@ -1,19 +1,18 @@
 import { ROUTE_ARGS_METADATA, METHOD_METADATA, PATH_TYPE, PATH_METADATA, METHOD_RETURN } from "../constants"
 import * as pathToRegexp from 'path-to-regexp'
 import { RouteParamtypes } from "../enums/route-params.enum";
+import { OpenAPITypes } from "../constants";
 
 export let OpenApi: any;
 export function generateMethodSpec(controllers: any) {
-    // controllers.forEach((controller: any) => {  
-
-    // });
+    
     let OpenApiSchema: any = {
         "info": {
             "title": "Sustain API",
             "version": "1.0.0",
             "description": "Generated with `Sustain`"
         },
-        "openapi": "3.0.0",
+        "swagger": "2.0",
         "paths": {}
     };
     for (const method in controllers) {
@@ -33,7 +32,6 @@ export function generateMethodSpec(controllers: any) {
                         ...getPathParams(route),
                         ...getRequestBody(route),
                     ],
-                    consumes: 'application/json',
                     "responses": {
                         "200": {
                             "content": {
@@ -48,63 +46,63 @@ export function generateMethodSpec(controllers: any) {
         }
     }
     OpenApi = OpenApiSchema;
-
-    // const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, method)
-    // const methiod = Reflect.getMetadata(METHOD_METADATA, method)
-    // const pathtype = Reflect.getMetadata(PATH_METADATA, method)
-    // const retuntype = Reflect.getMetadata(METHOD_RETURN, method)
-    // console.log("generateMethodSpec -> retuntype", retuntype)
 }
 
 export function expressToOpenAPIPath(expressPath: string) {
     const tokens = pathToRegexp.parse(expressPath)
     return tokens
-        .map((d: any) => (typeof d == "string" ? d : `${d.prefix}{${d.name}}`))
+        .map((d: any) => (typeof d == OpenAPITypes.String ? d : `${d.prefix}{${d.name}}`))
         .join('')
 }
 
 function getPathParams(route: any) {
     const tokens = pathToRegexp.parse(route.path.value)
     return tokens
-        .filter(token => typeof token == "object")
+        .filter(token => typeof token == OpenAPITypes.Object)
         .map((token: pathToRegexp.Key) => {
             const name = token.name + ''
             const param: any = {
                 in: 'path',
                 name,
-                schema: { type: 'string' }
+                required: true,
+                schema: { type: OpenAPITypes.String }
             }
             if (token.pattern && token.pattern !== '[^\\/]+?') {
-                param.schema = { pattern: token.pattern, type: 'string' }
+                param.schema = { pattern: token.pattern, type: OpenAPITypes.String }
             }
-            return param
+            return param;
         })
 }
 
 function getRequestBody(route: any) {
     const routeArgsMetadata = Reflect.getMetadata(ROUTE_ARGS_METADATA, route.handler);
-    const tokens = [];
+    let tokens: any = [];
+    const properties = [];
     for (const paramsKeys in routeArgsMetadata) {
         if (routeArgsMetadata.hasOwnProperty(paramsKeys)) {
             const [paramType] = paramsKeys.split(':')
             switch (Number(paramType)) {
                 case RouteParamtypes.BODY:
-                    tokens.push({
-                        in: 'formData',
-                        "paramType": "form",
-                        name: routeArgsMetadata[paramsKeys].data,
-                        schema: { type: 'string' },
-                        type: 'string',
-                        properties: {
-                            userName: {
-                                type: 'string'
-                            }
+                    if (routeArgsMetadata[paramsKeys].data) {
+                        properties[routeArgsMetadata[paramsKeys].data] = {
+                            type: routeArgsMetadata[paramsKeys].type || OpenAPITypes.String
                         }
-                    })
+                    }
+                    break;
+                case RouteParamtypes.HEADER:
                     break;
             }
-
         }
+        if (Object.keys(properties).length !== 0) {
+            tokens = [
+                {
+                    in: 'body',
+                    name: 'body',
+                    schema: { type: OpenAPITypes.Object, properties: { ...properties } }
+                }
+            ]
+        }
+
     }
     return tokens
 }
