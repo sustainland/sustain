@@ -46,6 +46,18 @@ describe('RequestMethods Tests', function () {
             .expect(200, body.name, done);
     });
 
+    it("Should read and replay to Get method with headers", (done) => {
+        const access_token = "XXX.0000.1111.FFFF";
+        supertest(app)
+            .get('/http-controller/by-headers')
+            .set('x-access-token', access_token)
+            .set('Accept', 'application/json')
+            .expect(200, access_token, done);
+            
+    });
+
+    //header tests
+
     afterAll(() => {
         app.close();
         setTimeout(() => process.exit(), 1000);

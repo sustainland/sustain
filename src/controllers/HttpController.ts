@@ -1,5 +1,5 @@
 import { Get, Post } from "../decorators/http/requests.decorators";
-import { Request, Response, Session, Body, Params, Param, Query } from "../decorators/http/route-params.decorator";
+import { Request, Response, Session, Body, Params, Param, Query, Headers } from "../decorators/http/route-params.decorator";
 import { Injectable, Inject, Controller } from "../core/di";
 import { LoggerService } from "../services/logger.service";
 
@@ -35,11 +35,15 @@ export default class HttpController {
     getMethodByAllQuery(@Query() query: any) {
         return `${query.id}-${query.name}`
     }
+    
+    @Get('/by-headers')
+    getMethodHeaders(@Headers() header: any) {
+        return header['x-access-token'];
+    }
 
 
     @Post()
     PostBody(@Body() body: string) {
-        console.log("HttpController -> PostBodyMethod -> body", body)
         return body;
     }
 
