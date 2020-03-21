@@ -24,7 +24,8 @@ const HttpRequests: any = {};
  * @param app 
  */
 export function bootstrap(app: any): any {
-    let { controllers, providers } = app.prototype.APP_CONFIG;
+    const { APP_CONFIG } = app.prototype;
+    let { controllers, providers } = APP_CONFIG;
     controllers.push(BaseController);
     (providers || []).forEach((provider: any) => {
         InjectedContainer.addProvider({ provide: provider, useClass: provider });
@@ -38,8 +39,8 @@ export function bootstrap(app: any): any {
     const requests = loadControllers(controllers);
 
     return createAppServer(requests, {
-        port: app.port || DEFAULT_PORT,
-        staticFolder: app.staticFolder || []
+        port: APP_CONFIG.port || DEFAULT_PORT,
+        staticFolder: APP_CONFIG.staticFolder || []
     });
 }
 
