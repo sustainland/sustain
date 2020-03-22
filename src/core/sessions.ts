@@ -11,17 +11,26 @@ SessionProvider.initiateProvider(SessionsProviders.File);
 @Injectable()
 export class SessionManager {
     sessions: any = {};
-    SESSION_ID : string = 'ids';
+    SESSION_ID: string = 'ids';
     constructor() {
         this.sessions = SessionProvider.provider.load();
     }
     getSession(request: any) {
         const idSession = this.getIdSessionFromCookies(request);
         if (this.sessions[idSession]) {
-            return Object.assign({}, this.sessions[idSession]);
+            return Object.assign({
+                set(key: string, value: any) {
+                    console.log(key, value)
+                    this[key] = value;
+                }
+            }, this.sessions[idSession]);
         } else {
             return null
         }
+    }
+
+    set(key: string, value: any) {
+
     }
     setSession(idSession: string, data: any) {
         this.sessions[idSession] = data;
@@ -46,12 +55,12 @@ export class SessionManager {
      * @param request 
      * @param response 
      */
-    createIfNotExistsNewSession(request: any, response: any, option? :any) {
-    
+    createIfNotExistsNewSession(request: any, response: any, option?: any) {
+
         if (!this.getIdSessionFromCookies(request)) {
             const ids = uniqueID();
             response.setHeader('Set-Cookie', [`${this.SESSION_ID}=${ids}; Path=/ ;`]);
-            this.setSession(ids, { })
+            this.setSession(ids, {})
         }
     }
 

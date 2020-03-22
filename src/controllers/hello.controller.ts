@@ -1,22 +1,16 @@
 import { Get, Post } from "../decorators/http/requests.decorators";
-import { Interceptors } from "../decorators/interceptors.decorators";
-import { uniqueID } from "../utils/unique-id.util";
-// import { getSession, getCookies, setSession } from "../core/sessions";
-import { Request, Response, Session, Body } from "../decorators/http/route-params.decorator";
-import { Injectable, Inject } from "../core/di";
-import { LoggerService } from "../services/logger.service";
+import { Session, Body } from "../decorators/http/route-params.decorator";
+import { Injectable, Controller } from "../core/di";
 
 
 
-@Injectable()
+@Controller()
 export default class HelloController {
-    constructor(private loggerService: LoggerService) {
-
-    }
+    constructor() { }
 
     @Get('/hello')
-    hello() {
-        return 'hello';
+    hello(@Session() session: any) {
+        return session;
     }
     @Post('/byebye')
     byebye(@Body('yes') yes: number) {

@@ -56,4 +56,18 @@ export default class HttpController {
         return name;
     }
 
+    // Sessions
+
+    @Get('/session')
+    getSession(@Session() session: any) {
+        return session.id;
+    }
+
+    @Post('/session')
+    setSession(@Body('id') id: any, @Session() session: any) {
+        session.set('id', id)
+        return session;
+    }
+
+
 }
