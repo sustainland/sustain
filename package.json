@@ -14,7 +14,7 @@
         "dev": "node dev",
         "start": "npm run serve",
         "serve": "node dist/app.js",
-        "test": "set PORT=5003 && jest --forceExit --detectOpenHandles ",
+        "test": "set PORT=5003 && jest --forceExit --detectOpenHandles  --coverage",
         "test:watch": "set PORT=5003 && jest --forceExit --detectOpenHandles --watch",
         "build": "tsc",
         "build-watch": "tsc -w --noImplicitAny"
