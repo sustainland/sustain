@@ -15,3 +15,13 @@ This frameowrk touches in depth the web fundemantals and implements them from sc
 Building an application that depends on packages that they may be also depending on other packages is something that requires a periodical maintenance by installing the latest updates. This dependency will expose your application to eventual instability and vulnerability. 
 
 Decoupling the application from the dependant packages by using the Sustain framework will make the maintenance focused on only one package.
+
+
+## Author
+
+* Website - [aymen.co](https://aymen.co)
+* Twitter - [@labidiaymen](https://twitter.com/labidiaymen)
+
+## License
+
+[MIT licensed](LICENSE).
