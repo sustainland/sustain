@@ -1,6 +1,5 @@
-<p align="center">
+
 # ![](public/logo.png) Sustain
-</p>
 
 ![](https://github.com/labidiaymen/sustain/workflows/Sustain%20CI/badge.svg)
 ![](https://codecov.io/gh/labidiaymen/sustain/branch/master/graph/badge.svg)
