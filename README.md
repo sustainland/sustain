@@ -1,5 +1,5 @@
 <p align="center">
-# ![](public/logo.png)Sustain
+# ![](public/logo.png) Sustain
 </p>
 
 ![](https://github.com/labidiaymen/sustain/workflows/Sustain%20CI/badge.svg)
