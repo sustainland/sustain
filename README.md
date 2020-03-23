@@ -6,7 +6,7 @@
 
 ## Description:
 
-Sustain is a Framework that barely uses despedencies and it is designed especially to make stable and sustainable apps. It is built with TypeScript, uses OOP (Object Oriented Programming) and built-in Dependency Injections. 
+Sustain is a Framework that barely uses despedencies and it is designed especially to make stable and sustainable apps. It is built with [TypeScript](https://www.typescriptlang.org/), uses OOP (Object Oriented Programming) and built-in [Dependency Injections](https://en.wikipedia.org/wiki/Dependency_injection). 
 
 This frameowrk touches in depth the web fundemantals and implements them from scratch with zero dependencies which makes it more reliable and durable.
 
