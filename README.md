@@ -12,7 +12,7 @@ This frameowrk touches in depth the web fundemantals and implements them from sc
 
 ## Philosophy:
 
-Building an application that depends on [packages](https://www.npmjs.com/) that they may be also depending on other packages is something that requires a periodical maintenance by installing the latest updates. 
+Building an application that depends on [packages](https://www.npmjs.com/) that they may be also depending on other packages is something that requires a periodic maintenance by installing the latest updates. 
 This dependency will expose your application to eventual instability and vulnerability. 
 
 Decoupling the application from the dependant packages by using the Sustain framework will make the maintenance focused on only one package.
