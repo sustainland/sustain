@@ -8,10 +8,20 @@ import UserController from './controllers/user.controller';
 import BaseController from './controllers/base.controlle';
 import HttpController from './controllers/HttpController';
 import { App } from './decorators/core/app.decorator';
+import { SwaggerAPI } from './decorators/core/swagger.decorator';
 
 require('source-map-support').install();
 
 
+
+@SwaggerAPI({
+    info: {
+        title: "Sustain API",
+        version: "1.0.0",
+        description: "Generated with `Sustain`"
+    },
+    swagger: "2.0",
+})
 @App({
     controllers: [
         HelloController,

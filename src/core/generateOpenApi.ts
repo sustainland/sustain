@@ -2,50 +2,51 @@ import { ROUTE_ARGS_METADATA, METHOD_METADATA, PATH_TYPE, PATH_METADATA, METHOD_
 import * as pathToRegexp from 'path-to-regexp'
 import { RouteParamtypes } from "../enums/route-params.enum";
 import { OpenAPITypes } from "../constants";
+import { ISwaggerInfo } from "../interfaces/swagger.interfaces";
 import { RequestMethod } from "../enums/request-method.enum";
 
 export let OpenApi: any;
-export function generateMethodSpec(controllers: any) {
-
+export function generateMethodSpec(controllers: any, config: any) {
+    console.log("generateMethodSpec -> config", config)
+    const swaggerConfig: ISwaggerInfo = config.swaggerConfig;
     let OpenApiSchema: any = {
-        "info": {
-            "title": "Sustain API",
-            "version": "1.0.0",
-            "description": "Generated with `Sustain`"
-        },
-        "swagger": "2.0",
-        "paths": {}
+        ...swaggerConfig,
+        paths: {}
     };
-    for (const method in controllers) {
-        if (controllers.hasOwnProperty(method)) {
-            const routes = controllers[method];
-            routes.forEach((route: any) => {
-                const url_path = expressToOpenAPIPath(route.path.value);
-                if (!OpenApiSchema.paths[url_path]) {
-                    OpenApiSchema.paths[url_path] = {};
-                }
-                OpenApiSchema.paths[url_path][method.toLocaleLowerCase()] = {
-                    operationId: `${route.objectHanlder.constructor.name}.${route.handler.name}`,
-                    tags: [
-                        route.objectHanlder.constructor.name
-                    ],
-                    parameters: [
-                        ...getPathParams(route),
-                        ...getRequestBody(route, method),
-                    ],
-                    "responses": {
-                        "200": {
-                            "content": {
-                                "application/json": {}
-                            },
-                            "description": "Successful response"
-                        }
-                    },
-                }
-            });
+    if (swaggerConfig) {
 
+        for (const method in controllers) {
+            if (controllers.hasOwnProperty(method)) {
+                const routes = controllers[method];
+                routes.forEach((route: any) => {
+                    const url_path = expressToOpenAPIPath(route.path.value);
+                    if (!OpenApiSchema.paths[url_path]) {
+                        OpenApiSchema.paths[url_path] = {};
+                    }
+                    OpenApiSchema.paths[url_path][method.toLocaleLowerCase()] = {
+                        operationId: `${route.objectHanlder.constructor.name}.${route.handler.name}`,
+                        tags: [
+                            route.objectHanlder.constructor.name
+                        ],
+                        parameters: [
+                            ...getPathParams(route),
+                            ...getRequestBody(route, method),
+                        ],
+                        "responses": {
+                            "200": {
+                                "content": {
+                                    "application/json": {}
+                                },
+                                "description": "Successful response"
+                            }
+                        },
+                    }
+                });
+
+            }
         }
     }
+
     OpenApi = OpenApiSchema;
 }
 

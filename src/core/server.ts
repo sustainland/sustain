@@ -45,7 +45,7 @@ const serveStatic = (staticBasePath: string, request: any, response: any) => {
 
 export function createAppServer(requests: any, config: any) {
 
-    generateMethodSpec(requests);
+    generateMethodSpec(requests, config);
 
     const server = createServer(async (request: Request, response: ServerResponse) => {
         try {
