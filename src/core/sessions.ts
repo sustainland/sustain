@@ -17,7 +17,6 @@ export class SessionManager {
     }
     getSession(request: any) {
         const idSession = this.getIdSessionFromCookies(request);
-        console.log("SessionManager -> getSession -> idSession", idSession)
         if (this.sessions[idSession]) {
             request.idSession = idSession;
             request.sessions = this.sessions[idSession];
@@ -29,7 +28,6 @@ export class SessionManager {
 
     setKey(idSession: string, sessions: any) {
         return (key: any, value: any) => {
-            console.log(key, value)
             this.sessions[idSession][key] = value;
             sessions = this.sessions[idSession];
             SessionProvider.provider.save(this.sessions);
@@ -57,7 +55,6 @@ export class SessionManager {
             var parts = cookie.match(/(.*?)=(.*)$/)
             cookies[parts[1].trim()] = (parts[2] || '').trim();
         });
-        console.log("SessionManager -> getCookies -> cookies", cookies)
         return cookies;
     };
 
@@ -67,10 +64,8 @@ export class SessionManager {
      * @param response 
      */
     createIfNotExistsNewSession(request: any, response: any, option?: any) {
-        console.log('createIfNotExistsNewSession');
         if (!this.getIdSessionFromCookies(request)) {
             const ids = uniqueID();
-            console.log("SessionManager -> createIfNotExistsNewSession -> ids", ids)
             response.setHeader('Set-Cookie', [`${this.SESSION_ID}=${ids}; Path=/ ;`]);
             this.setSession(ids, {})
         }

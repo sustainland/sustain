@@ -81,9 +81,7 @@ export function createAppServer(requests: any, config: any) {
                     if (!extesnion) {
                         request.url = request.url.replace(/\/$/, "");
                         request.url += '/index.html';
-                        console.log("server -> request.url", request.url)
                     }
-                    console.log("server -> fileExtension(request.url)", fileExtension(request.url))
                     config.staticFolder.forEach((staticFolderPath: string) => {
                         serveStatic(staticFolderPath, request, response);
                     });
