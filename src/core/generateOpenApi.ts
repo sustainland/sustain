@@ -7,7 +7,6 @@ import { RequestMethod } from "../enums/request-method.enum";
 
 export let OpenApi: any;
 export function generateMethodSpec(controllers: any, config: any) {
-    console.log("generateMethodSpec -> config", config)
     const swaggerConfig: ISwaggerInfo = config.swaggerConfig;
     let OpenApiSchema: any = {
         ...swaggerConfig,

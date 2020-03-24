@@ -60,13 +60,13 @@ export default class HttpController {
 
     @Get('/session')
     getSession(@Session() session: any) {
-        return session.id;
+        return session;
     }
 
     @Post('/session')
     setSession(@Body('id') id: any, @Session() session: any) {
-        session.set('id', id)
-        return session;
+        session.set('id', id);
+        return 200;
     }
 
 
