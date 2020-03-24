@@ -106,3 +106,5 @@ dist
 package-lock.json
 sessions.save
 public/
+*.spec-not.js
+*-still.js

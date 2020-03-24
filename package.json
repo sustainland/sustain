@@ -26,6 +26,7 @@
     "dependencies": {
         "chai": "^4.2.0",
         "chai-http": "^4.3.0",
+        "handlebars": "^4.7.3",
         "jest": "^25.1.0",
         "path-to-regexp": "^6.1.0",
         "reflect-metadata": "^0.1.13",

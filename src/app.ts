@@ -1,11 +1,11 @@
 
-import HelloController from './controllers/hello.controller';
+import HelloController from './controllers/HelloController';
 import { bootstrap } from './core/bootstrap';
 import { SessionProviders } from './core/sessions-providers';
 import { UserService } from './services/user.service';
 import { LoggerService } from './services/logger.service';
-import UserController from './controllers/user.controller';
-import BaseController from './controllers/base.controlle';
+import UserController from './controllers/UserController';
+import BaseController from './controllers/BaseControlle';
 import HttpController from './controllers/HttpController';
 import { App } from './decorators/core/app.decorator';
 import { SwaggerAPI } from './decorators/core/swagger.decorator';

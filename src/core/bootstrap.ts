@@ -6,7 +6,7 @@ import { InjectedContainer } from './container';
 import { match } from '../utils/path-to-regex';
 
 import { createAppServer } from "./server";
-import BaseController from "../controllers/base.controlle";
+import BaseController from "../controllers/BaseControlle";
 const DEFAULT_PORT = 5200;
 const metadataKey = [
     INTERCEPTORS,

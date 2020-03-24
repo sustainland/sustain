@@ -1,9 +1,21 @@
-import { Get, Post, Put, Patch, Delete, Head, Options } from "../decorators/http/requests.decorators";
-import { Request, Response, Session, Body, Params, Param, Query, Headers, Header } from "../decorators/http/route-params.decorator";
-import { Injectable, Inject, Controller } from "../core/di";
-import { LoggerService } from "../services/logger.service";
+import {
+    Get,
+    Post,
+    Put,
+    Patch,
+    Delete,
+    Head,
+    Options,
+    Session,
+    Body,
+    Params,
+    Param,
+    Query,
+    Headers,
+    Header
+} from "../decorators/http";
 
-
+import { Controller } from "../core";
 
 @Controller('/http-controller')
 export default class HttpController {
@@ -20,7 +32,6 @@ export default class HttpController {
     putMethod() {
         return 'Hello Sustain';
     }
-
 
     @Patch()
     patchMethod() {
@@ -80,8 +91,6 @@ export default class HttpController {
     PostBodyByName(@Body('name') name: string) {
         return name;
     }
-
-    // Sessions
 
     @Get('/session')
     getSession(@Session() session: any) {
