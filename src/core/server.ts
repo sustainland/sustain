@@ -23,7 +23,6 @@ class Request extends IncomingMessage {
 const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
 
 const SessionProvider = InjectedContainer.get(SessionProviders);
-SessionProvider.initiateProvider(SessionsProviders.File);
 
 const serveStatic = (staticBasePath: string, request: any, response: any) => {
     const fullPath = `./public/${staticBasePath}`;
@@ -49,6 +48,12 @@ const serveStatic = (staticBasePath: string, request: any, response: any) => {
 export function createAppServer(requests: any, config: any) {
 
     generateMethodSpec(requests, config);
+    console.log("createAppServer -> config")
+    const { extensions } = config;
+    if (extensions.session && extensions.session.provider != undefined) {
+        SessionProvider.initiateProvider(extensions.session.provider);
+        SessionsManager.loadProvider();
+    }
 
     const server = createServer(async (request: Request, response: ServerResponse) => {
         try {

@@ -8,6 +8,7 @@ export class SessionProviders {
     constructor() {}
 
     initiateProvider(providerType: SessionsProviders): any {
+        console.log("SessionProviders -> initiateProvider -> providerType", providerType)
         switch (providerType) {
             case SessionsProviders.File:
                 this.provider = new SessionFileProvider();

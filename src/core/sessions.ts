@@ -7,12 +7,13 @@ import { uniqueID } from "../utils/unique-id.util";
 InjectedContainer.addProvider({ provide: SessionProviders, useClass: SessionProviders });
 InjectedContainer.inject(SessionProviders);
 const SessionProvider = InjectedContainer.get(SessionProviders);
-SessionProvider.initiateProvider(SessionsProviders.File);
 @Injectable()
 export class SessionManager {
     sessions: any = {};
     SESSION_ID: string = 'ids';
     constructor() {
+    }
+    loadProvider() {
         this.sessions = SessionProvider.provider.load();
     }
     getSession(request: any) {
