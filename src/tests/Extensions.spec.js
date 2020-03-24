@@ -9,6 +9,12 @@ describe('UserController Tests', function () {
             .get('/swagger-ui/')
             .expect(200, done);
     });
+
+    it("Should display the swagger.json file", (done) => {
+        supertest(app)
+            .get('/swagger.json')
+            .expect(200, done);
+    });
     afterAll(() => {
         app.close();
         setTimeout(() => process.exit(), 1000);
