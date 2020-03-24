@@ -4,13 +4,13 @@
 
 
 
-## Description:
+## Description
 
 Sustain is a Framework that barely uses despedencies and it is designed especially to make stable and sustainable apps. It is built with [TypeScript](https://www.typescriptlang.org/), uses OOP (Object Oriented Programming) and built-in [Dependency Injections](https://en.wikipedia.org/wiki/Dependency_injection). 
 
 This frameowrk touches in depth the web fundemantals and implements them from scratch with zero dependencies which makes it more reliable and durable.
 
-## Philosophy:
+## Philosophy
 
 Building an application that depends on [packages](https://www.npmjs.com/) that they may be also depending on other packages is something that requires a periodic maintenance by installing the latest updates. 
 This dependency will expose your application to eventual instability and vulnerability. 
