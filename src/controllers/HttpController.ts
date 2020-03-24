@@ -1,4 +1,4 @@
-import { Get, Post } from "../decorators/http/requests.decorators";
+import { Get, Post, Put, Patch, Delete, Head, Options } from "../decorators/http/requests.decorators";
 import { Request, Response, Session, Body, Params, Param, Query, Headers, Header } from "../decorators/http/route-params.decorator";
 import { Injectable, Inject, Controller } from "../core/di";
 import { LoggerService } from "../services/logger.service";
@@ -16,6 +16,31 @@ export default class HttpController {
         return 'Hello Sustain';
     }
 
+    @Put()
+    putMethod() {
+        return 'Hello Sustain';
+    }
+
+
+    @Patch()
+    patchMethod() {
+        return 'Hello Sustain';
+    }
+
+    @Delete()
+    deleteMethod() {
+        return 'Hello Sustain';
+    }
+
+    @Head()
+    headMethod() {
+        return 'Hello Sustain';
+    }
+
+    @Options()
+    optionsMethod() {
+        return 'Hello Sustain';
+    }
 
     @Get('/single/:id')
     getMethodAllParams(@Params() params: any) {

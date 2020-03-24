@@ -31,3 +31,9 @@ export const Get = createDecorator(RequestMethod.GET);
  * Create @Post decorator
  */
 export const Post = createDecorator(RequestMethod.POST);
+export const Put = createDecorator(RequestMethod.PUT);
+export const Patch = createDecorator(RequestMethod.PATCH);
+export const All = createDecorator(RequestMethod.ALL);
+export const Delete = createDecorator(RequestMethod.DELETE);
+export const Head = createDecorator(RequestMethod.HEAD);
+export const Options = createDecorator(RequestMethod.OPTIONS);
