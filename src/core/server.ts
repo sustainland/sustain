@@ -1,7 +1,7 @@
 
 const { readFile } = require('fs');
 import { createServer, IncomingMessage, ServerResponse } from 'http';
-import { ROUTE_ARGS_METADATA } from '../constants';
+import { ROUTE_ARGS_METADATA, SessionsProviders } from '../constants';
 import { RouteParamtypes } from '../enums/route-params.enum';
 import { RequestMethod } from '../enums/request-method.enum';
 import { InjectedContainer } from './container';
@@ -12,6 +12,7 @@ import { join, normalize, resolve } from 'path';
 import * as  querystring from 'querystring';
 import { generateMethodSpec } from './generateOpenApi';
 import { readFileSync, existsSync } from 'fs';
+import { fileExtension } from '../utils/shared.utils';
 const mode = "debug";
 
 class Request extends IncomingMessage {
@@ -21,6 +22,8 @@ class Request extends IncomingMessage {
 }
 const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
 
+const SessionProvider = InjectedContainer.get(SessionProviders);
+SessionProvider.initiateProvider(SessionsProviders.File);
 
 const serveStatic = (staticBasePath: string, request: any, response: any) => {
     const fullPath = `./public/${staticBasePath}`;
@@ -63,18 +66,24 @@ export function createAppServer(requests: any, config: any) {
                 const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, { request, response, body })
                 const result = route.objectHanlder[route.functionHandler](...methodArgs);
 
-                if (result) {
-                    if (result instanceof Promise) {
-                        response.end(await result)
-                    } else if (typeof result == 'object') {
-                        response.writeHead(200, { 'Content-Type': 'application/json' });
-                        response.end(JSON.stringify(result));
-                    } else {
-                        response.end(String(result));
-                    }
+                if (result instanceof Promise) {
+                    response.end(await result)
+                } else if (typeof result == 'object') {
+                    response.writeHead(200, { 'Content-Type': 'application/json' });
+                    response.end(JSON.stringify(result));
+                } else {
+                    response.end(String(result));
                 }
+
             } else {
                 try {
+                    const extesnion = fileExtension(request.url);
+                    if (!extesnion) {
+                        request.url = request.url.replace(/\/$/, "");
+                        request.url += '/index.html';
+                        console.log("server -> request.url", request.url)
+                    }
+                    console.log("server -> fileExtension(request.url)", fileExtension(request.url))
                     config.staticFolder.forEach((staticFolderPath: string) => {
                         serveStatic(staticFolderPath, request, response);
                     });
@@ -205,7 +214,10 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
                 methodArgs[Number(arg_index)] = assets.response;
                 break;
             case RouteParamtypes.SESSION:
-                methodArgs[Number(arg_index)] = SessionsManager.getSession(assets.request);
+                const userSession = SessionsManager.getSession(assets.request)
+                userSession.set = SessionsManager.setKey(assets.request.idSession, assets.request.sessions);
+                userSession.get = SessionsManager.getKey(assets.request.idSession, assets.request.sessions);
+                methodArgs[Number(arg_index)] = userSession;
                 break;
             case RouteParamtypes.HEADERS:
                 methodArgs[Number(arg_index)] = assets.request.headers;

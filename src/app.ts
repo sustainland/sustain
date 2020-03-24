@@ -9,6 +9,8 @@ import BaseController from './controllers/base.controlle';
 import HttpController from './controllers/HttpController';
 import { App } from './decorators/core/app.decorator';
 import { SwaggerAPI } from './decorators/core/swagger.decorator';
+import { Extensions } from './decorators/core/extensions.decorator';
+import { SessionsProviders, ROOT_FOLDER } from './constants';
 
 require('source-map-support').install();
 
@@ -21,6 +23,14 @@ require('source-map-support').install();
         description: "Generated with `Sustain`"
     },
     swagger: "2.0",
+})
+@Extensions({
+    session: {
+        provider: SessionsProviders.File
+    },
+    swagger: {
+        enable: true
+    }
 })
 @App({
     controllers: [
@@ -38,8 +48,7 @@ require('source-map-support').install();
     ],
     port: process.env.PORT || 5002,
     staticFolder: [
-        'swagger-ui',
-        ''
+        ROOT_FOLDER
     ]
 })
 class AppModule { }

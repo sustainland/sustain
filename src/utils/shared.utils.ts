@@ -18,7 +18,7 @@ export const isPlainObject = (fn: any): fn is object => {
     typeof ctor === 'function' &&
     ctor instanceof ctor &&
     Function.prototype.toString.call(ctor) ===
-      Function.prototype.toString.call(Object)
+    Function.prototype.toString.call(Object)
   );
 };
 export const validatePath = (path?: string): string =>
@@ -30,3 +30,5 @@ export const isNil = (obj: any): obj is null | undefined =>
   isUndefined(obj) || obj === null;
 export const isEmpty = (array: any): boolean => !(array && array.length > 0);
 export const isSymbol = (fn: any): fn is symbol => typeof fn === 'symbol';
+
+export const fileExtension = (fileName: string) => fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2);

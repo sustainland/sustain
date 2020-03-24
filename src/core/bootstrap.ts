@@ -26,7 +26,6 @@ const HttpRequests: any = {};
 export function bootstrap(app: any): any {
     const { APP_CONFIG } = app.prototype;
     let { controllers, providers } = APP_CONFIG;
-    console.log("functionbootstrap -> APP_CONFIG", APP_CONFIG)
     controllers.push(BaseController);
     (providers || []).forEach((provider: any) => {
         InjectedContainer.addProvider({ provide: provider, useClass: provider });
