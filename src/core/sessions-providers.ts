@@ -1,11 +1,11 @@
 import { SessionsProviders, SESSION_FILE_PATH } from "../constants";
-import { existsSync, read, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync, writeFileSync } from "fs";
 import { Injectable } from "./di";
 
 @Injectable()
 export class SessionProviders {
     provider: SessionFileProvider | SessionMongoProvider;
-    constructor() {}
+    constructor() { }
 
     initiateProvider(providerType: SessionsProviders): any {
         console.log("SessionProviders -> initiateProvider -> providerType", providerType)

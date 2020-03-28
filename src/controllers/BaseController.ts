@@ -1,7 +1,5 @@
 import { Controller } from "../core/di";
-import { Get, Response, Request } from "../decorators/http";
-import { readFileSync } from "fs";
-import { join } from "path";
+import { Get, Response } from "../decorators/http";
 
 import { OpenApi } from "../core/generateOpenApi";
 

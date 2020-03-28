@@ -1,7 +1,7 @@
 
 const { readFile } = require('fs');
 import { createServer, IncomingMessage, ServerResponse } from 'http';
-import { ROUTE_ARGS_METADATA, SessionsProviders } from '../constants';
+import { ROUTE_ARGS_METADATA } from '../constants';
 import { RouteParamtypes } from '../enums/route-params.enum';
 import { RequestMethod } from '../enums/request-method.enum';
 import { InjectedContainer } from './container';
@@ -129,7 +129,7 @@ export function createAppServer(requests: any, config: any) {
 async function prepareBody(request: any, response: any) {
     let body: any = [];
     if (request.method === RequestMethod.POST) {
-        return await new Promise((resolve, reject) => {
+        return await new Promise((resolved, reject) => {
             request.on('data', (chunk: any) => {
                 body.push(chunk);
             }).on('end', () => {
@@ -143,7 +143,7 @@ async function prepareBody(request: any, response: any) {
                         response.destroy();
                     }
                 }
-                resolve(body);
+                resolved(body);
             }).on('error', (error: any) => {
                 console.log("server -> error", error)
                 reject()

@@ -6,7 +6,7 @@ import { InjectedContainer } from './container';
 import { match } from '../utils/path-to-regex';
 
 import { createAppServer } from "./server";
-import BaseController from "../controllers/BaseControlle";
+import BaseController from "../controllers/BaseController";
 const DEFAULT_PORT = 5200;
 const metadataKey = [
     INTERCEPTORS,
@@ -54,7 +54,6 @@ export function bootstrap(app: any): any {
 export function loadControllers(controllers: any): any {
     controllers.forEach(
         (instance: any) => {
-            const CONTROLLER_PREFIX = Reflect.getMetadata(CONTROLLER_ROUTE, instance);
             getControllersMethods(instance)
                 .forEach((method: RequestMethod) => {
                     const payload = {

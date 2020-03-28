@@ -1,5 +1,4 @@
 import { SessionProviders } from "./sessions-providers";
-import { SessionsProviders } from "../constants";
 import { InjectedContainer } from "./container";
 import { Injectable } from "./di";
 import { uniqueID } from "../utils/unique-id.util";
@@ -27,10 +26,9 @@ export class SessionManager {
         }
     }
 
-    setKey(idSession: string, sessions: any) {
+    setKey(idSession: string) {
         return (key: any, value: any) => {
             this.sessions[idSession][key] = value;
-            sessions = this.sessions[idSession];
             SessionProvider.provider.save(this.sessions);
         }
     }
@@ -57,7 +55,7 @@ export class SessionManager {
             cookies[parts[1].trim()] = (parts[2] || '').trim();
         });
         return cookies;
-    };
+    }
 
     /**
      * TODO : add config option to customize Expires date and domain ....

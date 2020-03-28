@@ -1,6 +1,6 @@
 import { Get, Post } from "../decorators/http/requests.decorators";
 import { Session, Body } from "../decorators/http/route-params.decorator";
-import { Injectable, Controller } from "../core/di";
+import { Controller } from "../core/di";
 
 
 

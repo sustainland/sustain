@@ -5,7 +5,7 @@ import { SessionProviders } from './core/sessions-providers';
 import { UserService } from './services/user.service';
 import { LoggerService } from './services/logger.service';
 import UserController from './controllers/UserController';
-import BaseController from './controllers/BaseControlle';
+import BaseController from './controllers/BaseController';
 import HttpController from './controllers/HttpController';
 import { App } from './decorators/core/app.decorator';
 import { SwaggerAPI } from './decorators/core/swagger.decorator';

@@ -1,5 +1,5 @@
 import { Get, Post } from "../decorators/http/requests.decorators";
-import { Request, Param, Response, Headers, Header, Query, Body } from "../decorators/http/route-params.decorator";
+import { Request, Param, Response, Header, Query, Body } from "../decorators/http/route-params.decorator";
 import { Controller } from "../core/di";
 import { UserService } from "../services/user.service";
 import { Interceptors } from "../decorators/interceptors.decorators";
