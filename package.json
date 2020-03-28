@@ -20,7 +20,6 @@
         "build-watch": "tsc -w --noImplicitAny"
     },
     "devDependencies": {
-        "typescript": "^3.6.3",
         "@types/node": "^12.7.8"
     },
     "dependencies": {
@@ -32,6 +31,7 @@
         "reflect-metadata": "^0.1.13",
         "source-map-support": "^0.5.16",
         "supertest": "^4.0.2",
+        "typescript": "^3.6.3",
         "swagger-jsdoc": "^3.5.0",
         "yamljs": "^0.3.0"
     }
