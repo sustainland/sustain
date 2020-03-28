@@ -218,7 +218,7 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
                 break;
             case RouteParamtypes.SESSION:
                 const userSession = SessionsManager.getSession(assets.request)
-                userSession.set = SessionsManager.setKey(assets.request.idSession, assets.request.sessions);
+                userSession.set = SessionsManager.setKey(assets.request.idSession);
                 userSession.get = SessionsManager.getKey(assets.request.idSession, assets.request.sessions);
                 methodArgs[Number(arg_index)] = userSession;
                 break;
