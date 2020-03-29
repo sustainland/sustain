@@ -1,6 +1,7 @@
 import { Get, Post } from "../decorators/http/requests.decorators";
 import { Session, Body } from "../decorators/http/route-params.decorator";
 import { Controller } from "../core/di";
+import { UserDto } from "../dto/HelloDto";
 
 
 
@@ -13,8 +14,8 @@ export default class HelloController {
         return session;
     }
     @Post('/byebye')
-    byebye(@Body('yes') yes: number) {
-        return "value" + yes;
+    byebye(@Body('user') user: UserDto) {
+        return "value" + user.name;
     }
 
 }

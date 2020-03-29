@@ -1,7 +1,8 @@
-import { ROUTE_ARGS_METADATA } from "../../constants";
+import { ROUTE_ARGS_METADATA, SWAGGER_ALLOWED_TYPES, API_MODEL_PROPERTIES_ARRAY } from "../../constants";
 import { RouteParamtypes } from "../../enums/route-params.enum";
 import { ParamData } from "../../interfaces/route-param-metadata.interface";
 import { RouteParamMetadata } from "../../interfaces/route-param-metadata.interface";
+
 
 
 
@@ -24,13 +25,16 @@ export function assignMetadata<TParamtype = any, TArgs = any>(
 }
 
 const createParamDecorator = (paramtype: RouteParamtypes) => {
-    return (data?: ParamData): ParameterDecorator => (target, key, index) => {
+    return (data?: ParamData): ParameterDecorator => (target: any, key, index) => {
 
         const args =
             Reflect.getMetadata(ROUTE_ARGS_METADATA, Object.assign(target)[key]) || {};
         const designtype = Reflect.getMetadata("design:paramtypes", target, key);
-        const designtypeFunction = Reflect.getMetadata("design:returntype", target, key);
-        
+
+        let ParamType = designtype[index].name;
+        if (SWAGGER_ALLOWED_TYPES.indexOf(designtype[index].name) !== -1) {
+            ParamType = designtype[index].name.toLowerCase();
+        }
 
         Reflect.defineMetadata(
             ROUTE_ARGS_METADATA,
@@ -39,7 +43,7 @@ const createParamDecorator = (paramtype: RouteParamtypes) => {
                 paramtype,
                 index,
                 data,
-                typeof designtype[index]()
+                ParamType
             ),
             Object.assign(target)[key]
         );

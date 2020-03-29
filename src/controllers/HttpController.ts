@@ -17,6 +17,8 @@ import {
 
 import { Controller } from "../core";
 import { ApiConsumes, ApiProduces, ApiTags, ApiResponse } from "../decorators/core/swagger.decorator";
+import { UserDto } from "../dto/HelloDto";
+
 
 @ApiTags('Http-Controller')
 @Controller('/http-controller')
@@ -97,7 +99,7 @@ export default class HttpController {
         "application/xml"
     ])
     @Post()
-    PostBody(@Body() body: string) {
+    PostBody(@Body() body: UserDto) {
         return body;
     }
 

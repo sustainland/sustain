@@ -7,6 +7,8 @@ export const METHOD_METADATA = 'method';
 export const METHOD_RETURN = 'method-return';
 export const PATH_TYPE = 'path-type';
 export const SWAGGER_META_DATA = 'swagger-metadata';
+export const API_MODEL_PROPERTIES_ARRAY = 'API_MODEL_PROPERTIES_ARRAY';
+export const API_MODEL_PROPERTIES = 'API_MODEL_PROPERTIES';
 export enum PATH_TYPES {
     String = 0
 }
@@ -24,3 +26,12 @@ export enum OpenAPITypes {
     String = 'string',
     Object = 'object'
 }
+
+
+export const SWAGGER_ALLOWED_TYPES: any[] = [
+    "Boolean",
+    "Number",
+    "String",
+    "Object",
+    "Array"
+]

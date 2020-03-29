@@ -48,7 +48,6 @@ const serveStatic = (staticBasePath: string, request: any, response: any) => {
 export function createAppServer(requests: any, config: any) {
 
     generateMethodSpec(requests, config);
-    console.log("createAppServer -> config")
     const { extensions } = config;
     if (extensions.session && extensions.session.provider != undefined) {
         SessionProvider.initiateProvider(extensions.session.provider);

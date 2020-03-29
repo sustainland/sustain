@@ -1,4 +1,4 @@
-import { ROUTE_ARGS_METADATA, SWAGGER_META_DATA } from "../constants"
+import { ROUTE_ARGS_METADATA, SWAGGER_META_DATA, SWAGGER_ALLOWED_TYPES } from "../constants"
 import * as pathToRegexp from 'path-to-regexp'
 import { RouteParamtypes } from "../enums/route-params.enum";
 import { OpenAPITypes } from "../constants";
@@ -6,11 +6,17 @@ import { ISwaggerInfo } from "../interfaces/swagger.interfaces";
 import { RequestMethod } from "../enums/request-method.enum";
 
 export let OpenApi: any;
+export let OpenApiDefinitions: any = {}
+
 export function generateMethodSpec(controllers: any, config: any) {
+
     const swaggerConfig: ISwaggerInfo = config.swaggerConfig;
     let OpenApiSchema: any = {
         ...swaggerConfig,
-        paths: {}
+        paths: {},
+        definitions: {
+            ...OpenApiDefinitions
+        },
     };
     if (swaggerConfig) {
 
@@ -81,21 +87,34 @@ function getRequestBody(route: any, method?: any) {
             switch (Number(paramType)) {
                 case RouteParamtypes.BODY:
                     if (routeArgsMetadata[paramsKeys].data) {
+
                         properties[routeArgsMetadata[paramsKeys].data] = {
                             type: routeArgsMetadata[paramsKeys].type || OpenAPITypes.String
                         }
+
                     }
                     break;
                 case RouteParamtypes.HEADER:
                     break;
             }
         }
+        let useSchema;
+        if (!SWAGGER_ALLOWED_TYPES
+            .map(type => type.toLocaleLowerCase())
+            .includes(routeArgsMetadata[paramsKeys].type)) {
+            useSchema = {
+                $ref: `#/definitions/${routeArgsMetadata[paramsKeys].type}`
+            }
+        } else {
+            useSchema = { type: OpenAPITypes.Object, properties: { ...properties } }
+
+        }
         if (Object.keys(properties).length !== 0) {
             tokens = [
                 {
                     in: 'body',
                     name: 'body',
-                    schema: { type: OpenAPITypes.Object, properties: { ...properties } }
+                    schema: useSchema
                 }
             ]
         } else {
@@ -104,7 +123,8 @@ function getRequestBody(route: any, method?: any) {
                     {
                         in: 'body',
                         name: 'body',
-                        type: OpenAPITypes.Object
+                        type: OpenAPITypes.Object,
+                        schema: useSchema
                     }
                 ]
             }

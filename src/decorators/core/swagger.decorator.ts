@@ -1,7 +1,8 @@
 import 'reflect-metadata';
 import { ISwaggerInfo } from '../../interfaces/swagger.interfaces';
-import { SWAGGER_META_DATA } from '../../constants';
+import { SWAGGER_META_DATA, API_MODEL_PROPERTIES_ARRAY, API_MODEL_PROPERTIES, SWAGGER_ALLOWED_TYPES } from '../../constants';
 import { isString, isObject, isArray } from 'util';
+import { OpenApiDefinitions } from '../../core/generateOpenApi';
 
 export enum ApiModes {
     Consumes = 'CONSUMES',
@@ -81,6 +82,42 @@ function createMethodApiResponseDecorator(): Function {
 
 }
 
+function createPropertyDecorator() {
+    return (config: any = {}) => {
+        return (target: object, propertyKey: string) => {
+            const properties =
+                Reflect.getMetadata(API_MODEL_PROPERTIES_ARRAY, target) || [];
+
+            if (!OpenApiDefinitions[target.constructor.name]) {
+                OpenApiDefinitions[target.constructor.name] = {
+                    type: "object",
+                    properties: {
+
+                    }
+                }
+            }
+            let ParamType = Reflect.getMetadata('design:type', target, propertyKey);
+            if (SWAGGER_ALLOWED_TYPES.indexOf(ParamType.name) !== -1) {
+                ParamType = ParamType.name.toLowerCase();
+                OpenApiDefinitions[target.constructor.name]
+                    .properties[propertyKey] = {
+                    type: ParamType
+                }
+            } else {
+                OpenApiDefinitions[target.constructor.name]
+                    .properties[propertyKey] = {
+                    $ref: `#/definitions/${ParamType.name}`
+                }
+            }
+
+        };
+    }
+
+}
+
+
+
+export const ApiProperty = createPropertyDecorator();
 export const ApiConsumes = createMethodApiDecorator(ApiModes.Consumes);
 export const ApiProduces = createMethodApiDecorator(ApiModes.Produces);
 export const ApiResponse = createMethodApiResponseDecorator();
