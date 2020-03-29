@@ -26,7 +26,7 @@ export function generateMethodSpec(controllers: any, config: any) {
                     OpenApiSchema.paths[url_path][method.toLocaleLowerCase()] = {
                         operationId: `${route.objectHanlder.constructor.name}.${route.handler.name}`,
                         tags: [
-                            route.objectHanlder.constructor.name
+                            route.objectHanlder.constructor.prototype.API_TAG || route.objectHanlder.constructor.name
                         ],
                         parameters: [
                             ...getPathParams(route),

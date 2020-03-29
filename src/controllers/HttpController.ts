@@ -16,8 +16,9 @@ import {
 } from "../decorators/http";
 
 import { Controller } from "../core";
-import { ApiConsumes, ApiProduces } from "../decorators/core/swagger.decorator";
+import { ApiConsumes, ApiProduces, ApiTags } from "../decorators/core/swagger.decorator";
 
+@ApiTags('Http-Controller')
 @Controller('/http-controller')
 export default class HttpController {
     constructor() {

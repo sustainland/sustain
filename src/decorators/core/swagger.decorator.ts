@@ -24,6 +24,14 @@ function createSwaggerDecorator(): Function {
     }
 }
 
+function createApiTagDecorator(): Function {
+    return (apitag: string) => {
+        return function (constructorFunction: Function) {
+            constructorFunction.prototype.API_TAG = apitag;
+        }
+    }
+}
+
 function createMethodApiDecorator(mode: any): Function {
     return (params: any | any[] = "") => {
         return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
@@ -53,10 +61,10 @@ function createMethodApiDecorator(mode: any): Function {
 export const ApiConsumes = createMethodApiDecorator(ApiModes.Consumes);
 export const ApiProduces = createMethodApiDecorator(ApiModes.Produces);
 
-
 /**
  * Create a @Get decorator
  */
+export const ApiTags = createApiTagDecorator();
 export const SwaggerAPI = createSwaggerDecorator();
 export const OpenAPI = SwaggerAPI;
 
