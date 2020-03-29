@@ -16,7 +16,7 @@ import {
 } from "../decorators/http";
 
 import { Controller } from "../core";
-import { ApiConsumes, ApiProduces, ApiTags } from "../decorators/core/swagger.decorator";
+import { ApiConsumes, ApiProduces, ApiTags, ApiResponse } from "../decorators/core/swagger.decorator";
 
 @ApiTags('Http-Controller')
 @Controller('/http-controller')
@@ -35,6 +35,10 @@ export default class HttpController {
         return 'Hello Sustain';
     }
 
+    @ApiResponse([
+        { status: 200, description: "OK" },
+        { status: 201, description: "Created" }
+    ])
     @Patch()
     patchMethod() {
         return 'Hello Sustain';

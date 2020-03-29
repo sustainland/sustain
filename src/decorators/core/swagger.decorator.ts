@@ -58,8 +58,32 @@ function createMethodApiDecorator(mode: any): Function {
 
 }
 
+function createMethodApiResponseDecorator(): Function {
+    return (responses: any[] = []) => {
+        return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+            const SWAGGER_MEHTOD_PARA = Reflect.getMetadata(SWAGGER_META_DATA, target, propertyKey) || {};
+            if (!SWAGGER_MEHTOD_PARA.responses) {
+                SWAGGER_MEHTOD_PARA.responses = {};
+            }
+            if (isArray(responses)) {
+                responses.forEach((response: any) => {
+                    const { status, description } = response;
+                    SWAGGER_MEHTOD_PARA.responses[status] = {
+                        description
+                    }
+                })
+
+            }
+            Reflect.defineMetadata(SWAGGER_META_DATA, SWAGGER_MEHTOD_PARA, descriptor.value);
+            return descriptor;
+        }
+    }
+
+}
+
 export const ApiConsumes = createMethodApiDecorator(ApiModes.Consumes);
 export const ApiProduces = createMethodApiDecorator(ApiModes.Produces);
+export const ApiResponse = createMethodApiResponseDecorator();
 
 /**
  * Create a @Get decorator

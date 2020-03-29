@@ -34,14 +34,7 @@ export function generateMethodSpec(controllers: any, config: any) {
                         ],
                         consumes: SWAGGER_MEHTOD_PARAMETERS.consumes || [],
                         produces: SWAGGER_MEHTOD_PARAMETERS.produces || [],
-                        "responses": {
-                            "200": {
-                                "content": {
-                                    "application/json": {}
-                                },
-                                "description": "Successful response"
-                            }
-                        },
+                        responses: SWAGGER_MEHTOD_PARAMETERS.responses || {}
                     }
                 });
 
