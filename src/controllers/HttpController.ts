@@ -16,7 +16,7 @@ import {
 } from "../decorators/http";
 
 import { Controller } from "../core";
-import { ApiConsumes } from "../decorators/core/swagger.decorator";
+import { ApiConsumes, ApiProduces } from "../decorators/core/swagger.decorator";
 
 @Controller('/http-controller')
 export default class HttpController {
@@ -84,6 +84,10 @@ export default class HttpController {
 
 
     @ApiConsumes([
+        "application/json",
+        "application/xml"
+    ])
+    @ApiProduces([
         "application/json",
         "application/xml"
     ])

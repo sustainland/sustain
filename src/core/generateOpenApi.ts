@@ -33,6 +33,7 @@ export function generateMethodSpec(controllers: any, config: any) {
                             ...getRequestBody(route, method),
                         ],
                         consumes: SWAGGER_MEHTOD_PARAMETERS.consumes || [],
+                        produces: SWAGGER_MEHTOD_PARAMETERS.produces || [],
                         "responses": {
                             "200": {
                                 "content": {
