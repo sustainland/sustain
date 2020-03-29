@@ -1,4 +1,4 @@
-import { ROUTE_ARGS_METADATA } from "../constants"
+import { ROUTE_ARGS_METADATA, SWAGGER_META_DATA } from "../constants"
 import * as pathToRegexp from 'path-to-regexp'
 import { RouteParamtypes } from "../enums/route-params.enum";
 import { OpenAPITypes } from "../constants";
@@ -22,6 +22,7 @@ export function generateMethodSpec(controllers: any, config: any) {
                     if (!OpenApiSchema.paths[url_path]) {
                         OpenApiSchema.paths[url_path] = {};
                     }
+                    const SWAGGER_MEHTOD_PARAMETERS = Reflect.getMetadata(SWAGGER_META_DATA, route.handler) || {};
                     OpenApiSchema.paths[url_path][method.toLocaleLowerCase()] = {
                         operationId: `${route.objectHanlder.constructor.name}.${route.handler.name}`,
                         tags: [
@@ -31,6 +32,7 @@ export function generateMethodSpec(controllers: any, config: any) {
                             ...getPathParams(route),
                             ...getRequestBody(route, method),
                         ],
+                        consumes: SWAGGER_MEHTOD_PARAMETERS.consumes || [],
                         "responses": {
                             "200": {
                                 "content": {

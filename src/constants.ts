@@ -6,6 +6,7 @@ export const ROUTE_ARGS_METADATA = 'route-method-arguments';
 export const METHOD_METADATA = 'method';
 export const METHOD_RETURN = 'method-return';
 export const PATH_TYPE = 'path-type';
+export const SWAGGER_META_DATA = 'swagger-metadata';
 export enum PATH_TYPES {
     String = 0
 }
