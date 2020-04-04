@@ -3,47 +3,22 @@ const { readFile } = require('fs');
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 import { ROUTE_ARGS_METADATA } from '../constants';
 import { RouteParamtypes } from '../enums/route-params.enum';
-import { RequestMethod } from '../enums/request-method.enum';
 import { SessionProviders } from '../extensions/sessions/sessions-providers';
-import { ContentType } from '../enums/content-type.enum';
 import { SessionManager } from '../extensions/sessions/sessions-manager';
-import { join, normalize, resolve } from 'path';
+import { join } from 'path';
 import * as  querystring from 'querystring';
 import { generateMethodSpec } from '../extensions/swagger/generateOpenApi';
-import { readFileSync, existsSync } from 'fs';
+import { serveStatic } from './static-server/serve';
 import { fileExtension } from '../utils/shared.utils';
 import { InjectedContainer } from './di';
+import { prepareBody } from './body-parser';
+import { render404Page } from './static-server/render-error-pages';
+import { SRequest } from '../interfaces';
+
 const mode = "debug";
-
-class Request extends IncomingMessage {
-    params: { [key: string]: string | undefined };
-    staticFileExist?: boolean;
-    startAt?: any;
-}
 const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
-
 const SessionProvider = InjectedContainer.get(SessionProviders);
 
-const serveStatic = (staticBasePath: string, request: any, response: any) => {
-    const fullPath = `./public/${staticBasePath}`;
-    var resolvedBase = resolve(fullPath);
-    var safeSuffix = normalize(request.url).replace(/^(\.\.[\/\\])+/, '');
-    var fileLoc = join(resolvedBase, safeSuffix);
-    if (existsSync(fileLoc)) {
-        request.staticFileExist = true;
-        const data = readFileSync(fileLoc);
-        if (!data) {
-            response.writeHead(404, 'Not Found');
-            response.write('404: File Not Found!');
-            return response.end();
-        } else {
-            response.statusCode = 200;
-            response.write(data);
-            return response.end();
-        }
-    }
-
-}
 
 export function createAppServer(requests: any, config: any) {
 
@@ -54,7 +29,7 @@ export function createAppServer(requests: any, config: any) {
         SessionsManager.loadProvider();
     }
 
-    const server = createServer(async (request: Request, response: ServerResponse) => {
+    const server = createServer(async (request: SRequest, response: ServerResponse) => {
         try {
             request.startAt = new Date();
             SessionsManager.createIfNotExistsNewSession(request, response);
@@ -125,31 +100,6 @@ export function createAppServer(requests: any, config: any) {
 }
 
 
-async function prepareBody(request: any, response: any) {
-    let body: any = [];
-    if (request.method === RequestMethod.POST) {
-        return await new Promise((resolved, reject) => {
-            request.on('data', (chunk: any) => {
-                body.push(chunk);
-            }).on('end', () => {
-                body = Buffer.concat(body).toString();
-                if (request.headers['content-type'] == ContentType.APPLICATION_JSON) {
-                    try {
-                        body = JSON.parse(body.replace(/\\/g, ""));
-                    } catch (error) {
-                        response.statusCode = 500;
-                        response.end(error.toString())
-                        response.destroy();
-                    }
-                }
-                resolved(body);
-            }).on('error', (error: any) => {
-                console.log("server -> error", error)
-                reject()
-            });
-        });
-    }
-}
 async function executeInterceptor(route: any, request: any, response: any) {
     const callstack = [];
     for (let interceptor of route.interceptors) {
@@ -170,27 +120,6 @@ async function executeInterceptor(route: any, request: any, response: any) {
 }
 
 
-function render404Page(response: any) {
-    response.writeHead(404, { 'Content-Type': 'text/html' });
-    readFile(join(__dirname, '../../public/404.html'), (err: any, data: any) => {
-        if (!err) {
-            response.end(data);
-        } else {
-            console.log(err)
-        }
-    })
-}
-
-function render505Page(response: any) {
-    response.writeHead(200, { 'Content-Type': 'text/html' });
-    readFile(join(__dirname, '../views/500.html'), (err: any, data: any) => {
-        if (!err) {
-            response.end(data);
-        } else {
-            console.log(err);
-        }
-    })
-}
 
 function requestSegmentMatch(requests: any, request: any) {
     return requests[request.method].find((route: any) => {
