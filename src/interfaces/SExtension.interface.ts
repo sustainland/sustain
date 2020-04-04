@@ -1,5 +1,7 @@
 import { SRequest } from "./srequest.interface";
 
 export interface SExtension {
-    apply: (request: SRequest) => void;
+    requestApply: (request: SRequest, responce?: any) => void;
+    hookOnExitApp?: () => void;
+    onResponseEndHook?: () => void;
 }

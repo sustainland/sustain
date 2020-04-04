@@ -35,6 +35,7 @@ export function createAppServer(requests: any, config: any) {
             SessionsManager.createIfNotExistsNewSession(request, response);
             response.setHeader('x-powered-by', 'Sustain Server');
             response.setHeader('Access-Control-Allow-Origin', '*');
+            SessionsManager.requestApply(request);
             let body = await prepareBody(request, response);
             const route = requestSegmentMatch(requests, request);
             if (route) {
@@ -76,11 +77,13 @@ export function createAppServer(requests: any, config: any) {
                 console.log(error)
             })
             response.on('finish', () => {
+                // TODO: move this to log extension
                 let endTime: any = new Date();
 
                 let timeDiff: any = endTime - request.startAt; //in ms
 
                 console.log(`\x1b[32m${request.method} ${request.url}\x1b[0m `, `${response.statusCode}`, "in ", timeDiff, "ms");
+                SessionsManager.onResponseEndHook();
             })
         } catch (error) {
             console.log(error);
@@ -145,10 +148,7 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
                 methodArgs[Number(arg_index)] = assets.response;
                 break;
             case RouteParamtypes.SESSION:
-                const userSession = SessionsManager.getSession(assets.request)
-                userSession.set = SessionsManager.setKey(assets.request.idSession);
-                userSession.get = SessionsManager.getKey(assets.request.idSession, assets.request.sessions);
-                methodArgs[Number(arg_index)] = userSession;
+                methodArgs[Number(arg_index)] = assets.request.session;
                 break;
             case RouteParamtypes.HEADERS:
                 methodArgs[Number(arg_index)] = assets.request.headers;
@@ -199,4 +199,4 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
 
 process.on('uncaughtException', (error) => {
     console.log('\x1b[31m%s\x1b[0m', error.stack);  //yellow
-})
+});

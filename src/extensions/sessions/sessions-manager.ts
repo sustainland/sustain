@@ -28,19 +28,6 @@ export class SessionManager implements SExtension {
         }
     }
 
-    setKey(idSession: string) {
-        return (key: any, value: any) => {
-            this.sessions[idSession][key] = value;
-            SessionProvider.provider.save(this.sessions);
-        }
-    }
-
-    getKey(idSession: string, sessions: any) {
-        return (key: any) => {
-
-            return key ? this.sessions[idSession][key] : this.sessions[idSession];
-        }
-    }
     setSession(idSession: string, data: any) {
         this.sessions[idSession] = data;
         SessionProvider.provider.save(this.sessions);
@@ -65,17 +52,34 @@ export class SessionManager implements SExtension {
      * @param response 
      */
     createIfNotExistsNewSession(request: any, response: any, option?: any) {
-        if (!this.getIdSessionFromCookies(request)) {
+        const idSession = this.getIdSessionFromCookies(request);
+        if (!idSession) {
             const ids = uniqueID();
             response.setHeader('Set-Cookie', [`${this.SESSION_ID}=${ids}; Path=/ ;`]);
             this.setSession(ids, {})
+        } else if (!this.sessions[idSession]) {
+            this.sessions[idSession] = {}
         }
     }
 
-    apply(request: SRequest) {
-
+    requestApply(request: SRequest) {
+        const idSession = this.getIdSessionFromCookies(request);
+        request.session = new Proxy({},
+            {
+                get: (obj, name: any) => {
+                    return this.sessions[idSession][name];
+                },
+                set: (obj, name: string, value, res) => {
+                    this.sessions[idSession][name] = value;
+                    return true;
+                },
+            }
+        );
     };
 
+    onResponseEndHook() {
+        SessionProvider.provider.save(this.sessions);
+    }
 
 }
 InjectedContainer.addProvider({ provide: SessionManager, useClass: SessionManager });
