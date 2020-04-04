@@ -8,7 +8,6 @@ export const serveStatic = (staticBasePath: string, request: any, response: any)
 
     var safeSuffix = normalize(request.url).replace(/^(\.\.[\/\\])+/, '');
     var fileLoc = join(resolvedBase, safeSuffix);
-    console.log('99')
 
     if (!request.url.endsWith('/')) {
         if (statSync(fileLoc).isDirectory()) {
