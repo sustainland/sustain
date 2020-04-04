@@ -25,7 +25,7 @@ const HttpRequests: any = {};
  */
 export function bootstrap(app: any): any {
     const { APP_CONFIG } = app.prototype;
-    let { controllers, providers } = APP_CONFIG;
+    let { controllers, providers, extensions } = APP_CONFIG;
     controllers.push(BaseController);
     (providers || []).forEach((provider: any) => {
         InjectedContainer.addProvider({ provide: provider, useClass: provider });
@@ -36,6 +36,11 @@ export function bootstrap(app: any): any {
         InjectedContainer.inject(controller);
         return InjectedContainer.get(controller);
     });
+    APP_CONFIG.extensions.load = (extensions.load || []).map((extension: any) => {
+        InjectedContainer.inject(extension);
+        return InjectedContainer.get(extension);
+    });
+
     const requests = loadControllers(controllers);
 
     return createAppServer(requests, {

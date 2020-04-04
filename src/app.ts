@@ -11,6 +11,8 @@ import { App } from './decorators/core/app.decorator';
 import { SwaggerAPI } from './decorators/core/swagger.decorator';
 import { Extensions } from './decorators/core/extensions.decorator';
 import { SessionsProviders, ROOT_FOLDER } from './constants';
+import { SessionManager } from './core';
+import { RequestLoggerExtension } from './extensions/request-logger/request-logger.extension';
 
 require('source-map-support').install();
 
@@ -28,9 +30,14 @@ require('source-map-support').install();
     session: {
         provider: SessionsProviders.File
     },
-    swagger: {
-        enable: true
-    }
+    load : [
+        SessionManager,
+        RequestLoggerExtension
+    ]
+    // swagger: {
+    //     enable: true
+    // },
+
 })
 @App({
     controllers: [

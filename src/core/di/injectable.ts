@@ -13,6 +13,7 @@ export const Injectable = function (route?: string) {
 }
 
 export const Controller = Injectable;
+export const SExtension = Injectable;
 
 export function isInjectable<T>(target: Type<T>) {
   return Reflect.getMetadata(INJECTABLE_METADATA_KEY, target) === true;

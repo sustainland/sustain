@@ -14,11 +14,13 @@ import { InjectedContainer } from './di';
 import { prepareBody } from './body-parser';
 import { render404Page } from './static-server/render-error-pages';
 import { SRequest } from '../interfaces';
+import { isArray } from 'util';
 
 const mode = "debug";
 const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
 const SessionProvider = InjectedContainer.get(SessionProviders);
 
+const exntensionContainer: any[] = [];
 
 export function createAppServer(requests: any, config: any) {
 
@@ -29,9 +31,19 @@ export function createAppServer(requests: any, config: any) {
         SessionsManager.loadProvider();
     }
 
+    if (extensions.load && isArray(extensions.load)) {
+        extensions.load.forEach((extension: any) => {
+            exntensionContainer.push(extension)
+        })
+    }
+
     const server = createServer(async (request: SRequest, response: ServerResponse) => {
         try {
-            request.startAt = new Date();
+            exntensionContainer.forEach((extension: any) => {
+                if (extension.onResquestStartHook) {
+                    extension.onResquestStartHook(request, response)
+                }
+            });
             SessionsManager.createIfNotExistsNewSession(request, response);
             response.setHeader('x-powered-by', 'Sustain Server');
             response.setHeader('Access-Control-Allow-Origin', '*');
@@ -78,12 +90,11 @@ export function createAppServer(requests: any, config: any) {
             })
             response.on('finish', () => {
                 // TODO: move this to log extension
-                let endTime: any = new Date();
-
-                let timeDiff: any = endTime - request.startAt; //in ms
-
-                console.log(`\x1b[32m${request.method} ${request.url}\x1b[0m `, `${response.statusCode}`, "in ", timeDiff, "ms");
-                SessionsManager.onResponseEndHook();
+                exntensionContainer.forEach((extension: any) => {
+                    if (extension.onResponseEndHook) {
+                        extension.onResponseEndHook(request, response)
+                    }
+                });
             })
         } catch (error) {
             console.log(error);
