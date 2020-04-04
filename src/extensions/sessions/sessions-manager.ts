@@ -1,12 +1,15 @@
 import { SessionProviders } from "./sessions-providers";
 import { Injectable, InjectedContainer } from "../../core/di";
 import { uniqueID } from "../../utils/unique-id.util";
+import { SExtension } from "../../interfaces/SExtension.interface";
+import { SRequest } from "../../interfaces";
 
 InjectedContainer.addProvider({ provide: SessionProviders, useClass: SessionProviders });
 InjectedContainer.inject(SessionProviders);
 const SessionProvider = InjectedContainer.get(SessionProviders);
 @Injectable()
-export class SessionManager {
+export class SessionManager implements SExtension {
+
     sessions: any = {};
     SESSION_ID: string = 'ids';
     constructor() {
@@ -68,6 +71,10 @@ export class SessionManager {
             this.setSession(ids, {})
         }
     }
+
+    apply(request: SRequest) {
+
+    };
 
 
 }
