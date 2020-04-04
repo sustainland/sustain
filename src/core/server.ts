@@ -70,7 +70,7 @@ export function createAppServer(requests: any, config: any) {
             } else {
                 try {
                     const extesnion = fileExtension(request.url);
-                    if (!extesnion) {
+                    if (!extesnion && request.url.endsWith('/')) {
                         request.url = request.url.replace(/\/$/, "");
                         request.url += '/index.html';
                     }
