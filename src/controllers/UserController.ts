@@ -3,7 +3,7 @@ import { Request, Param, Response, Header, Query, Body } from "../decorators/htt
 import { Controller } from "../core/di";
 import { UserService } from "../services/user.service";
 import { Interceptors } from "../decorators/interceptors.decorators";
-import { Auth } from "../auth";
+import { Auth } from "../interceptors/auth.interceptor";
 
 
 @Controller('/users')

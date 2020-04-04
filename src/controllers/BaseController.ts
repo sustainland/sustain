@@ -1,7 +1,7 @@
 import { Controller } from "../core/di";
 import { Get, Response } from "../decorators/http";
 
-import { OpenApi } from "../core/generateOpenApi";
+import { OpenApi } from "../extensions/swagger/generateOpenApi";
 
 
 @Controller()

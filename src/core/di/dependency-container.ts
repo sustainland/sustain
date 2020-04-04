@@ -1,6 +1,6 @@
-import { Container } from "./di";
+import { Container } from "./container";
 
-class DependencyInjectionContainer {
+class DependencyContainer {
     container = new Container();
 
     containerMap = new Map<any, any>();
@@ -21,4 +21,4 @@ class DependencyInjectionContainer {
     }
 }
 
-export const InjectedContainer = new DependencyInjectionContainer() ;
+export const InjectedContainer = new DependencyContainer() ;

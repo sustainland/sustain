@@ -2,11 +2,11 @@ import { getControllersMethods } from "../utils/extract-methods.util";
 import { PATH_METADATA, MATCH_METADATA, INTERCEPTORS, METHOD_RETURN, CONTROLLER_ROUTE } from "../constants";
 import { PATH_TYPE, METHOD_METADATA, PATH_TYPES } from "../constants";
 import { RequestMethod } from '../enums/request-method.enum';
-import { InjectedContainer } from './container';
 import { match } from '../utils/path-to-regex';
 
 import { createAppServer } from "./server";
 import BaseController from "../controllers/BaseController";
+import { InjectedContainer } from "./di/dependency-container";
 const DEFAULT_PORT = 5200;
 const metadataKey = [
     INTERCEPTORS,

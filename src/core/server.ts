@@ -4,15 +4,15 @@ import { createServer, IncomingMessage, ServerResponse } from 'http';
 import { ROUTE_ARGS_METADATA } from '../constants';
 import { RouteParamtypes } from '../enums/route-params.enum';
 import { RequestMethod } from '../enums/request-method.enum';
-import { InjectedContainer } from './container';
-import { SessionProviders } from './sessions-providers';
+import { SessionProviders } from '../extensions/sessions/sessions-providers';
 import { ContentType } from '../enums/content-type.enum';
-import { SessionManager } from './sessions';
+import { SessionManager } from '../extensions/sessions/sessions-manager';
 import { join, normalize, resolve } from 'path';
 import * as  querystring from 'querystring';
-import { generateMethodSpec } from './generateOpenApi';
+import { generateMethodSpec } from '../extensions/swagger/generateOpenApi';
 import { readFileSync, existsSync } from 'fs';
 import { fileExtension } from '../utils/shared.utils';
+import { InjectedContainer } from './di';
 const mode = "debug";
 
 class Request extends IncomingMessage {

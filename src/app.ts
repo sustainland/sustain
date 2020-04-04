@@ -1,7 +1,7 @@
 
 import HelloController from './controllers/HelloController';
 import { bootstrap } from './core/bootstrap';
-import { SessionProviders } from './core/sessions-providers';
+import { SessionProviders } from './extensions/sessions/sessions-providers';
 import { UserService } from './services/user.service';
 import { LoggerService } from './services/logger.service';
 import UserController from './controllers/UserController';

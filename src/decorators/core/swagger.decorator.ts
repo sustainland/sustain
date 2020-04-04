@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { ISwaggerInfo } from '../../interfaces/swagger.interfaces';
 import { SWAGGER_META_DATA, API_MODEL_PROPERTIES_ARRAY, API_MODEL_PROPERTIES, SWAGGER_ALLOWED_TYPES } from '../../constants';
 import { isString, isObject, isArray } from 'util';
-import { OpenApiDefinitions } from '../../core/generateOpenApi';
+import { OpenApiDefinitions } from '../../extensions/swagger/generateOpenApi';
 
 export enum ApiModes {
     Consumes = 'CONSUMES',

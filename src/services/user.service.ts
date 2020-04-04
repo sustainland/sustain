@@ -1,6 +1,6 @@
 import { Injectable } from "../core/di";
 import { LoggerService } from "./logger.service";
-import { SessionProviders } from "../core/sessions-providers";
+import { SessionProviders } from "../extensions/sessions/sessions-providers";
 
 @Injectable()
 export class UserService {

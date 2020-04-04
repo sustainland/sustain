@@ -1,7 +1,6 @@
 import { SessionProviders } from "./sessions-providers";
-import { InjectedContainer } from "./container";
-import { Injectable } from "./di";
-import { uniqueID } from "../utils/unique-id.util";
+import { Injectable, InjectedContainer } from "../../core/di";
+import { uniqueID } from "../../utils/unique-id.util";
 
 InjectedContainer.addProvider({ provide: SessionProviders, useClass: SessionProviders });
 InjectedContainer.inject(SessionProviders);

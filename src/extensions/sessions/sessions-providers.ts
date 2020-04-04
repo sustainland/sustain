@@ -1,6 +1,6 @@
-import { SessionsProviders, SESSION_FILE_PATH } from "../constants";
+import { SessionsProviders, SESSION_FILE_PATH } from "../../constants";
 import { existsSync, readFileSync, writeFileSync } from "fs";
-import { Injectable } from "./di";
+import { Injectable } from "../../core/di";
 
 @Injectable()
 export class SessionProviders {
