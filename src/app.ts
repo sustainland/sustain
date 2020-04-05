@@ -15,6 +15,7 @@ import { SessionManager } from './core';
 import { RequestLoggerExtension } from './extensions/request-logger/request-logger.extension';
 
 require('source-map-support').install();
+var bodyParser = require('body-parser')
 
 
 
@@ -30,13 +31,16 @@ require('source-map-support').install();
     session: {
         provider: SessionsProviders.File
     },
-    load : [
+    load: [
         SessionManager,
         RequestLoggerExtension
-    ]
+    ],
     // swagger: {
     //     enable: true
     // },
+    expressMiddlewares: [
+        bodyParser.json()
+    ]
 
 })
 @App({

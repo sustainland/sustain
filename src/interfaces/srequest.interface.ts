@@ -4,5 +4,6 @@ export interface SRequest extends IncomingMessage {
     params: { [key: string]: string | undefined };
     staticFileExist?: boolean;
     startAt?: any;
+    body?: any;
     session?: any;
 }

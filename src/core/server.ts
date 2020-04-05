@@ -15,6 +15,7 @@ import { prepareBody } from './body-parser';
 import { render404Page } from './static-server/render-error-pages';
 import { SRequest } from '../interfaces';
 import { isArray } from 'util';
+var bodyParser = require('body-parser')
 
 const mode = "debug";
 const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
@@ -25,7 +26,7 @@ const exntensionContainer: any[] = [];
 export function createAppServer(requests: any, config: any) {
 
     generateMethodSpec(requests, config);
-    const { extensions } = config;
+    const { extensions, expressMiddlewares } = config;
     if (extensions.session && extensions.session.provider != undefined) {
         SessionProvider.initiateProvider(extensions.session.provider);
         SessionsManager.loadProvider();
@@ -37,6 +38,7 @@ export function createAppServer(requests: any, config: any) {
         })
     }
 
+
     const server = createServer(async (request: SRequest, response: ServerResponse) => {
         try {
             exntensionContainer.forEach((extension: any) => {
@@ -45,17 +47,32 @@ export function createAppServer(requests: any, config: any) {
                 }
             });
             SessionsManager.createIfNotExistsNewSession(request, response);
+            const middlewares = [];
+            for (let middleware of expressMiddlewares) {
+                middlewares.push(new Promise((resolve, reject) => {
+                    return middleware(request, response, resolve)
+                }))
+            }
+            await Promise.all(middlewares)
+                .catch((e: Error) => {
+                    console.log('\x1b[31m%s\x1b[0m', `${e.message}, ${e.stack}`);
+                    response.end(`${e.message}, ${e.stack}
+                `)
+                    throw e;
+                })
+            await new Promise((resolve, reject) => {
+                bodyParser.json()(request, response, resolve)
+            })
             response.setHeader('x-powered-by', 'Sustain Server');
             response.setHeader('Access-Control-Allow-Origin', '*');
             SessionsManager.requestApply(request);
-            let body = await prepareBody(request, response);
             const route = requestSegmentMatch(requests, request);
             if (route) {
                 if (route.interceptors) {
                     await executeInterceptor(route, request, response)
                 }
                 const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, route.handler) || {}
-                const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, { request, response, body })
+                const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, { request, response, body: request.body })
                 const result = route.objectHanlder[route.functionHandler](...methodArgs);
 
                 if (result instanceof Promise) {
@@ -167,9 +184,9 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
             case RouteParamtypes.BODY:
                 let askedBody;
                 if (additionalData) {
-                    askedBody = assets.body[additionalData];
+                    askedBody = assets.request.body[additionalData];
                 } else {
-                    askedBody = assets.body;
+                    askedBody = assets.request.body;
                 }
                 methodArgs[Number(arg_index)] = askedBody;
                 break;

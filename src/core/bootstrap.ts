@@ -48,6 +48,7 @@ export function bootstrap(app: any): any {
         staticFolder: APP_CONFIG.staticFolder || [],
         swaggerConfig: APP_CONFIG.swaggerConfig,
         extensions: APP_CONFIG.extensions || {},
+        expressMiddlewares: APP_CONFIG.expressMiddlewares || [],
     });
 }
 

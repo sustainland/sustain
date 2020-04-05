@@ -14,7 +14,7 @@ export default class HelloController {
         return session;
     }
     @Post('/byebye')
-    byebye(@Body('user') user: UserDto) {
+    byebye(@Body() user: UserDto) {
         return "value" + user.name;
     }
 
