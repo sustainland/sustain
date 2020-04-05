@@ -7,6 +7,7 @@ import { LoggerService } from './services/logger.service';
 import UserController from './controllers/UserController';
 import BaseController from './controllers/BaseController';
 import HttpController from './controllers/HttpController';
+import PlayerController from './controllers/PlayerController';
 import { App } from './decorators/core/app.decorator';
 import { SwaggerAPI } from './decorators/core/swagger.decorator';
 import { Extensions } from './decorators/core/extensions.decorator';
@@ -48,7 +49,8 @@ var bodyParser = require('body-parser')
         HelloController,
         UserController,
         BaseController,
-        HttpController
+        HttpController,
+        PlayerController
     ],
     providers: [
         LoggerService,
