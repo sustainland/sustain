@@ -16,9 +16,9 @@ import { SessionManager } from './core';
 import { RequestLoggerExtension } from './extensions/request-logger/request-logger.extension';
 
 require('source-map-support').install();
-var bodyParser = require('body-parser')
 
-
+// using body-parser for demo purpose, that we can use expressjs ecosystem
+const bodyParser = require('body-parser')
 
 @SwaggerAPI({
     info: {
