@@ -27,8 +27,7 @@ export function assignMetadata<TParamtype = any, TArgs = any>(
 const createParamDecorator = (paramtype: RouteParamtypes) => {
     return (data?: ParamData): ParameterDecorator => (target: any, key, index) => {
 
-        const args =
-            Reflect.getMetadata(ROUTE_ARGS_METADATA, Object.assign(target)[key]) || {};
+        const args = Reflect.getMetadata(ROUTE_ARGS_METADATA, Object.assign(target)[key]) || {};
         const designtype = Reflect.getMetadata("design:paramtypes", target, key);
 
         let ParamType = designtype[index].name;

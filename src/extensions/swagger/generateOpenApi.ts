@@ -79,6 +79,10 @@ function getPathParams(route: any) {
 
 function getRequestBody(route: any, method?: any) {
     const routeArgsMetadata = Reflect.getMetadata(ROUTE_ARGS_METADATA, route.handler);
+    let { CRUD_MODEL } = route.objectHanlder.constructor.prototype;
+    if (CRUD_MODEL) {
+        CRUD_MODEL = CRUD_MODEL.prototype.constructor.name;
+    }
     let tokens: any = [];
     const properties: any = [];
     for (const paramsKeys in routeArgsMetadata) {
@@ -99,16 +103,28 @@ function getRequestBody(route: any, method?: any) {
             }
         }
         let useSchema;
-        if (!SWAGGER_ALLOWED_TYPES
-            .map(type => type.toLocaleLowerCase())
-            .includes(routeArgsMetadata[paramsKeys].type)) {
+
+        if (CRUD_MODEL && method
+            && [
+                RequestMethod.POST,
+                RequestMethod.PUT,
+                RequestMethod.PATCH
+            ].includes(method)) {
             useSchema = {
-                $ref: `#/definitions/${routeArgsMetadata[paramsKeys].type}`
+                $ref: `#/definitions/${CRUD_MODEL}`
             }
         } else {
-            useSchema = { type: OpenAPITypes.Object, properties: { ...properties } }
-
+            if (!SWAGGER_ALLOWED_TYPES
+                .map(type => type.toLocaleLowerCase())
+                .includes(routeArgsMetadata[paramsKeys].type)) {
+                useSchema = {
+                    $ref: `#/definitions/${routeArgsMetadata[paramsKeys].type}`
+                }
+            } else {
+                useSchema = { type: OpenAPITypes.Object, properties: { ...properties } }
+            }
         }
+
         if (Object.keys(properties).length !== 0) {
             tokens = [
                 {

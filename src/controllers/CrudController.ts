@@ -13,7 +13,7 @@ export default class SustainCrudController<T> {
 
 
     @Post()
-    create(@Body() body: any) {
+    createPost(@Body() body: T): T {
         return body;
     }
 

@@ -85,8 +85,6 @@ function createMethodApiResponseDecorator(): Function {
 function createPropertyDecorator() {
     return (config: any = {}) => {
         return (target: object, propertyKey: string) => {
-            const properties =
-                Reflect.getMetadata(API_MODEL_PROPERTIES_ARRAY, target) || [];
 
             if (!OpenApiDefinitions[target.constructor.name]) {
                 OpenApiDefinitions[target.constructor.name] = {
