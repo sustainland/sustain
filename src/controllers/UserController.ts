@@ -1,8 +1,10 @@
-import { Get, Post } from "../decorators/http/requests.decorators";
-import { Request, Param, Response, Header, Query, Body } from "../decorators/http/route-params.decorator";
-import { Controller } from "../core/di";
+import { ApiProduces, ApiConsumes, ApiResponse } from '../../packages/common/decorators/swagger.decorator';
+import { UserDto } from './../dto/HelloDto';
+import { Get, Post } from "../../packages/common/decorators/http/requests.decorators";
+import { Request, Param, Response, Header, Query, Body } from "../../packages/common/decorators/http/route-params.decorator";
+import { Controller } from "../../packages/core/di";
 import { UserService } from "../services/user.service";
-import { Interceptors } from "../decorators/interceptors.decorators";
+import { Interceptors } from "../../packages/common/decorators/interceptors.decorators";
 import { Auth } from "../interceptors/auth.interceptor";
 
 
@@ -10,10 +12,29 @@ import { Auth } from "../interceptors/auth.interceptor";
 export default class UserController {
     constructor(private userService: UserService) { }
 
+    @ApiConsumes([
+        "application/json",
+        "application/xml"
+    ])
+    @ApiProduces([
+        "application/json",
+        "application/xml"
+    ])
+    @ApiResponse([
+        { status: 200, description: "OK" },
+        { status: 201, description: "Created" }
+    ])
+    @Post()
+    create(@Body() body: UserDto) {
+        return body;
+    }
+
     @Get()
     users() {
         return this.userService.list();
     }
+
+
 
     @Get('/:id')
     singleUser(

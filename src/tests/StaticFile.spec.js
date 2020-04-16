@@ -1,6 +1,6 @@
 /*jshint esversion: 8 */
 
-const app = require('../../dist/app');
+const app = require('../../dist/src/app');
 const supertest = require('supertest');
 describe('UserController Tests', function () {
 

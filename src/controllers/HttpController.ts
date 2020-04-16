@@ -13,10 +13,10 @@ import {
     Query,
     Headers,
     Header
-} from "../decorators/http";
+} from "../../packages/common/decorators/http";
 
-import { Controller } from "../core";
-import { ApiConsumes, ApiProduces, ApiTags, ApiResponse } from "../decorators/core/swagger.decorator";
+import { Controller } from "../../packages/core";
+import { ApiConsumes, ApiProduces, ApiTags, ApiResponse } from "../../packages/common/decorators/swagger.decorator";
 import { UserDto } from "../dto/HelloDto";
 
 

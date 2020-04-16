@@ -1,19 +1,19 @@
 
 const { readFile } = require('fs');
 import { createServer, IncomingMessage, ServerResponse } from 'http';
-import { ROUTE_ARGS_METADATA } from '../constants';
-import { RouteParamtypes } from '../enums/route-params.enum';
-import { SessionProviders } from '../extensions/sessions/sessions-providers';
-import { SessionManager } from '../extensions/sessions/sessions-manager';
+import { ROUTE_ARGS_METADATA } from '../../src/constants';
+import { RouteParamtypes } from '../common/enums/route-params.enum';
+import { SessionProviders } from '../../src/extensions/sessions/sessions-providers';
+import { SessionManager } from '../../src/extensions/sessions/sessions-manager';
 import { join } from 'path';
 import * as  querystring from 'querystring';
-import { generateMethodSpec } from '../extensions/swagger/generateOpenApi';
+import { generateMethodSpec } from '../common/extensions/swagger/generateOpenApi';
 import { serveStatic } from './static-server/serve';
-import { fileExtension } from '../utils/shared.utils';
+import { fileExtension } from '../../src/utils/shared.utils';
 import { InjectedContainer } from './di';
 import { prepareBody } from './body-parser';
 import { render404Page } from './static-server/render-error-pages';
-import { SRequest } from '../interfaces';
+import { SRequest } from '../../src/interfaces';
 import { isArray } from 'util';
 var bodyParser = require('body-parser')
 

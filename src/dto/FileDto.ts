@@ -1,4 +1,4 @@
-import { ApiProperty } from "../decorators/core/swagger.decorator";
+import { ApiProperty } from "../../packages/common/decorators/swagger.decorator";
 
 export class FileDto {
 

@@ -1,5 +1,5 @@
 import { SessionProviders } from "./sessions-providers";
-import { Injectable, InjectedContainer } from "../../core/di";
+import { Injectable, InjectedContainer } from "../../../packages/core/di";
 import { uniqueID } from "../../utils/unique-id.util";
 import { IExtension } from "../../interfaces/IExtension.interface";
 import { SRequest } from "../../interfaces";

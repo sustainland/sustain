@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { ISwaggerInfo } from '../../interfaces/swagger.interfaces';
+import { ISwaggerInfo } from '../interfaces/swagger.interfaces';
 
 function createExtensionsDecorator(): Function {
     return (extensions: ISwaggerInfo ) => {

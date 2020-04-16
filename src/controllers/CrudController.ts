@@ -1,5 +1,15 @@
-import { Controller, Injectable } from "../core/di";
-import { Get, Response, Post, Body, Patch, Put, Delete, Param, Head, Options } from "../decorators/http";
+import { Injectable } from "../../packages/core/di";
+import {
+    Get,
+    Post,
+    Body,
+    Patch,
+    Put,
+    Delete,
+    Param,
+    Head,
+    Options
+} from "../../packages/common/decorators/http";
 
 
 
@@ -10,7 +20,6 @@ export default class SustainCrudController<T> {
 
     @Get()
     find() { return 200 }
-
 
     @Post()
     createPost(@Body() body: T): T {
@@ -38,7 +47,5 @@ export default class SustainCrudController<T> {
     optionsMethod() {
         return 200;
     }
-
-
 
 }

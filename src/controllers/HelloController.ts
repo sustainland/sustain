@@ -1,6 +1,6 @@
-import { Get, Post } from "../decorators/http/requests.decorators";
-import { Session, Body } from "../decorators/http/route-params.decorator";
-import { Controller } from "../core/di";
+import { Get, Post } from "../../packages/common/decorators/http/requests.decorators";
+import { Session, Body } from "../../packages/common/decorators/http/route-params.decorator";
+import { Controller } from "../../packages/core/di";
 import { UserDto } from "../dto/HelloDto";
 
 

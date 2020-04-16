@@ -1,5 +1,5 @@
-import { Next, Response, Headers } from "../decorators/http/route-params.decorator";
-import { Injectable } from "../core/di";
+import { Next, Response, Headers } from "../../packages/common/decorators/http/route-params.decorator";
+import { Injectable } from "../../packages/core/di";
 
 @Injectable()
 export class Auth{

@@ -1,7 +1,11 @@
-import { ROUTE_ARGS_METADATA, SWAGGER_META_DATA, SWAGGER_ALLOWED_TYPES } from "../../constants"
+import {
+    ROUTE_ARGS_METADATA,
+    SWAGGER_META_DATA,
+    SWAGGER_ALLOWED_TYPES,
+    OpenAPITypes
+} from "../../constants"
 import * as pathToRegexp from 'path-to-regexp'
 import { RouteParamtypes } from "../../enums/route-params.enum";
-import { OpenAPITypes } from "../../constants";
 import { ISwaggerInfo } from "../../interfaces/swagger.interfaces";
 import { RequestMethod } from "../../enums/request-method.enum";
 

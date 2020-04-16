@@ -1,5 +1,5 @@
 import { SessionsProviders } from "../../constants";
-import { Injectable } from "../../core/di";
+import { Injectable } from "../../../packages/core/di";
 import { SessionFileProvider } from "./sessions-providers/session-file.provider";
 import { SessionMongoProvider } from "./sessions-providers/session-mongo.provider";
 

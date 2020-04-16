@@ -1,1 +1,1 @@
-export * from './decorators/http';
+export * from '../packages/common/decorators/http';

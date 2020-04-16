@@ -1,10 +1,7 @@
-import { ROUTE_ARGS_METADATA, SWAGGER_ALLOWED_TYPES, API_MODEL_PROPERTIES_ARRAY } from "../../constants";
+import { ROUTE_ARGS_METADATA, SWAGGER_ALLOWED_TYPES } from "../../constants";
 import { RouteParamtypes } from "../../enums/route-params.enum";
 import { ParamData } from "../../interfaces/route-param-metadata.interface";
 import { RouteParamMetadata } from "../../interfaces/route-param-metadata.interface";
-
-
-
 
 export function assignMetadata<TParamtype = any, TArgs = any>(
     args: TArgs,
@@ -13,7 +10,6 @@ export function assignMetadata<TParamtype = any, TArgs = any>(
     data?: ParamData,
     type?: string
 ) {
-
     return {
         ...args,
         [`${paramtype}:${index}`]: {

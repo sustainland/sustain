@@ -1,5 +1,5 @@
 {
-    "name": "@sustain/core",
+    "name": "sustainjs",
     "version": "0.0.1",
     "description": "Sustain is a Framework that is barely used despedcies to make stable and sustainable apps",
     "repository": {
@@ -13,7 +13,7 @@
     "scripts": {
         "dev": "node dev",
         "start": "npm run serve",
-        "serve": "node dist/app.js",
+        "serve": "node dist/src/app.js",
         "test": "set PORT=5003 && jest --forceExit --detectOpenHandles  --coverage",
         "test:watch": "set PORT=5003 && jest --forceExit --detectOpenHandles --watch",
         "build": "tsc",
@@ -23,10 +23,13 @@
         "@types/node": "^12.7.8"
     },
     "dependencies": {
+        "@sustain/common": "file:packages/common",
+        "@sustain/core": "file:packages/core",
         "body-parser": "^1.19.0",
         "chai": "^4.2.0",
         "chai-http": "^4.3.0",
         "handlebars": "^4.7.3",
+        "hbs": "^4.1.1",
         "jest": "^25.1.0",
         "path-to-regexp": "^6.1.0",
         "reflect-metadata": "^0.1.13",

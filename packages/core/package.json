@@ -1,0 +1,19 @@
+{
+  "name": "@sustain/core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/labidiaymen/sustain.git"
+  },
+  "author": "Labidi Aymen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/labidiaymen/sustain/issues"
+  },
+  "homepage": "https://github.com/labidiaymen/sustain#readme"
+}

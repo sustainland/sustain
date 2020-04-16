@@ -20,6 +20,6 @@
         "declaration": true
     },
     "include": [
-        "src/**/*"
+        "src/**/*", "packages/core/body-parser.ts", "packages/core/index.ts", "packages/core/bootstrap.ts", "packages/core/server.ts", "packages/core/static-server", "packages/core/di", "packages/common/decorators", "packages/common/extensions/swagger", "packages/common/interfaces/swagger.interfaces.ts", "packages/common/utils/path-to-regex.ts", "packages/common/interfaces/route-param-metadata.interface.ts", "packages/common/enums"
     ]
 }

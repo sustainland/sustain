@@ -1,5 +1,5 @@
-import { RequestMethod } from "../enums/request-method.enum";
-import { ContentType } from "../enums/content-type.enum";
+import { RequestMethod } from "../common/enums/request-method.enum";
+import { ContentType } from "../common/enums/content-type.enum";
 
 export async function prepareBody(request: any, response: any) {
     let body: any = [];

@@ -1,6 +1,6 @@
 
 import HelloController from './controllers/HelloController';
-import { bootstrap } from './core/bootstrap';
+import { bootstrap } from '../packages/core/bootstrap';
 import { SessionProviders } from './extensions/sessions/sessions-providers';
 import { UserService } from './services/user.service';
 import { LoggerService } from './services/logger.service';
@@ -8,11 +8,11 @@ import UserController from './controllers/UserController';
 import BaseController from './controllers/BaseController';
 import HttpController from './controllers/HttpController';
 import PlayerController from './controllers/PlayerController';
-import { App } from './decorators/core/app.decorator';
-import { SwaggerAPI } from './decorators/core/swagger.decorator';
-import { Extensions } from './decorators/core/extensions.decorator';
+import { App } from '../packages/common/decorators/app.decorator';
+import { SwaggerAPI } from '../packages/common/decorators/swagger.decorator';
+import { Extensions } from '../packages/common/decorators/extensions.decorator';
 import { SessionsProviders, ROOT_FOLDER } from './constants';
-import { SessionManager } from './core';
+import { SessionManager } from '../packages/core';
 import { RequestLoggerExtension } from './extensions/request-logger/request-logger.extension';
 
 require('source-map-support').install();
@@ -27,6 +27,9 @@ const bodyParser = require('body-parser')
         description: "Generated with `Sustain`"
     },
     swagger: "2.0",
+    schemes: [
+        "http"
+    ],
 })
 @Extensions({
     session: {
@@ -36,13 +39,9 @@ const bodyParser = require('body-parser')
         SessionManager,
         RequestLoggerExtension
     ],
-    // swagger: {
-    //     enable: true
-    // },
     expressMiddlewares: [
         bodyParser.json()
     ]
-
 })
 @App({
     controllers: [

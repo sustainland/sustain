@@ -1,5 +1,5 @@
 import { Type } from "./type";
-import { CONTROLLER_ROUTE } from "../../constants";
+import { CONTROLLER_ROUTE } from "../../../src/constants";
 import "reflect-metadata";
 
 const INJECTABLE_METADATA_KEY = Symbol("INJECTABLE_KEY");

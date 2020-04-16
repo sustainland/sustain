@@ -1,4 +1,4 @@
-import { Injectable } from "../core/di";
+import { Injectable } from "../../packages/core/di";
 import { LoggerService } from "./logger.service";
 import { SessionProviders } from "../extensions/sessions/sessions-providers";
 

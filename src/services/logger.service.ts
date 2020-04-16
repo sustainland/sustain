@@ -1,4 +1,4 @@
-import { Injectable } from "../core/di";
+import { Injectable } from "../../packages/core/di";
 
 @Injectable()
 export class LoggerService {

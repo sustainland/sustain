@@ -1,6 +1,6 @@
 import { IExtension } from "../../interfaces/IExtension.interface";
 import { SRequest } from "../../interfaces";
-import { Injectable } from "../../core";
+import { Injectable } from "../../../packages/core";
 @Injectable()
 export class RequestLoggerExtension implements IExtension {
     onResquestStartHook(request: SRequest) {
