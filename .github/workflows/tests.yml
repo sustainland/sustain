@@ -32,9 +32,11 @@ jobs:
         npm run build
         cd .. 
         cd core
+        npm i 
         npm run build
         cd ..
         cd extensions/sessions
+        npm i 
         npm run build
         cd ..
         cd ..
