@@ -29,5 +29,5 @@ jobs:
     - run: npm test
       env:
         CI: true  
-      working-directory: samples/basic-routers
+      working-directory: ./samples/basic-routers
     - uses: codecov/codecov-action@v1
