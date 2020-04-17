@@ -29,6 +29,7 @@ jobs:
     - name: build and test
       run: |
         cd packages/common
+        npm i 
         npm run build
         cd .. 
         cd core
