@@ -36,7 +36,7 @@
         "source-map-support": "^0.5.16",
         "supertest": "^4.0.2",
         "swagger-jsdoc": "^3.5.0",
-        "typescript": "^3.6.3",
+        "typescript": "3.3.3",
         "yamljs": "^0.3.0"
     }
 }
