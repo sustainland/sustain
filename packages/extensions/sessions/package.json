@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc" 
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,9 @@
   "devDependencies": {
     "typescript": "^3.6.3",
     "reflect-metadata": "^0.1.13"
+  },
+  "dependencies": {
+    "@sustain/core": "file:../../core",
+    "@types/node": "^12.7.8"
   }
 }
