@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@sustain/common": "file:../common",
-    "@sustain/session": "file:../extensions/sessions"
+    "@sustain/session": "file:../extensions/sessions",
+    "reflect-metadata": "^0.1.13"
   }
 }
