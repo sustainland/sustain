@@ -20,6 +20,7 @@
   "devDependencies": {
     "typescript": "^3.6.3",
     "reflect-metadata": "^0.1.13",
-    "path-to-regexp": "^6.1.0"
+    "path-to-regexp": "^6.1.0",
+    "@types/node": "^12.7.8"
   }
 }
