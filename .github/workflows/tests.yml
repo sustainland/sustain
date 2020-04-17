@@ -28,6 +28,17 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: build and test
       run: |
+        cd packages/common
+        npm run build
+        cd .. 
+        cd core
+        npm run build
+        cd ..
+        cd extensions/sessions
+        npm run build
+        cd ..
+        cd ..
+        cd ..
         cd samples/basic-routers
         npm i
         npm run build --if-present
