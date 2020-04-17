@@ -19,6 +19,7 @@
   "homepage": "https://github.com/labidiaymen/sustain#readme",
   "devDependencies": {
     "typescript": "^3.6.3",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "path-to-regexp": "^6.1.0"
   }
 }

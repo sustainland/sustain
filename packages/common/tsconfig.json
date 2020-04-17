@@ -11,6 +11,9 @@
         "sourceMap": true,
         "outDir": "dist",
         "baseUrl": ".",
+        "types": [
+            "node"
+        ],
         "paths": {
             "*": [
                 "node_modules/*",
@@ -20,6 +23,7 @@
         "declaration": true
     },
     "include": [
-        "*.ts", "**/*.ts"
+        "*.ts",
+        "**/*.ts"
     ]
 }
