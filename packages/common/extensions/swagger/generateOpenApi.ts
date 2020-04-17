@@ -11,7 +11,9 @@ import { RequestMethod } from "../../enums/request-method.enum";
 
 export let OpenApi: any;
 export let OpenApiDefinitions: any = {}
-
+export function getOpenApi() {
+    return OpenApi;
+}
 export function generateMethodSpec(controllers: any, config: any) {
 
     const swaggerConfig: ISwaggerInfo = config.swaggerConfig;

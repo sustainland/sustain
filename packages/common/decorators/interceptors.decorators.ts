@@ -1,4 +1,4 @@
-import { INTERCEPTORS } from "../../../src/constants";
+import { INTERCEPTORS } from "../constants";
 
 function createDecorator() {
     return (interceptors: any[] = []) => {

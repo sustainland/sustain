@@ -10,6 +10,7 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "dist",
+        "rootDir": "src",
         "baseUrl": ".",
         "paths": {
             "*": [
@@ -17,9 +18,9 @@
                 "samples/types/*"
             ]
         },
-        "declaration": true
+        "declaration": true,
     },
     "include": [
-        "samples/**/*packages/core/src/body-parser.tsr.tspackages/core/src/index.tsx.tspackages/core/src/bootstrap.tsp.tspackages/core/spackages/core/src/static-servers/copackages/core/src/di", "packages/core/di", "packages/common/decorators", "packages/common/extensions/swagger", "packages/common/interfaces/swagger.interfaces.ts", "packages/common/utils/path-to-regex.ts", "packages/common/interfaces/route-param-metadata.interface.ts", "packages/common/en, "packages/core/decorators/app.decorator.ts"ums"
+        "./src/**/*"
     ]
 }

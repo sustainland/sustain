@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "build-watch": "tsc -w --noImplicitAny"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/labidiaymen/sustain/issues"
   },
-  "homepage": "https://github.com/labidiaymen/sustain#readme"
+  "homepage": "https://github.com/labidiaymen/sustain#readme",
+  "devDependencies": {
+    "typescript": "^3.6.3"
+  }
 }

@@ -1,1 +1,0 @@
-export * from '../packages/common/decorators/http';

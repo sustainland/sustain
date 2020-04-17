@@ -12,7 +12,9 @@ export enum OpenAPITypes {
     String = 'string',
     Object = 'object'
 }
-
+export enum PATH_TYPES {
+    String = 0
+}
 export const CONTROLLER_ROUTE = 'controller-roure';
 export const PATH_METADATA = 'path';
 export const MATCH_METADATA = 'match';
