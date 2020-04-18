@@ -58,9 +58,9 @@ export function createAppServer(requests: any, config: any) {
                 `)
                     throw e;
                 })
-            await new Promise((resolve, reject) => {
-                bodyParser.json()(request, response, resolve)
-            })
+            // await new Promise((resolve, reject) => {
+            //     bodyParser.json()(request, response, resolve)
+            // })
             response.setHeader('x-powered-by', 'Sustain Server');
             response.setHeader('Access-Control-Allow-Origin', '*');
             // SessionsManager.requestApply(request);
