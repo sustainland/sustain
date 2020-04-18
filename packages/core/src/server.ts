@@ -14,7 +14,6 @@ import { SRequest } from './interfaces';
 import { isArray } from 'util';
 import { InjectedContainer } from './di';
 import { RouteParamtypes } from './enums/route-params.enum';
-var bodyParser = require('body-parser')
 
 const mode = "debug";
 // const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
