@@ -14,7 +14,7 @@ import { App, bootstrap } from '@sustain/core';
 require('source-map-support').install();
 
 // using body-parser for demo purpose, that we can use expressjs ecosystem
-
+const bodyParser = require('body-parser')
 
 @SwaggerAPI({
     info: {
