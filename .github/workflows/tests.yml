@@ -26,26 +26,22 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: build and test
+    - name: install and build common package
       run: |
         cd packages/common
         npm i 
         npm run build
-        cd .. 
-        cd core
+    - name: install and build extension sessions package
+      run: |
+        cd packages/extensions/sessions
         npm i 
         npm run build
-        cd ..
-        cd extensions/sessions
+    - name: install and build core package
+      run: |
+        cd packages/core
         npm i 
         npm run build
-        cd ..
-        cd ..
-        cd ..
-        cd samples/basic-routers
-        npm i
-        npm run build --if-present
-        npm test
+        
       env:
         CI: true  
       
