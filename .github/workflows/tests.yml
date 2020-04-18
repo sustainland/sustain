@@ -26,11 +26,17 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: build and test
+    - name: install and build common package
       run: |
         cd packages/common
         npm i 
         npm run build
+    - name: install and build core package
+      run: |
+        cd packages/core
+        npm i 
+        npm run build
+        
 
       env:
         CI: true  
