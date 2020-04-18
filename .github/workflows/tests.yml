@@ -31,13 +31,17 @@ jobs:
         cd packages/common
         npm i 
         npm run build
+    - name: install and build extension sessions package
+      run: |
+        cd packages/extensions/sessions
+        npm i 
+        npm run build
     - name: install and build core package
       run: |
         cd packages/core
         npm i 
         npm run build
         
-
       env:
         CI: true  
       
