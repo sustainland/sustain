@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@sustain/common": "file:../common",
-    "@sustain/session": "file:../extensions/sessions",
     "reflect-metadata": "^0.1.13",
     "@types/node": "^12.7.8"
   }
