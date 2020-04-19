@@ -44,6 +44,7 @@ jobs:
     - name: install and test basic router package
       run: |
         cd samples/basic-routers
+        npm i 
         npm run build
                  
       env:
