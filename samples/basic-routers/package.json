@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
+    "dev": "node dev",
     "build-watch": "tsc -w --noImplicitAny",
     "test": "set PORT=5003 && jest --forceExit --detectOpenHandles  --coverage"
   },
@@ -19,15 +20,16 @@
   },
   "homepage": "https://github.com/labidiaymen/sustain#readme",
   "dependencies": {
+    "@sustain/body-parser": "file:../../packages/extensions/body-parser",
     "@sustain/common": "file:../../packages/common",
-    "@sustain/session": "file:../../packages/extensions/sessions",
     "@sustain/core": "file:../../packages/core",
-    "jest": "^25.1.0",
+    "@sustain/session": "file:../../packages/extensions/sessions",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "handlebars": "^4.7.3",
     "hbs": "^4.1.1",
+    "jest": "^25.1.0",
     "path-to-regexp": "^6.1.0",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.16",
@@ -37,6 +39,7 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "cpx": "^1.5.0",
     "typescript": "3.3.3"
   }
 }

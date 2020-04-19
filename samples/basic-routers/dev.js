@@ -22,7 +22,8 @@ TypeScriptCompileWatchProcess
 
 
 function startAppServer() {
-    appProcess = spawn('node', ['dist/src/app.js', '--inspect', '--port=5003']);
+    console.log("startAppServer -> startAppServer")
+    appProcess = spawn('node', ['dist/app.js', '--inspect', '--port=5003']);
     appProcess.stdout.on('data', function (data) {
         console.log(data.toString());
     });

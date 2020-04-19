@@ -3,7 +3,7 @@ import { join } from "path";
 
 export function render404Page(response: any) {
     response.writeHead(404, { 'Content-Type': 'text/html' });
-    readFile(join(__dirname, '../../public/404.html'), (err: any, data: any) => {
+    readFile(join(__dirname, '../public/404.html'), (err: any, data: any) => {
         if (!err) {
             response.end(data);
         } else {

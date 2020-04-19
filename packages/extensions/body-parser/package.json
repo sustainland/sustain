@@ -1,10 +1,11 @@
 {
-  "name": "body-parser",
+  "name": "@sustain/body-parser",
   "description": "Node.js body parsing middleware",
   "version": "1.19.0",
   "contributors": [
     "Douglas Christopher Wilson <doug@somethingdoug.com>",
-    "Jonathan Ong <me@jongleberry.com> (http://jongleberry.com)"
+    "Jonathan Ong <me@jongleberry.com> (http://jongleberry.com)",
+    "Labidi Aymen <labidi@aymen.co> (https://aymen.co)"
   ],
   "license": "MIT",
   "repository": "expressjs/body-parser",
