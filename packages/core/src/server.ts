@@ -1,3 +1,4 @@
+import { fileExtension } from '@sustain/common';
 // import { SessionManager, SessionProviders } from '@sustain/session';
 // 
 const { readFile } = require('fs');
@@ -7,7 +8,6 @@ import { join } from 'path';
 import * as  querystring from 'querystring';
 import { generateMethodSpec } from '@sustain/common';
 import { serveStatic } from './static-server/serve';
-import { fileExtension } from './utils';
 // import { prepareBody } from './body-parser';
 import { render404Page } from './static-server/render-error-pages';
 import { SRequest } from './interfaces';
