@@ -1,4 +1,3 @@
-import { match } from './utils/path-to-regex';
 import { RequestMethod } from './enums/request-method.enum';
 import { getControllersMethods } from "./utils";
 import { PATH_TYPE, METHOD_METADATA, PATH_TYPES, PATH_METADATA, MATCH_METADATA, INTERCEPTORS, METHOD_RETURN, CONTROLLER_ROUTE } from "./constants";
@@ -6,6 +5,7 @@ import { PATH_TYPE, METHOD_METADATA, PATH_TYPES, PATH_METADATA, MATCH_METADATA, 
 import { createAppServer } from "./server";
 // import BaseController from "../../samples/basic-routers/controllers/BaseController";
 import { InjectedContainer } from "./di/dependency-container";
+import { match } from '@sustain/common';
 const DEFAULT_PORT = 5200;
 const metadataKey = [
     INTERCEPTORS,

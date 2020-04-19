@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { PATH_METADATA, METHOD_METADATA, MATCH_METADATA, METHOD_RETURN } from '../../constants';
 import { RequestMethod } from '../../enums/request-method.enum';
-import { match } from '@sustain/core';
+import { match } from '../../utils/path-to-greex';
 
 /**
  * Add meta-data to controller methods
