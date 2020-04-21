@@ -13,7 +13,10 @@ export enum PATH_TYPES {
     String = 0
 }
 
-export const ROOT_FOLDER = '';
+export const ROOT_FOLDER = {
+    relative : true,
+    value : ''
+};
 
 export enum SessionsProviders {
     File,

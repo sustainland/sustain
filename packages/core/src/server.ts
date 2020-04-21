@@ -22,7 +22,6 @@ const mode = "debug";
 const exntensionContainer: any[] = [];
 
 export function createAppServer(requests: any, config: any) {
-
     generateMethodSpec(requests, config);
     const { extensions, expressMiddlewares } = config;
     if (extensions.session && extensions.session.provider != undefined) {
@@ -90,7 +89,7 @@ export function createAppServer(requests: any, config: any) {
                         request.url = request.url.replace(/\/$/, "");
                         request.url += '/index.html';
                     }
-                    config.staticFolder.forEach((staticFolderPath: string) => {
+                    config.staticFolder.forEach((staticFolderPath: any) => {
                         serveStatic(staticFolderPath, request, response);
                     });
                 } catch (e) {

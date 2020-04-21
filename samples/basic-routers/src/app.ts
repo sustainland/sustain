@@ -1,4 +1,4 @@
-import { SwaggerAPI } from '@sustain/common';
+import { SwaggerAPI, SWAGGER_FOLDER } from '@sustain/common';
 
 import HelloController from './controllers/HelloController';
 import { UserService } from './services/user.service';
@@ -57,7 +57,8 @@ const bodyParser = require('@sustain/body-parser');
     ],
     port: process.env.PORT || 5002,
     staticFolder: [
-        ROOT_FOLDER
+        SWAGGER_FOLDER,
+        // ROOT_FOLDER,
     ]
 })
 class AppModule { }
