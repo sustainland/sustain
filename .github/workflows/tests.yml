@@ -31,11 +31,13 @@ jobs:
         cd packages/common
         npm i 
         npm run build
+        npm run copy:assets
     - name: install and build core package
       run: |
         cd packages/core
         npm i 
         npm run build
+        npm run copy:assets
     - name: install and build extension sessions package
       run: |
         cd packages/extensions/sessions
@@ -46,6 +48,8 @@ jobs:
         cd samples/basic-routers
         npm i 
         npm run build
+        npm run copy:assets
+        npm run test
                  
       env:
         CI: true  
