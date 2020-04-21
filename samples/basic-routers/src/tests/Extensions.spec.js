@@ -4,11 +4,11 @@ const app = require('../../dist/app');
 const supertest = require('supertest');
 describe('UserController Tests', function () {
 
-    it("Should display the Index page (Swagger-UI)", (done) => {
-        supertest(app)
-            .get('/swagger-ui/index.html')
-            .expect(200, done);
-    });
+    // it("Should display the Index page (Swagger-UI)", (done) => {
+    //     supertest(app)
+    //         .get('/swagger-ui/index.html')
+    //         .expect(200, done);
+    // });
 
     it("Should display the swagger.json file", (done) => {
         supertest(app)
