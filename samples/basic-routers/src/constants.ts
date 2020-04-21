@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 export const CONTROLLER_ROUTE = 'controller-roure';
 export const PATH_METADATA = 'path';
 export const MATCH_METADATA = 'match';
@@ -14,8 +15,9 @@ export enum PATH_TYPES {
 }
 
 export const ROOT_FOLDER = {
-    relative : true,
-    value : ''
+    relative : false,
+    value :  resolve(__dirname, 'public/')
+
 };
 
 export enum SessionsProviders {

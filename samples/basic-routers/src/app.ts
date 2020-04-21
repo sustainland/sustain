@@ -58,7 +58,7 @@ const bodyParser = require('@sustain/body-parser');
     port: process.env.PORT || 5002,
     staticFolder: [
         SWAGGER_FOLDER,
-        // ROOT_FOLDER,
+        ROOT_FOLDER,
     ]
 })
 class AppModule { }

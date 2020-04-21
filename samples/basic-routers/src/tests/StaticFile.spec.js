@@ -19,15 +19,10 @@ describe('UserController Tests', function () {
     it("Should display the 404 page", (done) => {
         supertest(app)
             .get('/404.html')
-            .expect(200, done);
+            .expect(404, done);
     });
     
-    it("Should display the 500 page", (done) => {
-        supertest(app)
-            .get('/500.html')
-            .expect(200, done);
-    });
-    
+   
     afterAll(() => {
         app.close();
         setTimeout(() => process.exit(), 1000);

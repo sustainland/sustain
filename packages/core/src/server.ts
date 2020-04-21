@@ -52,7 +52,6 @@ export function createAppServer(requests: any, config: any) {
             }
             await Promise.all(middlewares)
                 .catch((e: Error) => {
-                    console.log('\x1b[31m%s\x1b[0m', `${e.message}, ${e.stack}`);
                     response.end(`${e.message}, ${e.stack}
                 `)
                     throw e;
@@ -90,7 +89,10 @@ export function createAppServer(requests: any, config: any) {
                         request.url += '/index.html';
                     }
                     config.staticFolder.forEach((staticFolderPath: any) => {
-                        serveStatic(staticFolderPath, request, response);
+                        try {
+                            serveStatic(staticFolderPath, request, response);
+                        } catch (e) {
+                        }
                     });
                 } catch (e) {
                     console.log(request.url)
@@ -117,10 +119,8 @@ export function createAppServer(requests: any, config: any) {
         }
     });
     server.listen(config.port).on('listening', () => {
-        console.log('\x1b[32m%s\x1b[0m', ' App is running', `at http://localhost:${config.port} in ${mode}`);  //yellow
 
 
-        console.log(" Press CTRL-C to stop\n");
     });
     server.on('error', (error: Error) => {
         console.log(error);
@@ -141,7 +141,6 @@ async function executeInterceptor(route: any, request: any, response: any) {
     }
     return Promise.all(callstack)
         .catch((e: Error) => {
-            console.log('\x1b[31m%s\x1b[0m', `${e.message}, ${e.stack}`);
             response.end(`${e.message}, ${e.stack}
             `)
             throw e;
@@ -224,5 +223,4 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
 }
 
 process.on('uncaughtException', (error) => {
-    console.log('\x1b[31m%s\x1b[0m', error.stack);  //yellow
 });

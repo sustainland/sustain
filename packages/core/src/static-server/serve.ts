@@ -15,9 +15,9 @@ export const serveStatic = (staticPath: any, request: any, response: any) => {
     } else {
         resolvedBase = resolve(`./public/${staticPath.value}`);
         fileLoc = join(resolvedBase, safeSuffix);
-
+        
     }
-
+    
     if (!request.url.endsWith('/')) {
         if (statSync(fileLoc).isDirectory()) {
             console.log(request.url, 'is folder')
