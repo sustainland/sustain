@@ -105,6 +105,6 @@ dist
 .vscode/
 package-lock.json
 sessions.save
-public/
+#public/
 *.spec-not.js
 *-still.js
