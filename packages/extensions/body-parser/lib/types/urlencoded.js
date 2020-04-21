@@ -232,7 +232,9 @@ function parser (name) {
   // store to prevent invoking require()
   parsers[name] = mod
 
-  return mod.parse
+  if (mod !== undefined) {
+    return mod.parse
+  }
 }
 
 /**
