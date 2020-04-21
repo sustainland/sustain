@@ -6,7 +6,7 @@ describe('UserController Tests', function () {
 
     it("Should display the Index page (Swagger-UI)", (done) => {
         supertest(app)
-            .get('/swagger-ui/')
+            .get('/swagger-ui/index.html')
             .expect(200, done);
     });
 
