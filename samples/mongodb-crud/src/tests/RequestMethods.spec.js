@@ -58,54 +58,54 @@ describe('RequestMethods Tests', function () {
      * Crud tests
      */
 
-    // describe('Crud Controller', function () {
-    //     it("Should replay to GET method", (done) => {
-    //         supertest(app)
-    //             .get('/player')
-    //             .expect(200, done);
-    //     });
+    describe('Crud Controller', function () {
+        it("Should replay to GET method", (done) => {
+            supertest(app)
+                .get('/player')
+                .expect(200, done);
+        });
 
-    //     it("Should replay to POST method", (done) => {
-    //         const body = {
-    //             name: "aymen"
-    //         };
-    //         supertest(app)
-    //             .post('/player')
-    //             .send(body)
-    //             .set('Accept', 'application/json')
-    //             .expect(200, body, done);
+        it("Should replay to POST method", (done) => {
+            const body = {
+                name: "aymen"
+            };
+            supertest(app)
+                .post('/player')
+                .send(body)
+                .set('Accept', 'application/json')
+                .expect(200, body, done);
 
-    //     });
-    //     it("Should replay to PUT method", (done) => {
-    //         supertest(app)
-    //             .put('/player')
-    //             .expect(200, done);
-    //     });
+        });
+        it("Should replay to PUT method", (done) => {
+            supertest(app)
+                .put('/player')
+                .expect(200, done);
+        });
 
-    //     it("Should replay to PATCH method", (done) => {
-    //         supertest(app)
-    //             .patch('/player')
-    //             .expect(200, done);
-    //     });
+        it("Should replay to PATCH method", (done) => {
+            supertest(app)
+                .patch('/player')
+                .expect(200, done);
+        });
 
-    //     it("Should replay to DELETE method", (done) => {
-    //         supertest(app)
-    //             .delete('/player')
-    //             .expect(200, done);
-    //     });
+        it("Should replay to DELETE method", (done) => {
+            supertest(app)
+                .delete('/player')
+                .expect(200, done);
+        });
 
-    //     it("Should replay to HEAD method", (done) => {
-    //         supertest(app)
-    //             .head('/player')
-    //             .expect(200, done);
-    //     });
+        it("Should replay to HEAD method", (done) => {
+            supertest(app)
+                .head('/player')
+                .expect(200, done);
+        });
 
-    //     it("Should replay to OPTIONS method", (done) => {
-    //         supertest(app)
-    //             .options('/player')
-    //             .expect(200, done);
-    //     });
-    // });
+        it("Should replay to OPTIONS method", (done) => {
+            supertest(app)
+                .options('/player')
+                .expect(200, done);
+        });
+    });
 
 
 
