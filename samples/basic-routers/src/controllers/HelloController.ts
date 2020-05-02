@@ -2,7 +2,7 @@ import { Controller } from '@sustain/core';
 import { Get, Session, Post, Body, Patch, Put, Delete, Param, Head, Options } from '@sustain/common';
 
 
-import { UserDto } from "../dto/HelloDto";
+import { UserDto } from "../dto/UserDto";
 
 
 

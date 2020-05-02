@@ -11,20 +11,38 @@ import {
     Head,
     Options
 } from '@sustain/common';
+import { getRepository } from 'typeorm';
 
 
 
 @Injectable()
 export default class SustainCrudController<T> {
-    constructor() {
+    repository: any;
+    constructor(private model: any) {
     }
 
     @Get()
-    find() { return 200 }
+    find() {
+        const findPromise = new Promise((resolve, reeject) => {
+            getRepository(this.model).find().then(
+                (value) => {
+                    resolve(JSON.stringify(value))
+                }
+            )
+        })
+       
+        return findPromise
+    }
 
 
     @Post()
     createPost(@Body() body: T): T {
+        getRepository(this.model).save(body).then(
+            (value) => {
+                console.log("SustainCrudController<T> -> find -> value", value)
+
+            }
+        );
         return body;
     }
 

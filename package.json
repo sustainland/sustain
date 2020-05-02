@@ -11,7 +11,7 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "dev": "concurrently --kill-others \"cd packages\\common && npm run build-watch\"  \"cd packages\\core && npm run build-watch \" \"cd samples\\basic-routers && npm run dev \"",
+        "dev": "concurrently --kill-others \"cd packages\\common && npm run build-watch\"  \"cd packages\\core && npm run build-watch \"",
         "start": "npm run serve",
         "serve": "node dist/src/app.js",
         "test": "set PORT=5003 && jest --forceExit --detectOpenHandles  --coverage",

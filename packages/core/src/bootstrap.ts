@@ -3,7 +3,7 @@ import { getControllersMethods } from "./utils";
 import { PATH_TYPE, METHOD_METADATA, PATH_TYPES, PATH_METADATA, MATCH_METADATA, INTERCEPTORS, METHOD_RETURN, CONTROLLER_ROUTE } from "./constants";
 
 import { createAppServer } from "./server";
-// import BaseController from "../../samples/basic-routers/controllers/BaseController";
+import { SustainContext } from './context';
 import { InjectedContainer } from "./di/dependency-container";
 import { match } from '@sustain/common';
 const DEFAULT_PORT = 5200;
@@ -23,31 +23,39 @@ const HttpRequests: any = {};
  * @param app 
  */
 export function bootstrap(app: any): any {
-    const { APP_CONFIG } = app.prototype;
-    let { controllers, providers, extensions } = APP_CONFIG;
-    // controllers.push(BaseController);
-    (providers || []).forEach((provider: any) => {
-        InjectedContainer.addProvider({ provide: provider, useClass: provider });
-        InjectedContainer.inject(provider);
-    });
+    try {
+        const { APP_CONFIG } = app.prototype;
+        let { controllers, providers, extensions } = APP_CONFIG;
+        InjectedContainer.addProvider({ provide: SustainContext, useClass: SustainContext });
+       // InjectedContainer.inject(SustainContext);
 
-    controllers = (controllers || []).map((controller: any) => {
-        InjectedContainer.inject(controller);
-        return InjectedContainer.get(controller);
-    });
-    APP_CONFIG.extensions.load = (extensions.load || []).map((extension: any) => {
-        InjectedContainer.inject(extension);
-        return InjectedContainer.get(extension);
-    });
+        // controllers.push(BaseController);
+        (providers || []).forEach((provider: any) => {
+            InjectedContainer.addProvider({ provide: provider, useClass: provider });
+            InjectedContainer.inject(provider);
+        });
 
-    const requests = loadControllers(controllers);
-    return createAppServer(requests, {
-        port: APP_CONFIG.port || DEFAULT_PORT,
-        staticFolder: APP_CONFIG.staticFolder || [],
-        swaggerConfig: APP_CONFIG.swaggerConfig,
-        extensions: APP_CONFIG.extensions || {},
-        expressMiddlewares: APP_CONFIG.extensions.expressMiddlewares || [],
-    });
+        controllers = (controllers || []).map((controller: any) => {
+            InjectedContainer.inject(controller);
+            return InjectedContainer.get(controller);
+        });
+        APP_CONFIG.extensions.load = (extensions.load || []).map((extension: any) => {
+            InjectedContainer.inject(extension);
+            return InjectedContainer.get(extension);
+        });
+
+        const requests = loadControllers(controllers);
+        return createAppServer(requests, {
+            port: APP_CONFIG.port || DEFAULT_PORT,
+            staticFolder: APP_CONFIG.staticFolder || [],
+            swaggerConfig: APP_CONFIG.swaggerConfig,
+            extensions: APP_CONFIG.extensions || {},
+            expressMiddlewares: APP_CONFIG.extensions.expressMiddlewares || [],
+        });
+    } catch (e) {
+        console.log(e)
+    }
+
 }
 
 /**

@@ -5,7 +5,7 @@ import { ApiResponse } from '@sustain/common';
 import { Controller } from '@sustain/core';
 import { Get,  Session,Post,  Patch, Put, Delete, Param, Head, Options, Params } from '@sustain/common';;
 
-import { UserDto } from "../dto/HelloDto";
+import { UserDto } from "../dto/UserDto";
 
 
 @ApiTags('Http-Controller')

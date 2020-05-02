@@ -1,6 +1,6 @@
 import { SessionProviders } from '@sustain/session';
 import { LoggerService } from './logger.service';
-import { Injectable } from "@sustain/core";
+import { Injectable, SustainContext } from "@sustain/core";
 
 @Injectable()
 export class UserService {
@@ -28,9 +28,7 @@ export class UserService {
             "registered": "2014-08-16T08:02:06 -01:00"
         }
     ]
-    constructor(private loggerService: LoggerService, sessionProviders: SessionProviders) {
-
-    }
+    constructor(private context: SustainContext) { }
     get(id: string): any {
         return this.users.find((user: any) => user._id === id);
     }
