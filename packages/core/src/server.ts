@@ -119,8 +119,8 @@ export function createAppServer(requests: any, config: any) {
         }
     });
     server.listen(config.port).on('listening', () => {
-
-
+        console.log('\x1b[32m%s\x1b[0m', ' App is running', `at http://localhost:${config.port} in ${mode}`); 
+        console.log(" Press CTRL-C to stop\n");
     });
     server.on('error', (error: Error) => {
         console.log(error);
