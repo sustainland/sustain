@@ -19,7 +19,7 @@ export class SustainContext {
     get(key: string) {
         return this.context[key];
     }
-    on(key: string, callback: Function) {
+    on(key: string) {
         return this.subject.pipe(
             filter((payload: any) => payload.action === key)
         )
