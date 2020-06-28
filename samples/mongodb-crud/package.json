@@ -24,6 +24,7 @@
     "@sustain/body-parser": "file:../../packages/extensions/body-parser",
     "@sustain/common": "file:../../packages/common",
     "@sustain/core": "file:../../packages/core",
+    "@sustain/crud": "file:../../packages/crud",
     "@sustain/session": "file:../../packages/extensions/sessions",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",

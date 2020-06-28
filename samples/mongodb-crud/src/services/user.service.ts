@@ -28,7 +28,7 @@ export class UserService {
             "registered": "2014-08-16T08:02:06 -01:00"
         }
     ]
-    constructor(private context: SustainContext) { }
+    constructor() { }
     get(id: string): any {
         return this.users.find((user: any) => user._id === id);
     }

@@ -2,7 +2,7 @@ import { CrudModel } from '@sustain/common';
 import { Controller } from '@sustain/core';
 import { UserDto } from '../dto/UserDto';
 import { ProfileDto } from './../dto/ProfileDto';
-import SustainCrudController from './CrudController'
+import { SustainCrudController } from '@sustain/crud';
 
 @Controller('/player')
 @CrudModel(UserDto)

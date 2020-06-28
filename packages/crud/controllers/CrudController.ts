@@ -1,5 +1,5 @@
 
-import { Injectable } from '@sustain/core';
+import { Injectable, getContext } from '@sustain/core';
 import {
     Get,
     Post,
@@ -11,33 +11,31 @@ import {
     Head,
     Options
 } from '@sustain/common';
-import { getRepository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 
 
 
 @Injectable()
-export default class SustainCrudController<T> {
-    repository: any;
+export class SustainCrudController<T> {
+    repository: Repository<any>;
+    connexion: any;
     constructor(private model: any) {
+        getContext().on('connexion')
+            .subscribe((payload: any) => {
+                this.connexion = payload.value;
+                this.repository = this.connexion.getRepository(this.model);
+            })
     }
 
     @Get()
     find() {
-        const findPromise = new Promise((resolve, reeject) => {
-            getRepository(this.model).find().then(
-                (value) => {
-                    resolve(JSON.stringify(value))
-                }
-            )
-        })
-       
-        return findPromise
+        return this.repository.find();
     }
 
 
     @Post()
     createPost(@Body() body: T): T {
-        getRepository(this.model).save(body).then(
+        this.repository.save(body).then(
             (value) => {
                 console.log("SustainCrudController<T> -> find -> value", value)
 
@@ -56,7 +54,9 @@ export default class SustainCrudController<T> {
     delete(@Param('id') id: string) { return 200 }
 
     @Get(':id')
-    findOne() { return 200 }
+    findOne(@Param('id') id: string) {
+        return this.repository.findOne(id);
+    }
 
     @Head()
     headMethod() {

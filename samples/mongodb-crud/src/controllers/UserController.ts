@@ -12,7 +12,6 @@ import {
     Post,
     Interceptors
 } from '@sustain/common';
-import { Auth } from "../interceptors/auth.interceptor";
 import { UserService } from "../services/user.service";
 
 @Controller('/users')
@@ -94,9 +93,6 @@ export default class UserController {
      * 
      */
 
-    @Interceptors([
-        Auth.isAuthenticated
-    ])
     @Get('/:id/details')
     userDetails(@Request() request: any) {
         const { id } = request.params;

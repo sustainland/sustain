@@ -26,10 +26,6 @@ export function bootstrap(app: any): any {
     try {
         const { APP_CONFIG } = app.prototype;
         let { controllers, providers, extensions } = APP_CONFIG;
-        InjectedContainer.addProvider({ provide: SustainContext, useClass: SustainContext });
-       // InjectedContainer.inject(SustainContext);
-
-        // controllers.push(BaseController);
         (providers || []).forEach((provider: any) => {
             InjectedContainer.addProvider({ provide: provider, useClass: provider });
             InjectedContainer.inject(provider);

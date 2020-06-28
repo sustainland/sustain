@@ -73,7 +73,14 @@ export function createAppServer(requests: any, config: any) {
                 const result = route.objectHanlder[route.functionHandler](...methodArgs);
 
                 if (result instanceof Promise) {
-                    response.end(await result)
+                    const output = await result;
+                    if (typeof output == 'object') {
+                        response.writeHead(200, { 'Content-Type': 'application/json' });
+                        response.end(JSON.stringify(output));
+                    }
+                    else {
+                        response.end(await output);
+                    }
                 } else if (typeof result == 'object') {
                     response.writeHead(200, { 'Content-Type': 'application/json' });
                     response.end(JSON.stringify(result));
@@ -119,7 +126,7 @@ export function createAppServer(requests: any, config: any) {
         }
     });
     server.listen(config.port).on('listening', () => {
-        console.log('\x1b[32m%s\x1b[0m', ' App is running', `at http://localhost:${config.port} in ${mode}`); 
+        console.log('\x1b[32m%s\x1b[0m', ' App is running', `at http://localhost:${config.port} in ${mode}`);
         console.log(" Press CTRL-C to stop\n");
     });
     server.on('error', (error: Error) => {
