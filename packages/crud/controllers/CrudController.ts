@@ -1,3 +1,4 @@
+import { ContextEvents } from './../constants';
 
 import { Injectable, getContext } from '@sustain/core';
 import {
@@ -20,7 +21,7 @@ export class SustainCrudController<T> {
     repository: Repository<any>;
     connexion: any;
     constructor(private model: any) {
-        getContext().on('connexion')
+        getContext().on(ContextEvents.DataBaseConnexion)
             .subscribe((payload: any) => {
                 this.connexion = payload.value;
                 this.repository = this.connexion.getRepository(this.model);
@@ -37,7 +38,6 @@ export class SustainCrudController<T> {
     createPost(@Body() body: T): T {
         this.repository.save(body).then(
             (value) => {
-                console.log("SustainCrudController<T> -> find -> value", value)
 
             }
         );
@@ -50,24 +50,26 @@ export class SustainCrudController<T> {
     @Put()
     put(@Body('id') id: string) { return 200 }
 
+    /**
+     * Delete Entity
+     * @param {string} id
+     * @returns
+     * @memberof SustainCrudController
+     */
     @Delete()
-    delete(@Param('id') id: string) { return 200 }
+    delete(@Param('id') id: string) {
+        return this.repository.delete(id);
+    }
 
+    /**
+     * Find Entity by ID
+     * @param {string} id
+     * @returns
+     * @memberof SustainCrudController
+     */
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.repository.findOne(id);
     }
-
-    @Head()
-    headMethod() {
-        return 200;
-    }
-
-    @Options()
-    optionsMethod() {
-        return 200;
-    }
-
-
 
 }

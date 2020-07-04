@@ -1,6 +1,4 @@
-import { SessionProviders } from '@sustain/session';
-import { LoggerService } from './logger.service';
-import { Injectable, SustainContext } from "@sustain/core";
+import { Injectable } from "@sustain/core";
 
 @Injectable()
 export class UserService {

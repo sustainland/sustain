@@ -1,4 +1,3 @@
-@@ -1,107 +0,0 @@
 import {
     Controller
 } from '@sustain/core';

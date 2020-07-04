@@ -3,7 +3,6 @@ import { getControllersMethods } from "./utils";
 import { PATH_TYPE, METHOD_METADATA, PATH_TYPES, PATH_METADATA, MATCH_METADATA, INTERCEPTORS, METHOD_RETURN, CONTROLLER_ROUTE } from "./constants";
 
 import { createAppServer } from "./server";
-import { SustainContext } from './context';
 import { InjectedContainer } from "./di/dependency-container";
 import { match } from '@sustain/common';
 const DEFAULT_PORT = 5200;

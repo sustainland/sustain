@@ -39,7 +39,6 @@
     "supertest": "^4.0.2",
     "swagger-jsdoc": "^3.5.0",
     "typeorm": "^0.2.24",
-    "typescript": "3.3.3",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
