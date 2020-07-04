@@ -15,12 +15,11 @@ export const serveStatic = (staticPath: any, request: any, response: any) => {
     } else {
         resolvedBase = resolve(`./public/${staticPath.value}`);
         fileLoc = join(resolvedBase, safeSuffix);
-        
+
     }
-    
+
     if (!request.url.endsWith('/')) {
         if (statSync(fileLoc).isDirectory()) {
-            console.log(request.url, 'is folder')
             response.writeHead(301,
                 { Location: `${request.url}/` }
             );
@@ -34,7 +33,6 @@ export const serveStatic = (staticPath: any, request: any, response: any) => {
             data = readFileSync(fileLoc);
 
         } catch (e) {
-            console.log("serveStatic -> e", e)
         }
         if (!data) {
             response.writeHead(404, 'Not Found');

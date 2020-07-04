@@ -1,3 +1,3 @@
 export const ContextEvents = {
-    DataBaseConnexion: 'connexion'
+    TypeORMDataBaseConnexion: 'connexion'
 }

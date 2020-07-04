@@ -1,4 +1,4 @@
-import { ContextEvents } from './../constants';
+import { ContextEvents } from '../constants';
 
 import { Injectable, getContext } from '@sustain/core';
 import {
@@ -15,11 +15,11 @@ import { Repository } from 'typeorm';
 
 
 @Injectable()
-export class SustainCrudController<T> {
+export class TypeORMCrudController<T> {
     repository: Repository<any>;
     connexion: any;
     constructor(private model: any) {
-        getContext().on(ContextEvents.DataBaseConnexion)
+        getContext().on(ContextEvents.TypeORMDataBaseConnexion)
             .subscribe((payload: any) => {
                 this.connexion = payload.value;
                 this.repository = this.connexion.getRepository(this.model);
@@ -52,7 +52,7 @@ export class SustainCrudController<T> {
      * Delete Entity
      * @param {string} id
      * @returns
-     * @memberof SustainCrudController
+     * @memberof TypeORMCrudController
      */
     @Delete()
     delete(@Param('id') id: string) {
@@ -63,7 +63,7 @@ export class SustainCrudController<T> {
      * Find Entity by ID
      * @param {string} id
      * @returns
-     * @memberof SustainCrudController
+     * @memberof TypeORMCrudController
      */
     @Get(':id')
     findOne(@Param('id') id: string) {

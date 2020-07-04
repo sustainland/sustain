@@ -1,1 +1,1 @@
-export * from './controllers/CrudController'
+export * from './controllers/TypeORMCrudController'
