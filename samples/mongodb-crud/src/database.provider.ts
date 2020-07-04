@@ -1,4 +1,4 @@
-import { UserDto } from './dto/UserDto';
+import { PlayerDto } from './dto/PlayerDto';
 import { Injectable, getContext } from "@sustain/core";
 import { createConnection } from "typeorm";
 
@@ -14,7 +14,7 @@ export class DatabaseProvider {
             database: "sustain_test",
 
             entities: [
-                UserDto
+                PlayerDto
             ],
             synchronize: true,
             logging: false

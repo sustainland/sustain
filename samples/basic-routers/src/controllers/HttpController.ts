@@ -16,7 +16,7 @@ import {
     Params
 } from '@sustain/common';
 
-import { UserDto } from "../dto/UserDto";
+import { PlayerDto } from "../dto/PlayerDto";
 
 
 @ApiTags('Http-Controller')
@@ -98,7 +98,7 @@ export default class HttpController {
         "application/xml"
     ])
     @Post()
-    PostBody(@Body() body: UserDto) {
+    PostBody(@Body() body: PlayerDto) {
         return body;
     }
 

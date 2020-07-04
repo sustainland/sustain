@@ -2,7 +2,7 @@ import { Controller } from '@sustain/core';
 import { Get, Session, Post, Body } from '@sustain/common';
 
 
-import { UserDto } from "../dto/UserDto";
+import { PlayerDto } from "../dto/PlayerDto";
 
 
 
@@ -15,7 +15,7 @@ export default class HelloController {
         return session;
     }
     @Post('/byebye')
-    byebye(@Body() user: UserDto) {
+    byebye(@Body() user: PlayerDto) {
         return "value" + user.name;
     }
 

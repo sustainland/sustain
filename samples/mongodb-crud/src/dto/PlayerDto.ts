@@ -4,7 +4,7 @@ import { ProfileDto } from "./ProfileDto";
 import { Entity } from 'typeorm';
 
 @Entity()
-export class UserDto {
+export class PlayerDto {
 
     @ObjectIdColumn()
     id: ObjectID;
@@ -24,8 +24,5 @@ export class UserDto {
     @Column()
     @ApiProperty()
     profile: ProfileDto;
-
-
-
 
 }
