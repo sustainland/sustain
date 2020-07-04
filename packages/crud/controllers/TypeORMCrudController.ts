@@ -54,7 +54,7 @@ export class TypeORMCrudController<T> {
      * @returns
      * @memberof TypeORMCrudController
      */
-    @Delete()
+    @Delete(':id')
     delete(@Param('id') id: string) {
         return this.repository.delete(id);
     }
