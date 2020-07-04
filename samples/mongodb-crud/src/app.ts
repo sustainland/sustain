@@ -2,7 +2,6 @@ import { SwaggerAPI, SWAGGER_FOLDER } from '@sustain/common';
 
 import { UserService } from './services/user.service';
 import { LoggerService } from './services/logger.service';
-import UserController from './controllers/UserController';
 import BaseController from './controllers/BaseController';
 import PlayerController from './controllers/PlayerController';
 import { SessionsProviders, ROOT_FOLDER } from './constants';
@@ -40,7 +39,6 @@ const bodyParser = require('@sustain/body-parser');
 })
 @App({
     controllers: [
-        UserController,
         BaseController,
         DatabaseProvider,
         PlayerController,
@@ -50,7 +48,6 @@ const bodyParser = require('@sustain/body-parser');
         LoggerService,
         UserService,
         // SessionProviders,
-        UserController,
     ],
     port: process.env.PORT || 5002,
     staticFolder: [
