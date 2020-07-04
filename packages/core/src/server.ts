@@ -1,23 +1,15 @@
 import { fileExtension } from '@sustain/common';
-// import { SessionManager, SessionProviders } from '@sustain/session';
-// 
-const { readFile } = require('fs');
-import { createServer, IncomingMessage, ServerResponse } from 'http';
+import { createServer, ServerResponse } from 'http';
 import { ROUTE_ARGS_METADATA } from './constants';
-import { join } from 'path';
 import * as  querystring from 'querystring';
 import { generateMethodSpec } from '@sustain/common';
 import { serveStatic } from './static-server/serve';
-// import { prepareBody } from './body-parser';
 import { render404Page } from './static-server/render-error-pages';
 import { SRequest } from './interfaces';
 import { isArray } from 'util';
-import { InjectedContainer } from './di';
 import { RouteParamtypes } from './enums/route-params.enum';
 
 const mode = "debug";
-// const SessionsManager: SessionManager = InjectedContainer.get(SessionManager);
-// const SessionProvider = InjectedContainer.get(SessionProviders);
 
 const exntensionContainer: any[] = [];
 
@@ -43,7 +35,6 @@ export function createAppServer(requests: any, config: any) {
                     extension.onResquestStartHook(request, response)
                 }
             });
-            // SessionsManager.createIfNotExistsNewSession(request, response);
             const middlewares = [];
             for (let middleware of expressMiddlewares) {
                 middlewares.push(new Promise((resolve, reject) => {
@@ -56,13 +47,10 @@ export function createAppServer(requests: any, config: any) {
                 `)
                     throw e;
                 })
-            // await new Promise((resolve, reject) => {
-            //     bodyParser.json()(request, response, resolve)
-            // })
+
 
             response.setHeader('x-powered-by', 'Sustain Server');
             response.setHeader('Access-Control-Allow-Origin', '*');
-            // SessionsManager.requestApply(request);
             const route = requestSegmentMatch(requests, request);
             if (route) {
                 if (route.interceptors) {

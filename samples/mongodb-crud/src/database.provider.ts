@@ -1,5 +1,5 @@
 import { UserDto } from './dto/UserDto';
-import { SustainContext, Injectable, getContext } from "@sustain/core";
+import { Injectable, getContext } from "@sustain/core";
 import { createConnection } from "typeorm";
 
 @Injectable()

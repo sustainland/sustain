@@ -10,7 +10,6 @@ import {
     Body,
     Get,
     Post,
-    Interceptors
 } from '@sustain/common';
 import { UserService } from "../services/user.service";
 
@@ -27,9 +26,6 @@ export default class UserController {
     singleUser(
         @Request() request: any,
         @Response() response: any,
-        @Query() query: any,
-        @Query('name') name: string,
-        @Query('lastname2') lastname: number
     ): number {
         response.setHeader('Content-Type', 'application/json');
 
@@ -46,7 +42,6 @@ export default class UserController {
         @Header('host') host: string,
         @Body('nameFromQuery') nameFromQuery: string,
         @Body('username') username: string,
-        @Body('age') age: string,
         @Body() body: string
     ) {
         return `

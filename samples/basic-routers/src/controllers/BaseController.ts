@@ -1,6 +1,6 @@
 import { Response, Get } from '@sustain/common';
 import { Controller } from '@sustain/core';
-import { generateMethodSpec, getOpenApi } from '@sustain/common';
+import { getOpenApi } from '@sustain/common';
 
 
 @Controller()

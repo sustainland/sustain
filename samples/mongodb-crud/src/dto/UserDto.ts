@@ -1,4 +1,4 @@
-import { Column, PrimaryColumn, ObjectIdColumn, ObjectID } from 'typeorm';
+import { Column, ObjectIdColumn, ObjectID } from 'typeorm';
 import { ApiProperty } from '@sustain/common';
 import { ProfileDto } from "./ProfileDto";
 import { Entity } from 'typeorm';
@@ -8,7 +8,7 @@ export class UserDto {
 
     @ObjectIdColumn()
     id: ObjectID;
-    
+
     @Column()
     @ApiProperty()
     name: string;

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@sustain/common';
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn} from "typeorm";
+import { Entity, Column } from "typeorm";
 
 @Entity()
 export class FileDto {

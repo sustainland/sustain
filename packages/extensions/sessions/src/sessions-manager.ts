@@ -73,7 +73,7 @@ export class SessionManager implements IExtension {
                 },
             }
         );
-    };
+    }
 
     onResponseEndHook() {
         SessionProvider.provider.save(this.sessions);

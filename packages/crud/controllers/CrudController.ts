@@ -9,10 +9,8 @@ import {
     Put,
     Delete,
     Param,
-    Head,
-    Options
 } from '@sustain/common';
-import { getRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 
 

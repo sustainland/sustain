@@ -42,12 +42,12 @@ export class Container {
       throw new Error(`No provider for type ${this.getTokenName(type)}`);
     }
     if (isClassProvider(provider)) {
-      return this.injectClass(provider as ClassProvider<T>);
+      return this.injectClass(provider);
     } else if (isValueProvider(provider)) {
-      return this.injectValue(provider as ValueProvider<T>);
+      return this.injectValue(provider);
     } else {
       // Factory provider by process of elimination
-      return this.injectFactory(provider as FactoryProvider<T>);
+      return this.injectFactory(provider);
     }
   }
 
