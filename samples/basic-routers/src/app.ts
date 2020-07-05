@@ -23,16 +23,9 @@ const bodyParser = require('@sustain/body-parser');
     swagger: "2.0",
 })
 @Extensions({
-    session: {
-        provider: SessionsProviders.File
+    swagger: {
+        enabled: true
     },
-    load: [
-        // SessionManager,
-        // RequestLoggerExtension
-    ],
-    // swagger: {
-    //     enable: true
-    // },
     expressMiddlewares: [
         bodyParser.json()
     ]

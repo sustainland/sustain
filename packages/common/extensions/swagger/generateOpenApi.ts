@@ -24,31 +24,33 @@ export function generateMethodSpec(controllers: any, config: any) {
             ...OpenApiDefinitions
         },
     };
-    if (swaggerConfig && config.extensions.swagger.enabled) {
-        for (const method in controllers) {
-            if (controllers.hasOwnProperty(method)) {
-                const routes = controllers[method];
-                routes.forEach((route: any) => {
-                    const url_path = expressToOpenAPIPath(route.path.value);
-                    if (!OpenApiSchema.paths[url_path]) {
-                        OpenApiSchema.paths[url_path] = {};
-                    }
-                    const SWAGGER_MEHTOD_PARAMETERS = Reflect.getMetadata(SWAGGER_META_DATA, route.handler) || {};
-                    OpenApiSchema.paths[url_path][method.toLocaleLowerCase()] = {
-                        operationId: `${route.objectHanlder.constructor.name}.${route.handler.name}`,
-                        tags: [
-                            route.objectHanlder.constructor.prototype.API_TAG || route.objectHanlder.constructor.name
-                        ],
-                        parameters: [
-                            ...getPathParams(route),
-                            ...getRequestBody(route, method),
-                        ],
-                        consumes: SWAGGER_MEHTOD_PARAMETERS.consumes || [],
-                        produces: SWAGGER_MEHTOD_PARAMETERS.produces || [],
-                        responses: SWAGGER_MEHTOD_PARAMETERS.responses || {}
-                    }
-                });
+    if (config.extension && config.extensions.swagger && config.extensions.swagger.enabled) {
+        if (swaggerConfig && config.extensions.swagger.enabled) {
+            for (const method in controllers) {
+                if (controllers.hasOwnProperty(method)) {
+                    const routes = controllers[method];
+                    routes.forEach((route: any) => {
+                        const url_path = expressToOpenAPIPath(route.path.value);
+                        if (!OpenApiSchema.paths[url_path]) {
+                            OpenApiSchema.paths[url_path] = {};
+                        }
+                        const SWAGGER_MEHTOD_PARAMETERS = Reflect.getMetadata(SWAGGER_META_DATA, route.handler) || {};
+                        OpenApiSchema.paths[url_path][method.toLocaleLowerCase()] = {
+                            operationId: `${route.objectHanlder.constructor.name}.${route.handler.name}`,
+                            tags: [
+                                route.objectHanlder.constructor.prototype.API_TAG || route.objectHanlder.constructor.name
+                            ],
+                            parameters: [
+                                ...getPathParams(route),
+                                ...getRequestBody(route, method),
+                            ],
+                            consumes: SWAGGER_MEHTOD_PARAMETERS.consumes || [],
+                            produces: SWAGGER_MEHTOD_PARAMETERS.produces || [],
+                            responses: SWAGGER_MEHTOD_PARAMETERS.responses || {}
+                        }
+                    });
 
+                }
             }
         }
     }
