@@ -83,9 +83,9 @@ export function createAppServer(requests: any, config: any) {
                         request.url = request.url.replace(/\/$/, "");
                         request.url += '/index.html';
                     }
-                    config.staticFolder.forEach((staticFolderPath: any) => {
+                    config.staticFolders.forEach((staticFoldersPath: any) => {
                         try {
-                            serveStatic(staticFolderPath, request, response);
+                            serveStatic(staticFoldersPath, request, response);
                         } catch (e) {
                         }
                     });

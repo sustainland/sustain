@@ -24,8 +24,7 @@ export function generateMethodSpec(controllers: any, config: any) {
             ...OpenApiDefinitions
         },
     };
-    if (swaggerConfig) {
-
+    if (swaggerConfig && config.extensions.swagger.enabled) {
         for (const method in controllers) {
             if (controllers.hasOwnProperty(method)) {
                 const routes = controllers[method];

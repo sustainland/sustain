@@ -52,7 +52,7 @@ const bodyParser = require('@sustain/body-parser');
         HelloController,
     ],
     port: process.env.PORT || 5002,
-    staticFolder: [
+    staticFolders: [
         SWAGGER_FOLDER,
         ROOT_FOLDER,
     ]

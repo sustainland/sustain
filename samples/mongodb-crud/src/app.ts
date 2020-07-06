@@ -22,20 +22,12 @@ const bodyParser = require('@sustain/body-parser');
     swagger: "2.0",
 })
 @Extensions({
-    session: {
-        provider: SessionsProviders.File
+    swagger: {
+        enabled: true
     },
-    load: [
-        // SessionManager,
-        // RequestLoggerExtension
-    ],
-    // swagger: {
-    //     enable: true
-    // },
     expressMiddlewares: [
         bodyParser.json()
     ]
-
 })
 @App({
     controllers: [
@@ -47,12 +39,11 @@ const bodyParser = require('@sustain/body-parser');
     providers: [
         LoggerService,
         UserService,
-        // SessionProviders,
     ],
     port: process.env.PORT || 5002,
-    staticFolder: [
-        SWAGGER_FOLDER,
+    staticFolders: [
         ROOT_FOLDER,
+        SWAGGER_FOLDER
     ]
 })
 class AppModule { }

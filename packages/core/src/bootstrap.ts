@@ -42,7 +42,7 @@ export function bootstrap(app: any): any {
         const requests = loadControllers(controllers);
         return createAppServer(requests, {
             port: APP_CONFIG.port || DEFAULT_PORT,
-            staticFolder: APP_CONFIG.staticFolder || [],
+            staticFolders: [...APP_CONFIG.staticFolders],
             swaggerConfig: APP_CONFIG.swaggerConfig,
             extensions: APP_CONFIG.extensions || {},
             expressMiddlewares: APP_CONFIG.extensions.expressMiddlewares || [],
