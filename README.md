@@ -18,7 +18,7 @@ This dependency will expose your application to eventual instability and vulnera
 Decoupling the application from the dependant packages by using the Sustain framework will make the maintenance focused on only one package.
 
 ## Documentation
- [https://sustainland.github.io/docs](https://sustainland.github.io/docs)
+ [https://labidiaymen.github.io/sustain-docs](https://labidiaymen.github.io/sustain-docs)
 
 ## Author
 
