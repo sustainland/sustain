@@ -141,7 +141,10 @@ function getRequestBody(route: any, method?: any) {
                 }
             ]
         } else {
-            if (method && method == RequestMethod.POST) {
+            if (method && (
+                method == RequestMethod.POST
+                || method == RequestMethod.PUT
+                || method == RequestMethod.PATCH)) {
                 tokens = [
                     {
                         in: 'body',
