@@ -6,7 +6,6 @@ import {
     Post,
     Body,
     Patch,
-    Put,
     Delete,
     Param,
 } from '@sustain/common';
@@ -26,27 +25,38 @@ export class TypeORMCrudController<T> {
             })
     }
 
+    /**
+     * Get list of entites
+     * @returns {*}
+     * @memberof TypeORMCrudController
+     */
     @Get()
-    find() {
+    find(): any {
         return this.repository.find();
     }
 
-
+    /**
+     * Create new entity
+     * @param {T} body
+     * @returns {Promise<any>}
+     * @memberof TypeORMCrudController
+     */
     @Post()
-    createPost(@Body() body: T): T {
-        this.repository.save(body).then(
-            (value) => {
-
-            }
-        );
-        return body;
+    createPost(@Body() body: T): any {
+        return this.repository.save(body);
     }
 
+    /**
+     * Partial update entity
+     * @param {string} id
+     * @param {T} body
+     * @returns
+     * @memberof TypeORMCrudController
+     */
     @Patch()
-    patch(@Body('id') id: string) { return 200 }
-
-    @Put()
-    put(@Body('id') id: string) { return 200 }
+    patch(@Param('id') id: string, @Body() body: T) {
+        return this.repository.update(id, body);
+    }
 
     /**
      * Delete Entity
@@ -55,7 +65,7 @@ export class TypeORMCrudController<T> {
      * @memberof TypeORMCrudController
      */
     @Delete(':id')
-    delete(@Param('id') id: string) {
+    delete(@Param('id') id: string): any {
         return this.repository.delete(id);
     }
 
@@ -66,7 +76,7 @@ export class TypeORMCrudController<T> {
      * @memberof TypeORMCrudController
      */
     @Get(':id')
-    findOne(@Param('id') id: string) {
+    findOne(@Param('id') id: string): any {
         return this.repository.findOne(id);
     }
 
