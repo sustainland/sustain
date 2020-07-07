@@ -10,10 +10,10 @@ import {
     Body,
     Get,
     Post,
-    Interceptors
-} from '@sustain/common';
+} from '@sustain/common/http';
 import { Auth } from "../interceptors/auth.interceptor";
 import { UserService } from "../services/user.service";
+import { Interceptors } from '@sustain/common';
 
 @Controller('/users')
 export default class UserController {

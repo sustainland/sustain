@@ -1,4 +1,5 @@
-import { CrudModel, Delete, Param } from '@sustain/common';
+import { Delete, Param } from '@sustain/common/http';
+import { CrudModel } from '@sustain/common';
 import { Controller } from '@sustain/core';
 import { PlayerDto } from '../dto/PlayerDto';
 import { TypeORMCrudController } from '@sustain/crud';
@@ -10,7 +11,7 @@ export default class PlayerController extends TypeORMCrudController<PlayerDto> {
         super(PlayerDto)
     }
 
-    @Delete(':id') 
+    @Delete(':id')
     overridedDelete(@Param('id') id: string) {
         // A validation process here, you can use Interceptors 
         return 'You are not authorized to run delete operation';
