@@ -1,7 +1,7 @@
 {
   "name": "@sustain/core",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Sustain is a Framework that is barely used despedcies to make stable and sustainable apps",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -10,20 +10,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/labidiaymen/sustain.git"
+    "url": "git+https://github.com/sustainland/sustain.git"
   },
   "author": "Labidi Aymen",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/labidiaymen/sustain/issues"
+    "url": "https://github.com/sustainland/sustain/issues"
   },
-  "homepage": "https://github.com/labidiaymen/sustain#readme",
+  "homepage": "https://github.com/sustainland/sustain#readme",
   "devDependencies": {
     "copyfiles": "^2.2.0",
     "typescript": "3.3.3"
   },
   "dependencies": {
-    "@sustain/common": "file:../common",
+    "@sustain/common": "0.1.0",
     "@types/node": "^12.7.8",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.5"

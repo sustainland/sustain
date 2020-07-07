@@ -10,9 +10,9 @@ export default class PlayerController extends TypeORMCrudController<PlayerDto> {
         super(PlayerDto)
     }
 
-    @Delete(':id') 
-    overridedDelete(@Param('id') id: string) {
-        // A validation process here, you can use Interceptors 
-        return 'You are not authorized to run delete operation';
-    }
+    // @Delete(':id') 
+    // overridedDelete(@Param('id') id: string) {
+    //     // A validation process here, you can use Interceptors 
+    //     return 'You are not authorized to run delete operation';
+    // }
 }

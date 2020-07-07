@@ -1,7 +1,7 @@
 {
   "name": "@sustain/crud",
   "version": "0.1.0",
-  "description": "",
+  "description": "Sustain CRUD controllers provide the CRUD operations (create, read, update, delete) for Sustain entities",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -10,22 +10,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/labidiaymen/sustain.git"
+    "url": "git+https://github.com/sustainland/sustain.git"
   },
   "author": "Labidi Aymen",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/labidiaymen/sustain/issues"
+    "url": "https://github.com/sustainland/sustain/issues"
   },
-  "homepage": "https://github.com/labidiaymen/sustain#readme",
+  "homepage": "https://github.com/sustainland/sustain#readme",
   "devDependencies": {
     "@types/node": "^12.7.8",
     "copyfiles": "^2.2.0",
     "path-to-regexp": "^6.1.0",
     "reflect-metadata": "^0.1.13",
     "typescript": "3.3.3",
-    "@sustain/core": "file:../core",
-    "@sustain/common": "file:../common",
+    "@sustain/core": "0.1.0",
+    "@sustain/common": "0.1.0",
     "typeorm": "^0.2.24"
   }
 }
