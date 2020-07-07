@@ -1,14 +1,14 @@
 {
   "name": "@sustain/body-parser",
   "description": "Node.js body parsing middleware",
-  "version": "1.19.0",
+  "version": "0.1.0",
   "contributors": [
     "Douglas Christopher Wilson <doug@somethingdoug.com>",
     "Jonathan Ong <me@jongleberry.com> (http://jongleberry.com)",
     "Labidi Aymen <labidi@aymen.co> (https://aymen.co)"
   ],
   "license": "MIT",
-  "repository": "expressjs/body-parser",
+  "repository": "sustainland/sustain/packages/extensions/body-parser",
   "dependencies": {
     "bytes": "3.1.0",
     "content-type": "~1.0.4",
