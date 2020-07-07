@@ -1,4 +1,4 @@
-import { Response, Get } from '@sustain/common/http';
+import { Response, Get } from '@sustain/common';
 import { Controller } from '@sustain/core';
 import { getOpenApi } from '@sustain/common';
 

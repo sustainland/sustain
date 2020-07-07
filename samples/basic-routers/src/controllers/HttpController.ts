@@ -1,4 +1,4 @@
-import { Query, Headers, Body, Header } from '@sustain/common/http';
+import { Query, Headers, Body, Header } from '@sustain/common';
 import { ApiConsumes, ApiTags } from '@sustain/common';
 import { ApiProduces } from '@sustain/common';
 import { ApiResponse } from '@sustain/common';

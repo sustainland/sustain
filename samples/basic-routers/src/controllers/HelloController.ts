@@ -1,5 +1,5 @@
 import { Controller } from '@sustain/core';
-import { Get, Session, Post, Body } from '@sustain/common/http';
+import { Get, Session, Post, Body } from '@sustain/common';
 
 
 import { PlayerDto } from "../dto/PlayerDto";
