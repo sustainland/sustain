@@ -1,10 +1,11 @@
+import { UserModule } from './modules/users/UserModule';
 import {
     SwaggerAPI,
     SWAGGER_FOLDER
 } from '@sustain/common';
 
 import HelloController from './controllers/HelloController';
-import { HelloService } from './services/hello.service';
+import { HelloService } from './services/HelloService';
 import { ROOT_FOLDER } from './constants';
 import { App, bootstrap } from '@sustain/core';
 import { Extensions } from '@sustain/common';
@@ -31,6 +32,9 @@ const bodyParser = require('@sustain/body-parser');
     ]
 })
 @App({
+    modules: [
+        UserModule
+    ],
     controllers: [
         HelloController,
         BaseController

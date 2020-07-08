@@ -6,7 +6,7 @@ import {
     Get,
     Post
 } from '@sustain/common';
-import { HelloService } from "../services/hello.service";
+import { HelloService } from "../services/HelloService";
 
 @Controller('/hello')
 export default class HelloController {
