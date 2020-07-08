@@ -10,7 +10,6 @@ export default class BaseController {
     @Get('/swagger.json')
     swaggerJson(@Response() request: any) {
         request.setHeader('Access-Control-Allow-Origin', '*');
-        console.log("getOpenApi()" , getOpenApi())
         return getOpenApi();
     }
 
