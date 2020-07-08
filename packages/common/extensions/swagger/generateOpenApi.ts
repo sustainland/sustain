@@ -31,6 +31,9 @@ export function generateMethodSpec(controllers: any, config: any) {
                     const routes = controllers[method];
                     routes.forEach((route: any) => {
                         const url_path = expressToOpenAPIPath(route.path.value);
+                        if (url_path == "/swagger.json") {
+                            return;
+                        }
                         if (!OpenApiSchema.paths[url_path]) {
                             OpenApiSchema.paths[url_path] = {};
                         }
