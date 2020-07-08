@@ -18,13 +18,13 @@
     "url": "https://github.com/sustainland/sustain/issues"
   },
   "dependencies": {
+    "reflect-metadata": "^0.1.13",
     "path-to-regexp": "^6.1.0"
   },
   "homepage": "https://github.com/sustainland/sustain#readme",
   "devDependencies": {
     "@types/node": "^12.7.8",
     "copyfiles": "^2.2.0",
-    "reflect-metadata": "^0.1.13",
     "typescript": "3.3.3"
   }
 }
