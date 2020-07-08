@@ -16,17 +16,12 @@ const exntensionContainer: any[] = [];
 export function createAppServer(requests: any, config: any) {
     generateMethodSpec(requests, config);
     const { extensions, expressMiddlewares } = config;
-    if (extensions.session && extensions.session.provider != undefined) {
-        // SessionProvider.initiateProvider(extensions.session.provider);
-        // SessionsManager.loadProvider();
-    }
-
+  
     if (extensions.load && isArray(extensions.load)) {
         extensions.load.forEach((extension: any) => {
             exntensionContainer.push(extension)
         })
     }
-
 
     const server = createServer(async (request: SRequest, response: ServerResponse) => {
         try {
