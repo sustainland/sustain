@@ -24,7 +24,12 @@ const HttpRequests: any = {};
 export function bootstrap(app: any): any {
     try {
         const { APP_CONFIG } = app.prototype;
-        let { controllers, providers, extensions } = APP_CONFIG;
+        let { controllers, providers, extensions, modules } = APP_CONFIG;
+        (modules || []).forEach((module: any) => {
+            const moduleMetaData = getModuleConfig(module);
+            controllers = [... (controllers || []), ...moduleMetaData.controllers]
+            providers = [...(providers || []), ...(moduleMetaData.providers || [])]
+        });
         (providers || []).forEach((provider: any) => {
             InjectedContainer.addProvider({ provide: provider, useClass: provider });
             InjectedContainer.inject(provider);
@@ -34,6 +39,7 @@ export function bootstrap(app: any): any {
             InjectedContainer.inject(controller);
             return InjectedContainer.get(controller);
         });
+
         APP_CONFIG.extensions.load = (extensions.load || []).map((extension: any) => {
             InjectedContainer.inject(extension);
             return InjectedContainer.get(extension);
@@ -53,6 +59,22 @@ export function bootstrap(app: any): any {
 
 }
 
+function getModuleConfig(module: any) {
+    const { MODULE_CONFIG } = module.prototype;
+    let { controllers, providers, extensions, modules } = MODULE_CONFIG;
+
+    if (Array.isArray(modules)) {
+        modules.forEach((childModule: any) => {
+            const childModulemetaData = getModuleConfig(childModule);
+            controllers = [...controllers, ...childModulemetaData.controllers]
+            providers = [...providers, ...childModulemetaData.providers]
+            extensions = [...extensions, ...childModulemetaData.extensions]
+        });
+    }
+    return {
+        controllers, providers, extensions
+    }
+}
 /**
  * Prepare controllers, it functions with they metadata
  * @param controllers 
