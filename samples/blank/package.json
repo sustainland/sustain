@@ -4,11 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run copy:assets && npm run dev",
     "build": "tsc",
-    "dev": "node dev",
-    "build-watch": "tsc -w --noImplicitAny",
-    "copy:assets": "copyfiles  public/** dist/"
+    "build-watch": "tsc -w --noImplicitAny"
   },
   "repository": {
     "type": "git",
@@ -21,6 +18,7 @@
   },
   "homepage": "https://github.com/sustainland/sustain#readme",
   "dependencies": {
+    "@sustain/cli": "0.1.0",
     "@sustain/body-parser": "0.1.0",
     "@sustain/common": "0.1.4",
     "@sustain/core": "0.1.7",
