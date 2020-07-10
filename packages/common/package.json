@@ -1,6 +1,6 @@
 {
   "name": "@sustain/common",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Sustain is a Framework that is barely used despedcies to make stable and sustainable apps",
   "main": "dist/index.js",
   "scripts": {
@@ -17,6 +17,14 @@
   "bugs": {
     "url": "https://github.com/sustainland/sustain/issues"
   },
+  "keywords": [
+    "rest",
+    "webframework",
+    "framework",
+    "crud",
+    "controller",
+    "entity"
+  ],
   "dependencies": {
     "reflect-metadata": "^0.1.13",
     "path-to-regexp": "^6.1.0"

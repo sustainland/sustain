@@ -1,6 +1,6 @@
 {
   "name": "@sustain/core",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Sustain is a Framework that is barely used despedcies to make stable and sustainable apps",
   "main": "dist/index.js",
   "scripts": {
@@ -17,6 +17,14 @@
   "bugs": {
     "url": "https://github.com/sustainland/sustain/issues"
   },
+  "keywords": [
+    "rest",
+    "webframework",
+    "framework",
+    "crud",
+    "controller",
+    "entity"
+  ],
   "homepage": "https://github.com/sustainland/sustain#readme",
   "devDependencies": {
     "copyfiles": "^2.2.0",

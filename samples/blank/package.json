@@ -22,8 +22,8 @@
   "homepage": "https://github.com/sustainland/sustain#readme",
   "dependencies": {
     "@sustain/body-parser": "0.1.0",
-    "@sustain/common": "0.1.3",
-    "@sustain/core": "0.1.5",
+    "@sustain/common": "0.1.4",
+    "@sustain/core": "0.1.6",
     "body-parser": "^1.19.0",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.16"
