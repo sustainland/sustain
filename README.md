@@ -28,13 +28,17 @@ Decoupling the application from the dependant packages by using the Sustain fram
 ## Installation
 
 ```cmd
-npx degit sustainland/sustain/samples/blank sustain-project
+
+npm install -g @sustain/cli
+ 
+sustain new sustain-project
 
 cd sustain-project
 
 npm install
 
-npm start
+sustain start
+
 ```
 
 ## GA Release 🚀
