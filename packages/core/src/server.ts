@@ -16,7 +16,7 @@ const exntensionContainer: any[] = [];
 export function createAppServer(requests: any, config: any) {
     generateMethodSpec(requests, config);
     const { extensions, expressMiddlewares } = config;
-  
+
     if (extensions.load && isArray(extensions.load)) {
         extensions.load.forEach((extension: any) => {
             exntensionContainer.push(extension)
@@ -88,7 +88,7 @@ export function createAppServer(requests: any, config: any) {
                     console.log(request.url)
                 }
                 if (!request.staticFileExist) {
-                    render404Page(response);
+                    throw new Error("Not Found")
                 }
             }
 
@@ -104,8 +104,9 @@ export function createAppServer(requests: any, config: any) {
                 });
             })
         } catch (error) {
-            console.log(error);
-
+            console.error(error);
+            
+            render404Page(response, error);
         }
     });
     server.listen(config.port).on('listening', () => {
@@ -212,5 +213,3 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
     return methodArgs;
 }
 
-process.on('uncaughtException', (error) => {
-});
