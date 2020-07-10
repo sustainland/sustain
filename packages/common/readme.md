@@ -26,7 +26,7 @@ Decoupling the application from the dependant packages by using the Sustain fram
 * Twitter - [@labidiaymen](https://twitter.com/labidiaymen)
 
 ## GA Release 🚀
-More about the first GA Release : https://github.com/labidiaymen/sustain/issues/22
+More about the first GA Release : https://github.com/sustainland/sustain/issues/1
 
 ## License
 
