@@ -39,8 +39,10 @@ export function bootstrap(app: any): any {
             InjectedContainer.inject(controller);
             return InjectedContainer.get(controller);
         });
-
-        APP_CONFIG.extensions.load = (extensions.load || []).map((extension: any) => {
+        if(! APP_CONFIG.extensions){
+             APP_CONFIG.extensions = {};
+        }
+        APP_CONFIG.extensions.load = ((extensions || {}).load || []).map((extension: any) => {
             InjectedContainer.inject(extension);
             return InjectedContainer.get(extension);
         });
@@ -48,7 +50,7 @@ export function bootstrap(app: any): any {
         const requests = loadControllers(controllers);
         return createAppServer(requests, {
             port: APP_CONFIG.port || DEFAULT_PORT,
-            staticFolders: [...APP_CONFIG.staticFolders],
+            staticFolders: [...(APP_CONFIG.staticFolders || [])],
             swaggerConfig: APP_CONFIG.swaggerConfig,
             extensions: APP_CONFIG.extensions || {},
             expressMiddlewares: APP_CONFIG.extensions.expressMiddlewares || [],
