@@ -1,0 +1,34 @@
+{
+  "name": "sustain-minimal-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build-watch": "tsc -w --noImplicitAny"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sustainland/sustain.git"
+  },
+  "author": "Labidi Aymen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sustainland/sustain/issues"
+  },
+  "homepage": "https://github.com/sustainland/sustain#readme",
+  "dependencies": {
+    "@sustain/cli": "0.1.0",
+    "@sustain/body-parser": "0.1.0",
+    "@sustain/common": "0.1.4",
+    "@sustain/core": "0.1.7",
+    "body-parser": "^1.19.0",
+    "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.16"
+  },
+  "devDependencies": {
+    "typescript": "3.3.3",
+    "copyfiles": "^2.2.0",
+    "source-map-support": "^0.5.16"
+  }
+}
