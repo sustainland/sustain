@@ -1,6 +1,6 @@
 {
   "name": "@sustain/core",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Sustain is a Framework that is barely used despedcies to make stable and sustainable apps",
   "main": "dist/index.js",
   "scripts": {
