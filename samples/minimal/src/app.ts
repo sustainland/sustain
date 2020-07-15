@@ -10,13 +10,11 @@ export default class HelloController {
         return `Hello Sustainers`;
     }
 }
-@Extensions({})
 @App({
     controllers: [
         HelloController,
     ],
-    port: process.env.PORT || 5002,
-    staticFolders: []
+    port: process.env.PORT || 5002
 })
 class AppModule { }
 

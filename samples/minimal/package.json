@@ -21,10 +21,8 @@
     "@sustain/cli": "0.1.0",
     "@sustain/body-parser": "0.1.0",
     "@sustain/common": "0.1.4",
-    "@sustain/core": "0.1.7",
-    "body-parser": "^1.19.0",
-    "reflect-metadata": "^0.1.13",
-    "source-map-support": "^0.5.16"
+    "@sustain/core": "0.1.8",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "typescript": "3.3.3",
