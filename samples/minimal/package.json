@@ -21,7 +21,7 @@
     "@sustain/cli": "0.1.0",
     "@sustain/body-parser": "0.1.0",
     "@sustain/common": "0.1.4",
-    "@sustain/core": "0.1.8",
+    "@sustain/core": "0.1.9",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
