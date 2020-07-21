@@ -1,13 +1,15 @@
+import { CONTROLLER_CONFIG } from './../constants';
 import { Type } from "./type";
 import { CONTROLLER_ROUTE } from "../constants";
 import "reflect-metadata";
 
 const INJECTABLE_METADATA_KEY = Symbol("INJECTABLE_KEY");
-export const Injectable = function (route?: string) {
+export const Injectable = function (route?: string, config?: any) {
   return function (target: any) {
     Reflect.defineMetadata(INJECTABLE_METADATA_KEY, true, target);
     Reflect.defineMetadata(CONTROLLER_ROUTE, route, target);
     target.prototype.route = route;
+    target.prototype.config = config;
     return target;
   };
 }

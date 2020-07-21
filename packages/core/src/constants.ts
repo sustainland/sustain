@@ -16,6 +16,7 @@ export enum PATH_TYPES {
     String = 0
 }
 export const CONTROLLER_ROUTE = 'controller-roure';
+export const CONTROLLER_CONFIG = 'controller-config';
 export const PATH_METADATA = 'path';
 export const MATCH_METADATA = 'match';
 export const INTERCEPTORS = 'interceptors';

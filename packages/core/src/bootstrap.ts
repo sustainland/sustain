@@ -1,6 +1,6 @@
 import { RequestMethod } from './enums/request-method.enum';
 import { getControllersMethods } from "./utils";
-import { PATH_TYPE, METHOD_METADATA, PATH_TYPES, PATH_METADATA, MATCH_METADATA, INTERCEPTORS, METHOD_RETURN, CONTROLLER_ROUTE } from "./constants";
+import { PATH_TYPE, METHOD_METADATA, PATH_TYPES, PATH_METADATA, MATCH_METADATA, INTERCEPTORS, METHOD_RETURN, CONTROLLER_ROUTE, CONTROLLER_CONFIG } from "./constants";
 
 import { createAppServer } from "./server";
 import { InjectedContainer } from "./di/dependency-container";
@@ -39,8 +39,8 @@ export function bootstrap(app: any): any {
             InjectedContainer.inject(controller);
             return InjectedContainer.get(controller);
         });
-        if(! APP_CONFIG.extensions){
-             APP_CONFIG.extensions = {};
+        if (!APP_CONFIG.extensions) {
+            APP_CONFIG.extensions = {};
         }
         APP_CONFIG.extensions.load = ((extensions || {}).load || []).map((extension: any) => {
             InjectedContainer.inject(extension);
@@ -118,6 +118,7 @@ function buildHttpRequests(metadatas: any, payload: any) {
                 type: metadatas[PATH_TYPE] || PATH_TYPES.String
             },
             handler: Object.assign(payload.instance)[payload.method],
+            parent: payload.instance,
             objectHanlder: Object.assign(payload.instance),
             functionHandler: payload.method
         })
@@ -133,6 +134,10 @@ function prepareMetadata(payload: any): any {
     const metadatas: any = {};
     if (payload.instance.route) {
         metadatas[CONTROLLER_ROUTE] = payload.instance.route;
+        metadatas[CONTROLLER_CONFIG] = payload.instance;
+        const routeConfig = Reflect.getMetadata(CONTROLLER_CONFIG, payload.instance) || {};
+        // console.log("functionprepareMetadata -> routeConfig", payload.instance.config)
+
     }
     metadataKey.forEach((key: string) => {
         metadatas[key] = Reflect.getMetadata(key, Object.assign(payload.instance)[payload.method])

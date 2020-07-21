@@ -1,3 +1,4 @@
+import { InjectedContainer } from './di/dependency-container';
 import { fileExtension } from '@sustain/common';
 import { createServer, ServerResponse } from 'http';
 import { ROUTE_ARGS_METADATA } from './constants';
@@ -105,7 +106,7 @@ export function createAppServer(requests: any, config: any) {
             })
         } catch (error) {
             console.error(error);
-            
+
             render404Page(response, error);
         }
     });
@@ -122,13 +123,35 @@ export function createAppServer(requests: any, config: any) {
 
 async function executeInterceptor(route: any, request: any, response: any) {
     const callstack = [];
-    for (let interceptor of route.interceptors) {
-        const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, interceptor) || {}
+    if (route.objectHanlder.config
+        && route.objectHanlder.config.interceptors
+        && Array.isArray(route.objectHanlder.config.interceptors)) {
 
-        callstack.push(new Promise((resolve, reject) => {
+        for (let controllerInterceptor of route.objectHanlder.config.interceptors) {
+            const intercept = InjectedContainer.get(controllerInterceptor).intercept;
+            const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, intercept) || {}
+            const interception = new Promise((resolve) => {
+                const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, { request, response, resolve })
+                if (!intercept) {
+                    throw new Error('Invalid Interceptor : ' + controllerInterceptor.name);
+                }
+                return intercept(...methodArgs)
+            })
+            callstack.push(interception);
+        }
+
+    }
+    for (let interceptor of route.interceptors) {
+        const intercept = InjectedContainer.get(interceptor).intercept;
+        const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, intercept) || {}
+        const interception = new Promise((resolve) => {
             const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, { request, response, resolve })
-            return interceptor(...methodArgs)
-        }))
+            if (!intercept) {
+                throw new Error('Invalid Interceptor : ' + interceptor.name);
+            }
+            return intercept(...methodArgs)
+        })
+        callstack.push(interception);
     }
     return Promise.all(callstack)
         .catch((e: Error) => {
