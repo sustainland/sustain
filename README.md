@@ -41,6 +41,33 @@ sustain start
 
 ```
 
+Or you can start with a one file application
+
+```typescript
+import { App, bootstrap, Controller } from '@sustain/core';
+import { Get } from '@sustain/common';
+
+@Controller()
+export default class HelloController {
+    constructor() { }
+
+    @Get()
+    hello(): string {
+        return `Hello Sustainers`;
+    }
+}
+@App({
+    controllers: [
+        HelloController,
+    ],
+    port: process.env.PORT || 5002
+})
+class AppModule { }
+
+module.exports = bootstrap(AppModule);
+
+```
+
 ## GA Release 🚀
 More about the first GA Release : https://github.com/sustainland/sustain/issues/1
 
