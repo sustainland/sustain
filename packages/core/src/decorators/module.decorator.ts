@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 
 function createModuleDecorator(): Function {
-    return (config: any = "") => {
-        return function (constructorFunction: Function) {
-            constructorFunction.prototype.MODULE_CONFIG = config;
-        }
-    }
+  return (config: any = '') => {
+    return function (constructorFunction: Function) {
+      constructorFunction.prototype.MODULE_CONFIG = config;
+    };
+  };
 }
 
 /**

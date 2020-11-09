@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "build-watch": "tsc -w --noImplicitAny",
+    "dev": "tsc -w --noImplicitAny",
     "copy:assets": "copyfiles  public/** dist/"
   },
   "repository": {

@@ -1,9 +1,9 @@
-import { IncomingMessage } from "http";
+import {IncomingMessage} from 'http';
 
 export interface SRequest extends IncomingMessage {
-    params: { [key: string]: string | undefined };
-    staticFileExist?: boolean;
-    startAt?: any;
-    body?: any;
-    session?: any;
+  params: {[key: string]: string | undefined};
+  staticFileExist?: boolean;
+  startAt?: any;
+  body?: any;
+  session?: any;
 }

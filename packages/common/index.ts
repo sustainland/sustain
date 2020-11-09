@@ -6,7 +6,4 @@ export * from './extensions/swagger';
 export { match } from './utils/path-to-greex';
 export * from './utils/shared.utils';
 
-export const SWAGGER_FOLDER = {
-    relative : false,
-    value :  resolve(__dirname, 'public/')
-};
+export const SWAGGER_FOLDER =   resolve(__dirname, 'public/')

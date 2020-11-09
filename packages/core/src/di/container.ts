@@ -1,3 +1,6 @@
+//  2018-2019 Darcy Rayner
+//  2019 Labidi Aymen (labidi@aymen.co)
+
 import {
   Provider,
   isClassProvider,
@@ -6,16 +9,16 @@ import {
   FactoryProvider,
   isValueProvider,
   Token,
-  InjectionToken
-} from "./provider";
-import { Type } from "./type";
-import { isInjectable } from "./injectable";
-import "reflect-metadata";
-import { getInjectionToken } from "./inject";
+  InjectionToken,
+} from './provider';
+import {Type} from './type';
+import {isInjectable} from './injectable';
+import 'reflect-metadata';
+import {getInjectionToken} from './inject';
 
 type InjectableParam = Type<any>;
 
-const REFLECT_PARAMS = "design:paramtypes";
+const REFLECT_PARAMS = 'design:paramtypes';
 
 export class Container {
   private providers = new Map<Token<any>, Provider<any>>();
@@ -28,13 +31,13 @@ export class Container {
   inject<T>(type: Token<T>): T {
     let provider = this.providers.get(type);
     if (provider === undefined && !(type instanceof InjectionToken)) {
-      provider = { provide: type, useClass: type };
+      provider = {provide: type, useClass: type};
       this.assertInjectableIfClassProvider(provider);
     }
     return this.injectWithProvider(type, provider);
   }
   get(type: any): any {
-    return this.providers.get((type)).provide
+    return this.providers.get(type).provide;
   }
 
   private injectWithProvider<T>(type: Token<T>, provider?: Provider<T>): T {
@@ -54,9 +57,7 @@ export class Container {
   private assertInjectableIfClassProvider<T>(provider: Provider<T>) {
     if (isClassProvider(provider) && !isInjectable(provider.useClass)) {
       throw new Error(
-        `Cannot provide ${this.getTokenName(
-          provider.provide
-        )} using class ${this.getTokenName(
+        `Cannot provide ${this.getTokenName(provider.provide)} using class ${this.getTokenName(
           provider.useClass
         )}, ${this.getTokenName(provider.useClass)} isn't injectable`
       );
@@ -78,9 +79,7 @@ export class Container {
   }
 
   private getInjectedParams<T>(target: Type<T>) {
-    const argTypes = Reflect.getMetadata(REFLECT_PARAMS, target) as (
-      | InjectableParam
-      | undefined)[];
+    const argTypes = Reflect.getMetadata(REFLECT_PARAMS, target) as (InjectableParam | undefined)[];
     if (argTypes === undefined) {
       return [];
     }
@@ -89,9 +88,7 @@ export class Container {
       // for the argument instead.
       if (argType === undefined) {
         throw new Error(
-          `Injection error. Recursive dependency detected in constructor for type ${
-          target.name
-          } with parameter at index ${index}`
+          `Injection error. Recursive dependency detected in constructor for type ${target.name} with parameter at index ${index}`
         );
       }
       const overrideToken = getInjectionToken(target, index);
@@ -102,8 +99,6 @@ export class Container {
   }
 
   private getTokenName<T>(token: Token<T>) {
-    return token instanceof InjectionToken
-      ? token.injectionIdentifier
-      : token.name;
+    return token instanceof InjectionToken ? token.injectionIdentifier : token.name;
   }
 }

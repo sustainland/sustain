@@ -10,7 +10,9 @@ export const SWAGGER_ALLOWED_TYPES: any[] = [
 
 export enum OpenAPITypes {
     String = 'string',
-    Object = 'object'
+    Number = 'number',
+    Object = 'object',
+    Array = 'array'
 }
 
 export const CONTROLLER_ROUTE = 'controller-roure';

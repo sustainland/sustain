@@ -1,4 +1,4 @@
-import { Type } from "./type";
+import {Type} from './type';
 
 export class InjectionToken {
   constructor(public injectionIdentifier: string) {}
@@ -24,25 +24,16 @@ export interface FactoryProvider<T> extends BaseProvider<T> {
   provide: Token<T>;
   useFactory: Factory<T>;
 }
-export type Provider<T> =
-  | ClassProvider<T>
-  | ValueProvider<T>
-  | FactoryProvider<T>;
+export type Provider<T> = ClassProvider<T> | ValueProvider<T> | FactoryProvider<T>;
 
-export function isClassProvider<T>(
-  provider: BaseProvider<T>
-): provider is ClassProvider<T> {
+export function isClassProvider<T>(provider: BaseProvider<T>): provider is ClassProvider<T> {
   return (provider as any).useClass !== undefined;
 }
 
-export function isValueProvider<T>(
-  provider: BaseProvider<T>
-): provider is ValueProvider<T> {
+export function isValueProvider<T>(provider: BaseProvider<T>): provider is ValueProvider<T> {
   return (provider as any).useValue !== undefined;
 }
 
-export function isFactoryProvider<T>(
-  provider: BaseProvider<T>
-): provider is FactoryProvider<T> {
+export function isFactoryProvider<T>(provider: BaseProvider<T>): provider is FactoryProvider<T> {
   return (provider as any).useFactory !== undefined;
 }

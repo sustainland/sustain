@@ -1,5 +1,5 @@
 import { App, bootstrap, Controller } from '@sustain/core';
-import { Get, Extensions } from '@sustain/common';
+import { Get } from '@sustain/common';
 
 @Controller()
 export default class HelloController {

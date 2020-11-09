@@ -101,9 +101,17 @@ function getRequestBody(route: any, method?: any) {
             switch (Number(paramType)) {
                 case RouteParamtypes.BODY:
                     if (routeArgsMetadata[paramsKeys].data) {
-
                         properties[routeArgsMetadata[paramsKeys].data] = {
                             type: routeArgsMetadata[paramsKeys].type || OpenAPITypes.String
+                        }
+                        if (routeArgsMetadata[paramsKeys].type == OpenAPITypes.Array) {
+                            properties[routeArgsMetadata[paramsKeys].data].items = {
+                                oneOf: [{
+                                    type: OpenAPITypes.String
+                                }, {
+                                    type: OpenAPITypes.Number
+                                }]
+                            }
                         }
 
                     }
