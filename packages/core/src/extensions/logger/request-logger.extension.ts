@@ -10,9 +10,8 @@ export class RequestLoggerExtension implements SustainExtension {
   onResponseEndHook(request: SustainRequest, response: SustainResponse) {
     const endTime: any = new Date();
     const timeDiff: any = endTime - request.startAt;
-    // switch for code error
     let color;
-    if (response.statusCode < 400) { 
+    if (response.statusCode < 400) {
       color = `\x1b[32m$$\x1b[0m `;
     } else {
       color = `\x1B[31m$$\x1b[0m`;

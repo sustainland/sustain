@@ -1,9 +1,10 @@
-import {SRequest} from './srequest.interface';
+import {SustainResponse} from './SustainResponce.interface';
+import {SustainRequest} from './srequest.interface';
 
-export interface IExtension {
-  requestApply?: (request: SRequest, responce?: any) => void;
+export interface SustainExtension {
+  requestApply?: (request: SustainRequest, responce?: SustainResponse) => void;
   hookOnExitApp?: () => void;
-  onResponseEndHook?: (request?: SRequest, responce?: any) => void;
-  onResponseStartHook?: (request?: SRequest, responce?: any) => void;
-  onResquestStartHook?: (request?: SRequest, responce?: any) => void;
+  onResponseEndHook?: (request?: SustainRequest, responce?: SustainResponse) => void;
+  onResponseStartHook?: (request?: SustainRequest, responce?: SustainResponse) => void;
+  onResquestStartHook?: (request?: SustainRequest, responce?: SustainResponse) => void;
 }

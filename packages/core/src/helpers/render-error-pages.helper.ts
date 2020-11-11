@@ -1,3 +1,4 @@
+import {EMPTY_STRING, IS_DEVELOPMENT} from './../constants';
 import {readFile} from 'fs';
 import {join} from 'path';
 
@@ -7,8 +8,8 @@ export function render404Page(response: any, error: any) {
     if (!err) {
       data = data.toString();
       data = data.replace('#error_message', error);
-      data = data.replace('#error', error.stack);
       data = data.replace('#status_code', response.statusCode);
+      data = data.replace('#error', IS_DEVELOPMENT ? error.stack : EMPTY_STRING);
       response.end(data);
     } else {
       console.log(err);

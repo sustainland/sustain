@@ -1,9 +1,8 @@
-import {IncomingMessage} from 'http';
 
-export interface SRequest extends IncomingMessage {
-  params: {[key: string]: string | undefined};
+export interface SustainRequest extends Request {
   staticFileExist?: boolean;
   startAt?: any;
-  body?: any;
   session?: any;
+  method: string;
+  url: string;
 }

@@ -1,3 +1,4 @@
 export enum ContentType {
-    APPLICATION_JSON = "application/json",
+  ApplicationJson = 'application/json',
+  TextHtml = 'text/html',
 }
