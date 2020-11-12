@@ -12,10 +12,10 @@ export enum ApiModes {
 function createSwaggerDecorator(): Function {
     return (swaggerConfig: ISwaggerInfo) => {
         return function (constructorFunction: Function) {
-            const { APP_CONFIG } = constructorFunction.prototype;
-            if (APP_CONFIG) {
-                constructorFunction.prototype.APP_CONFIG = Object.assign(
-                    APP_CONFIG,
+            const { MODULE_CONFIG } = constructorFunction.prototype;
+            if (MODULE_CONFIG) {
+                constructorFunction.prototype.MODULE_CONFIG = Object.assign(
+                    MODULE_CONFIG,
                     {
                         swaggerConfig
                     }

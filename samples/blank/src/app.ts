@@ -1,10 +1,9 @@
-import {RequestLoggerExtension} from './../../../packages/extensions/request-logger/request-logger.extension';
 import {UserModule} from './modules/users/UserModule';
-import {SwaggerAPI, SWAGGER_FOLDER} from '@sustain/common';
+import {SwaggerAPI} from '@sustain/common';
 
 import HelloController from './controllers/HelloController';
 import {HelloService} from './services/HelloService';
-import {App, bootstrap, SwaggerModule} from '@sustain/core';
+import {App, bootstrap, SwaggerModule, RequestLoggerExtension} from '@sustain/core';
 import {Extensions} from '@sustain/common';
 import BaseController from './controllers/BaseController';
 require('source-map-support').install();
@@ -26,15 +25,14 @@ const serveStatic = require('@sustain/serve-static');
     enabled: true,
   },
   expressMiddlewares: [bodyParser.json()],
+  load: [RequestLoggerExtension],
 })
 @App({
   modules: [SwaggerModule, UserModule],
   controllers: [HelloController, BaseController],
   providers: [HelloService],
   port: process.env.PORT || 5002,
-  staticFolders : [
-     { path : 'public'}
-  ]
+  staticFolders: [{path: 'public'}],
 })
 class AppModule {}
 

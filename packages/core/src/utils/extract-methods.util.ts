@@ -1,4 +1,4 @@
-export function getControllersMethods(obj: {[x: string]: any}) {
+export function getControllersMethods(obj: {[x: string]: any}): any[] {
   let props: any[] = [];
 
   do {

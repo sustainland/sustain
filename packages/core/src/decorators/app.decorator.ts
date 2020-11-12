@@ -3,7 +3,7 @@ import 'reflect-metadata';
 function createAppDecorator(): Function {
   return (config: any = '') => {
     return function (constructorFunction: Function) {
-      constructorFunction.prototype.APP_CONFIG = config;
+      constructorFunction.prototype.MODULE_CONFIG = config;
     };
   };
 }

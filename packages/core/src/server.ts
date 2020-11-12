@@ -1,16 +1,19 @@
+import {SustainExtension} from './interfaces/IExtension.interface';
 import {InjectedContainer} from './di/dependency-container';
 import {createServer, ServerResponse} from 'http';
 import {ROUTE_ARGS_METADATA} from './constants';
 import * as querystring from 'querystring';
 import {generateMethodSpec} from '@sustain/common';
 import {render404Page} from './helpers/render-error-pages.helper';
-import {SRequest} from './interfaces';
 import {isArray} from 'util';
 import {RouteParamtypes} from './enums/route-params.enum';
-
+const yenv = require('yenv');
+const env = yenv('sustain.yaml', {optionalKeys: ['domain', 'port']});
 const serveStatic = require('@sustain/serve-static');
 
-const mode = 'debug';
+const {domain = 'localhost', port = 5002} = env;
+
+const mode = process.env.NODE_ENV;
 
 const exntensionContainer: any[] = [];
 
@@ -22,32 +25,32 @@ export function createAppServer(requests: any, config: any) {
   }
 
   const {extensions, expressMiddlewares, staticFolders} = config;
-
   if (extensions.load && isArray(extensions.load)) {
-    extensions.load.forEach((extension: any) => {
+    extensions.load.forEach((extension: SustainExtension) => {
       exntensionContainer.push(extension);
     });
   }
 
-  const server = createServer(async (request: SRequest, response: ServerResponse) => {
+  const server = createServer(async (request: any, response: ServerResponse) => {
     try {
-      exntensionContainer.forEach((extension: any) => {
+      exntensionContainer.forEach((extension: SustainExtension) => {
         if (extension.onResquestStartHook) {
           extension.onResquestStartHook(request, response);
         }
       });
       const middlewares = [];
+      const staticFolderResolvers = [];
       for (let middleware of expressMiddlewares) {
         middlewares.push(
-          new Promise((resolve, reject) => {
+          new Promise(resolve => {
             return middleware(request, response, resolve);
           })
         );
       }
 
       for (const staticFolder of staticFolders) {
-        middlewares.push(
-          new Promise((resolve, reject) => {
+        staticFolderResolvers.push(
+          new Promise(resolve => {
             return serveStatic(staticFolder.path, staticFolder.option || {})(request, response, resolve);
           })
         );
@@ -85,10 +88,15 @@ export function createAppServer(requests: any, config: any) {
           response.end(String(result));
         }
       } else {
+        await Promise.all(staticFolderResolvers).catch((error: Error) => {
+          response.end(`${error.message}, ${error.stack}`);
+          throw error;
+        });
+
         throw new Error('Not Found');
       }
 
-      response.on('error', error => {
+      response.on('error', (error: any) => {
         console.log(error);
       });
       response.on('finish', () => {
@@ -103,14 +111,19 @@ export function createAppServer(requests: any, config: any) {
       console.error(error);
 
       render404Page(response, error);
+      exntensionContainer.forEach((extension: any) => {
+        if (extension.onResponseEndHook) {
+          extension.onResponseEndHook(request, response);
+        }
+      });
     }
   });
   server.listen(config.port).on('listening', () => {
-    console.log('\x1b[32m%s\x1b[0m', ' App is running', `at http://localhost:${config.port} in ${mode}`);
+    console.log('\x1b[32m%s\x1b[0m', ' App is running', `at ${domain}:${port} in ${mode} mode`);
     console.log(' Press CTRL-C to stop\n');
   });
   server.on('error', (error: Error) => {
-    console.log(error);
+    console.log(999);
   });
   return server;
 }
