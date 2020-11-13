@@ -7,10 +7,9 @@ import {generateMethodSpec} from '@sustain/common';
 import {renderErrorPage} from './helpers/render-error-pages.helper';
 import {RouteParamtypes} from './enums/route-params.enum';
 const yenv = require('yenv');
-const env = yenv('sustain.yaml', {optionalKeys: ['domain', 'port']});
 const serveStatic = require('@sustain/serve-static');
-
-const {domain = 'localhost', port = 5002} = env;
+const yamlconfig = require('@sustain/config');
+const {domain = 'localhost', port = 5002} = yamlconfig;
 
 const mode = process.env.NODE_ENV;
 
@@ -35,18 +34,6 @@ export class SustainServer {
 
   loadInjectedExtension(extensions: SustainExtension[]) {
     return extensions.map((extension: SustainExtension) => InjectedContainer.get(extension));
-  }
-
-  nextifyStaticFolder(
-    middleware: any,
-    path: string,
-    option: any,
-    request: any,
-    responce: ServerResponse
-  ): Promise<any> {
-    return new Promise(next => {
-      return middleware(path, option)(request, responce, next);
-    });
   }
 
   nextifyMiddleware(middleware: any, request: any, responce: ServerResponse) {
@@ -88,18 +75,17 @@ export class SustainServer {
           await this.handleControllerOutput(controllerOutput, response);
         } else {
           for (const folder of this.staticFolders) {
-            await this.nextifyStaticFolder(serveStatic, folder.path, folder.option, request, response);
+            await this.nextifyMiddleware(serveStatic(folder.path, folder.option), request, response);
           }
-
+          response.statusCode = 404;
           throw new Error('Not Found');
         }
       } catch (error) {
-        response.statusCode = 404;
         // catch all error;
         renderErrorPage(response, error);
       }
     })
-      .listen(5002)
+      .listen(port)
       .on('listening', () => {
         console.log('\x1b[32m%s\x1b[0m', ' App is running', `at ${domain}:${port} in ${mode} mode`);
         console.log(' Press CTRL-C to stop\n');

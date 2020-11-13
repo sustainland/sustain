@@ -1,0 +1,22 @@
+# Sustain config file
+# documentation : https://sustainland.github.io/docs
+
+port: 5002
+domain: localhost
+core:
+  extensions:
+    swagger: true
+swagger:
+  components:
+    securitySchemes:
+      bearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT   
+  security:
+  - bearerAuth: [] 
+  info:
+    title: Sustain REST API 
+    version: '1.0.0'
+    description: Generated with `Sustain`
+  openapi: '3.0.0'
