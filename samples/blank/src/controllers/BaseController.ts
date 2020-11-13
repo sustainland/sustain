@@ -1,16 +1,19 @@
-import { Response, Get } from '@sustain/common';
-import { Controller } from '@sustain/core';
-import { getOpenApi } from '@sustain/common';
-
+import {Response, Get} from '@sustain/common';
+import {Controller} from '@sustain/core';
+import {getOpenApi} from '@sustain/common';
 
 @Controller()
 export default class BaseController {
-    constructor() { }
+  constructor() {}
 
-    @Get('/swagger.json')
-    swaggerJson(@Response() request: any) {
-        request.setHeader('Access-Control-Allow-Origin', '*');
-        return getOpenApi();
-    }
+  @Get('/swagger.json')
+  swaggerJson(@Response() request: any) {
+    request.setHeader('Access-Control-Allow-Origin', '*');
+    return getOpenApi();
+  }
 
+  @Get()
+  home(): any {
+    return {message: 'welcome sustainers', version: 'beta'};
+  }
 }

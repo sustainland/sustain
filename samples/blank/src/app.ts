@@ -4,13 +4,10 @@ import {SwaggerAPI} from '@sustain/common';
 import HelloController from './controllers/HelloController';
 import {HelloService} from './services/HelloService';
 import {App, bootstrap, SwaggerModule, RequestLoggerExtension} from '@sustain/core';
-import {Extensions} from '@sustain/common';
 import BaseController from './controllers/BaseController';
 require('source-map-support').install();
 
-// using body-parser for demo purpose, that we can use expressjs ecosystem
 const bodyParser = require('@sustain/body-parser');
-const serveStatic = require('@sustain/serve-static');
 
 @SwaggerAPI({
   info: {
@@ -20,17 +17,12 @@ const serveStatic = require('@sustain/serve-static');
   },
   swagger: '2.0',
 })
-@Extensions({
-  swagger: {
-    enabled: true,
-  },
-  expressMiddlewares: [bodyParser.json()],
-  load: [RequestLoggerExtension],
-})
 @App({
   modules: [SwaggerModule, UserModule],
   controllers: [HelloController, BaseController],
+  middleswares: [bodyParser.json()],
   providers: [HelloService],
+  extensions: [RequestLoggerExtension],
   port: process.env.PORT || 5002,
   staticFolders: [{path: 'public'}],
 })

@@ -1,4 +1,4 @@
-import {createAppServer} from './server';
+import {SustainServer} from './server';
 import {getAllModuleMetaData} from './utils/module.helper';
 import {loadControllers} from './utils/http-request.helper';
 import {DEFAULT_PORT} from './constants';
@@ -19,13 +19,14 @@ class BootstrapFramework {
   }
 
   bootServer(requests: any, mainModuleMetaData: any) {
-    const {port, staticFolders = [], swaggerConfig, extensions = {}} = mainModuleMetaData;
-    createAppServer(requests, {
+    const {port, staticFolders = [], swaggerConfig, extensions = {}, middleswares = []} = mainModuleMetaData;
+
+    new SustainServer(requests, {
       port: port || DEFAULT_PORT,
-      staticFolders: [...(staticFolders || [])],
-      swaggerConfig: swaggerConfig,
-      extensions: extensions || {},
-      expressMiddlewares: extensions.expressMiddlewares || [],
+      staticFolders,
+      swaggerConfig,
+      extensions,
+      middleswares,
     });
   }
 }

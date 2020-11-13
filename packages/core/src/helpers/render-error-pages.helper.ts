@@ -2,8 +2,8 @@ import {EMPTY_STRING, IS_DEVELOPMENT} from './../constants';
 import {readFile} from 'fs';
 import {join} from 'path';
 
-export function render404Page(response: any, error: any) {
-  response.writeHead(404, {'Content-Type': 'text/html'});
+export function renderErrorPage(response: any, error: any) {
+  response.writeHead(response.statusCode, {'Content-Type': 'text/html'});
   readFile(join(__dirname, '../public/404.html'), (err: any, data: any) => {
     if (!err) {
       data = data.toString();

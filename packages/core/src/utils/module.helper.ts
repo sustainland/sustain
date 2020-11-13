@@ -2,15 +2,24 @@ import {InjectedContainer} from './../di/dependency-container';
 let allControllers: any[] = [],
   allProviders: any[] = [],
   allExtensions: any[] = [],
-  allStaticFolders: any[] = [];
+  allStaticFolders: any[] = [],
+  allMiddleswares: any[] = [];
 export function getModuleMetaData(module: any) {
   const {MODULE_CONFIG} = module.prototype;
-  let {controllers = [], providers = [], extensions = [], modules = [], staticFolders = []} = MODULE_CONFIG;
+  let {
+    controllers = [],
+    providers = [],
+    extensions = [],
+    modules = [],
+    staticFolders = [],
+    middleswares = [],
+  } = MODULE_CONFIG;
 
   allControllers = [...allControllers, ...controllers];
   allProviders = [...allProviders, ...providers];
   allExtensions = [...allExtensions, ...extensions];
   allStaticFolders = [...allStaticFolders, ...staticFolders];
+  allMiddleswares = [...allMiddleswares, ...middleswares];
 
   if (Array.isArray(modules)) {
     modules.forEach((childModule: any) => {
@@ -22,12 +31,13 @@ export function getModuleMetaData(module: any) {
 export function getAllModuleMetaData(mainModule: any) {
   getModuleMetaData(mainModule);
   injectProvidersToRootContainer([...allProviders]);
-  injectControllerToRootContainer([...allControllers]);
+  injectControllerToRootContainer([...allExtensions, ...allControllers]);
 
   return {
     controllers: allControllers,
     providers: allProviders,
     extensions: allExtensions,
+    middleswares: allMiddleswares,
     staticFolders: allStaticFolders,
   };
 }
