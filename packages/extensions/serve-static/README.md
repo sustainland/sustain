@@ -1,4 +1,4 @@
-# serve-static
+# @sustain/serve-static
 
 [![NPM Version][npm-version-image]][npm-url]
 [![NPM Downloads][npm-downloads-image]][npm-url]
@@ -13,7 +13,7 @@ This is a [Node.js](https://nodejs.org/en/) module available through the
 [`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
 
 ```sh
-$ npm install serve-static
+$ npm install @sustain/serve-static
 ```
 
 ## API
@@ -21,7 +21,7 @@ $ npm install serve-static
 <!-- eslint-disable no-unused-vars -->
 
 ```js
-var serveStatic = require('serve-static')
+var serveStatic = require('@sustain/serve-static')
 ```
 
 ### serveStatic(root, options)
@@ -138,7 +138,7 @@ the arguments are:
 ```js
 var finalhandler = require('finalhandler')
 var http = require('http')
-var serveStatic = require('serve-static')
+var serveStatic = require('@sustain/serve-static')
 
 // Serve up public/ftp folder
 var serve = serveStatic('public/ftp', { 'index': ['index.html', 'index.htm'] })
@@ -158,7 +158,7 @@ server.listen(3000)
 var contentDisposition = require('content-disposition')
 var finalhandler = require('finalhandler')
 var http = require('http')
-var serveStatic = require('serve-static')
+var serveStatic = require('@sustain/serve-static')
 
 // Serve up public/ftp folder
 var serve = serveStatic('public/ftp', {
@@ -188,7 +188,7 @@ This is a simple example of using Express.
 
 ```js
 var express = require('express')
-var serveStatic = require('serve-static')
+var serveStatic = require('@sustain/serve-static')
 
 var app = express()
 
@@ -205,7 +205,7 @@ a fallback.
 ```js
 var express = require('express')
 var path = require('path')
-var serveStatic = require('serve-static')
+var serveStatic = require('@sustain/serve-static')
 
 var app = express()
 
@@ -223,7 +223,7 @@ is for 1 day.
 ```js
 var express = require('express')
 var path = require('path')
-var serveStatic = require('serve-static')
+var serveStatic = require('@sustain/serve-static')
 
 var app = express()
 
@@ -246,14 +246,14 @@ function setCustomCacheControl (res, path) {
 
 [MIT](LICENSE)
 
-[appveyor-image]: https://badgen.net/appveyor/ci/dougwilson/serve-static/master?label=windows
-[appveyor-url]: https://ci.appveyor.com/project/dougwilson/serve-static
-[coveralls-image]: https://badgen.net/coveralls/c/github/expressjs/serve-static/master
-[coveralls-url]: https://coveralls.io/r/expressjs/serve-static?branch=master
-[node-image]: https://badgen.net/npm/node/serve-static
+[appveyor-image]: https://badgen.net/appveyor/ci/dougwilson/@sustain/serve-static/master?label=windows
+[appveyor-url]: https://ci.appveyor.com/project/dougwilson/@sustain/serve-static
+[coveralls-image]: https://badgen.net/coveralls/c/github/expressjs/@sustain/serve-static/master
+[coveralls-url]: https://coveralls.io/r/expressjs/@sustain/serve-static?branch=master
+[node-image]: https://badgen.net/npm/node/@sustain/serve-static
 [node-url]: https://nodejs.org/en/download/
-[npm-downloads-image]: https://badgen.net/npm/dm/serve-static
-[npm-url]: https://npmjs.org/package/serve-static
-[npm-version-image]: https://badgen.net/npm/v/serve-static
-[travis-image]: https://badgen.net/travis/expressjs/serve-static/master?label=linux
-[travis-url]: https://travis-ci.org/expressjs/serve-static
+[npm-downloads-image]: https://badgen.net/npm/dm/@sustain/serve-static
+[npm-url]: https://npmjs.org/package/@sustain/serve-static
+[npm-version-image]: https://badgen.net/npm/v/@sustain/serve-static
+[travis-image]: https://badgen.net/travis/expressjs/@sustain/serve-static/master?label=linux
+[travis-url]: https://travis-ci.org/expressjs/@sustain/serve-static

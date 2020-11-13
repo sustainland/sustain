@@ -1,4 +1,4 @@
-# body-parser
+# @sustain/body-parser
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
@@ -44,7 +44,7 @@ Other body parsers you might be interested in:
 ## Installation
 
 ```sh
-$ npm install body-parser
+$ npm install @sustain/body-parser
 ```
 
 ## API
@@ -52,7 +52,7 @@ $ npm install body-parser
 <!-- eslint-disable no-unused-vars -->
 
 ```js
-var bodyParser = require('body-parser')
+var bodyParser = require('@sustain/body-parser')
 ```
 
 The `bodyParser` object exposes various factories to create middlewares. All
@@ -377,7 +377,7 @@ This is the simplest setup.
 
 ```js
 var express = require('express')
-var bodyParser = require('body-parser')
+var bodyParser = require('@sustain/body-parser')
 
 var app = express()
 
@@ -397,12 +397,12 @@ app.use(function (req, res) {
 ### Express route-specific
 
 This example demonstrates adding body parsers specifically to the routes that
-need them. In general, this is the most recommended way to use body-parser with
+need them. In general, this is the most recommended way to use @sustain/body-parser with
 Express.
 
 ```js
 var express = require('express')
-var bodyParser = require('body-parser')
+var bodyParser = require('@sustain/body-parser')
 
 var app = express()
 
@@ -430,7 +430,7 @@ All the parsers accept a `type` option which allows you to change the
 
 ```js
 var express = require('express')
-var bodyParser = require('body-parser')
+var bodyParser = require('@sustain/body-parser')
 
 var app = express()
 
@@ -448,11 +448,11 @@ app.use(bodyParser.text({ type: 'text/html' }))
 
 [MIT](LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/body-parser.svg
-[npm-url]: https://npmjs.org/package/body-parser
-[travis-image]: https://img.shields.io/travis/expressjs/body-parser/master.svg
-[travis-url]: https://travis-ci.org/expressjs/body-parser
-[coveralls-image]: https://img.shields.io/coveralls/expressjs/body-parser/master.svg
-[coveralls-url]: https://coveralls.io/r/expressjs/body-parser?branch=master
-[downloads-image]: https://img.shields.io/npm/dm/body-parser.svg
-[downloads-url]: https://npmjs.org/package/body-parser
+[npm-image]: https://img.shields.io/npm/v/@sustain/body-parser.svg
+[npm-url]: https://npmjs.org/package/@sustain/body-parser
+[travis-image]: https://img.shields.io/travis/expressjs/@sustain/body-parser/master.svg
+[travis-url]: https://travis-ci.org/expressjs/@sustain/body-parser
+[coveralls-image]: https://img.shields.io/coveralls/expressjs/@sustain/body-parser/master.svg
+[coveralls-url]: https://coveralls.io/r/expressjs/@sustain/body-parser?branch=master
+[downloads-image]: https://img.shields.io/npm/dm/@sustain/body-parser.svg
+[downloads-url]: https://npmjs.org/package/@sustain/body-parser
