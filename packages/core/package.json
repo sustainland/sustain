@@ -1,6 +1,6 @@
 {
   "name": "@sustain/core",
-  "version": "0.1.9",
+  "version": "0.5.0",
   "description": "Sustain is a Framework that is barely used despedcies to make stable and sustainable apps",
   "main": "dist/index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
-    "@sustain/common": "^0.1.4",
+    "@sustain/common": "^0.4.0",
     "@sustain/config": "^0.0.1",
     "@sustain/serve-static": "^0.3.0",
     "@types/node": "^14.14.7",
