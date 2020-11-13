@@ -83,6 +83,7 @@ export class SustainServer {
       } catch (error) {
         // catch all error;
         renderErrorPage(response, error);
+        console.error(error)
       }
     })
       .listen(port)

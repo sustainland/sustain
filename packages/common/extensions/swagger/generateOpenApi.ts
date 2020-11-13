@@ -20,7 +20,6 @@ export function generateMethodSpec(controllers: any, config: any) {
       ...OpenApiDefinitions,
     },
   };
-  console.log('core',yamlconfig.core);
   if (yamlconfig.core?.extensions?.swagger) {
     if (swaggerConfiguration) {
       for (const method in controllers) {

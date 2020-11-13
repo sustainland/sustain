@@ -22,5 +22,4 @@ export const SWAGGER_META_DATA = 'swagger-metadata';
 export const API_MODEL_PROPERTIES_ARRAY = 'API_MODEL_PROPERTIES_ARRAY';
 export const API_MODEL_PROPERTIES = 'API_MODEL_PROPERTIES';
 export const EMPTY_STRING = '';
-
-export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
+export const IS_DEVELOPMENT = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
