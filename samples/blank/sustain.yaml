@@ -8,14 +8,12 @@ core:
     swagger: true
 swagger:
   securityDefinitions:
-    BasicAuth:
-      type: basic
     ApiKeyAuth:
       type: apiKey
       in: header
       name: X-API-Key
   security:
-    - bearerAuth: []
+    - ApiKeyAuth: []
   info:
     title: Sustain REST API
     version: '1.0.0'
