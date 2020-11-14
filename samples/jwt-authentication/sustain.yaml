@@ -1,0 +1,26 @@
+# Sustain config file
+# documentation : https://sustainland.github.io/docs
+
+port: 5003
+domain: localhost
+core:
+  extensions:
+    swagger: true
+swagger:
+  securityDefinitions:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  security:
+    - ApiKeyAuth: []
+  info:
+    title: Sustain REST API
+    version: '1.0.0'
+    description: Generated with `Sustain`
+  swagger: '2.0.0'
+jwt_config:
+  ACCESS_TOKEN_SECRET: chang3s3crettoken
+  ACCESS_TOKEN_LIFE: 120
+  REFRESH_TOKEN_SECRET: dhw782wujnd99ahmmakhanjkajikhiwn2n
+  REFRESH_TOKEN_LIFE: F86400
