@@ -50,5 +50,6 @@ function injectControllerToRootContainer(elements: any[] = []) {
 function injectProvidersToRootContainer(elements: any[] = []) {
   elements.forEach((element: any) => {
     InjectedContainer.addProvider({provide: element, useClass: element});
+    InjectedContainer.inject(element);
   });
 }
