@@ -7,16 +7,17 @@ core:
   extensions:
     swagger: true
 swagger:
-  components:
-    securitySchemes:
-      bearerAuth:
-        type: http
-        scheme: bearer
-        bearerFormat: JWT   
+  securityDefinitions:
+    BasicAuth:
+      type: basic
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
   security:
-  - bearerAuth: [] 
+    - bearerAuth: []
   info:
-    title: Sustain REST API 
+    title: Sustain REST API
     version: '1.0.0'
     description: Generated with `Sustain`
-  openapi: '3.0.0'
+  swagger: '2.0.0'
