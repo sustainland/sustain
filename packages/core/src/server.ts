@@ -59,14 +59,13 @@ export class SustainServer {
             extension.onResquestStartHook(request, response);
           }
         });
-
-        for (const middlesware of this.middleswares) {
-          await this.nextifyMiddleware(middlesware, request, response);
-        }
-
+          for (const middlesware of this.middleswares) {
+            await this.nextifyMiddleware(middlesware, request, response);
+          }
+        
         const route = requestSegmentMatch(this.requests, request);
         if (route) {
-          if (route.interceptors) {
+          if (route.interceptors || route.objectHanlder?.config) {
             await executeInterceptor(route, request, response);
           }
           const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, route.handler) || {};
@@ -83,7 +82,7 @@ export class SustainServer {
       } catch (error) {
         // catch all error;
         renderErrorPage(response, error);
-        console.error(error)
+        console.error(error);
       }
     })
       .listen(port)
@@ -140,7 +139,7 @@ async function executeInterceptor(route: any, request: any, response: any) {
       callstack.push(interception);
     }
   }
-  for (let interceptor of route.interceptors) {
+  for (let interceptor of route.interceptors || []) {
     const intercept = InjectedContainer.get(interceptor).intercept;
     const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, intercept) || {};
     const interception = new Promise(resolve => {
