@@ -59,14 +59,14 @@ export class SustainServer {
             extension.onResquestStartHook(request, response);
           }
         });
-          for (const middlesware of this.middleswares) {
-            await this.nextifyMiddleware(middlesware, request, response);
-          }
-        
+        for (const middlesware of this.middleswares) {
+          await this.nextifyMiddleware(middlesware, request, response);
+        }
+
         const route = requestSegmentMatch(this.requests, request);
         if (route) {
           if (route.interceptors || route.objectHanlder?.config) {
-            await executeInterceptor(route, request, response);
+            await this.executeInterceptor(route, request, response);
           }
           const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, route.handler) || {};
           const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, {request, response, body: request.body});
@@ -113,49 +113,50 @@ export class SustainServer {
     }
   }
 
+  async executeInterceptor(route: any, request: any, response: any) {
+    const callstack = [];
+    if (
+      route.objectHanlder.config &&
+      route.objectHanlder.config.interceptors &&
+      Array.isArray(route.objectHanlder.config.interceptors)
+    ) {
+      // TODO: merge the route and controller inteceptor mecanisme
+      for (let controllerInterceptor of route.objectHanlder.config.interceptors) {
+        const interceptor = InjectedContainer.get(controllerInterceptor);
+        const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, interceptor.intercept) || {};
+        const interception = new Promise(resolve => {
+          const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, {request, response, resolve});
+          if (!interceptor.intercept) {
+            throw new Error('Invalid Interceptor : ' + controllerInterceptor.name);
+          }
+          return interceptor.intercept(...methodArgs);
+        });
+        callstack.push(interception);
+      }
+    }
+    for (let routeInterceptor of route.interceptors || []) {
+      const interceptor = InjectedContainer.get(routeInterceptor);
+      const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, interceptor.intercept) || {};
+      const interception = new Promise(resolve => {
+        const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, {request, response, resolve});
+        if (!interceptor.intercept) {
+          throw new Error('Invalid Interceptor : ' + routeInterceptor.interceptor.name);
+        }
+        return interceptor.intercept(...methodArgs);
+      });
+      callstack.push(interception);
+    }
+    return Promise.all(callstack).catch((e: Error) => {
+      response.end(`${e.message}, ${e.stack}
+            `);
+      throw e;
+    });
+  }
+
   setPoweredByHeader(response: ServerResponse) {
     response.setHeader('x-powered-by', 'Sustain Server');
     response.setHeader('Access-Control-Allow-Origin', '*');
   }
-}
-
-async function executeInterceptor(route: any, request: any, response: any) {
-  const callstack = [];
-  if (
-    route.objectHanlder.config &&
-    route.objectHanlder.config.interceptors &&
-    Array.isArray(route.objectHanlder.config.interceptors)
-  ) {
-    for (let controllerInterceptor of route.objectHanlder.config.interceptors) {
-      const intercept = InjectedContainer.get(controllerInterceptor).intercept;
-      const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, intercept) || {};
-      const interception = new Promise(resolve => {
-        const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, {request, response, resolve});
-        if (!intercept) {
-          throw new Error('Invalid Interceptor : ' + controllerInterceptor.name);
-        }
-        return intercept(...methodArgs);
-      });
-      callstack.push(interception);
-    }
-  }
-  for (let interceptor of route.interceptors || []) {
-    const intercept = InjectedContainer.get(interceptor).intercept;
-    const routeParamsHandler = Reflect.getMetadata(ROUTE_ARGS_METADATA, intercept) || {};
-    const interception = new Promise(resolve => {
-      const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, {request, response, resolve});
-      if (!intercept) {
-        throw new Error('Invalid Interceptor : ' + interceptor.name);
-      }
-      return intercept(...methodArgs);
-    });
-    callstack.push(interception);
-  }
-  return Promise.all(callstack).catch((e: Error) => {
-    response.end(`${e.message}, ${e.stack}
-            `);
-    throw e;
-  });
 }
 
 function requestSegmentMatch(requests: any, request: any) {
