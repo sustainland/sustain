@@ -1,9 +1,7 @@
+import {ServerResponse} from 'http';
 import {AuthService} from './AuthService';
 import {Response, Next, Headers} from '@sustain/common';
 import {Injectable, SustainInterceptor} from '@sustain/core';
-import {Server, ServerResponse} from 'http';
-const {jwt_config} = require('@sustain/config');
-const jwt = require('jsonwebtoken');
 
 @Injectable()
 export class JWTInterceptor implements SustainInterceptor {
@@ -18,7 +16,7 @@ export class JWTInterceptor implements SustainInterceptor {
       response.end(`You are not authorized to execute this request`);
     } else {
       try {
-        jwt.verify(apiKey, jwt_config.ACCESS_TOKEN_SECRET);
+        this.authService.verify(apiKey);
         next();
       } catch (error) {
         console.log(error);
@@ -26,6 +24,5 @@ export class JWTInterceptor implements SustainInterceptor {
         response.end(`Invalid accessToken`);
       }
     }
-    // TODO : refactor after fix this is undefined
   }
 }
