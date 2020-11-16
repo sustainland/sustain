@@ -1,7 +1,7 @@
+import {DEFAULT_PORT} from './constants';
 import {SustainServer} from './server';
 import {getAllModuleMetaData} from './utils/module.helper';
 import {loadControllers} from './utils/http-request.helper';
-import {DEFAULT_PORT} from './constants';
 
 class BootstrapFramework {
   application: any;
@@ -19,12 +19,11 @@ class BootstrapFramework {
   }
 
   bootServer(requests: any, mainModuleMetaData: any) {
-    const {port, staticFolders = [], swaggerConfig, extensions = {}, middleswares = []} = mainModuleMetaData;
+    const {port, staticFolders = [], extensions = {}, middleswares = []} = mainModuleMetaData;
 
     new SustainServer(requests, {
       port: port || DEFAULT_PORT,
       staticFolders,
-      swaggerConfig,
       extensions,
       middleswares,
     });

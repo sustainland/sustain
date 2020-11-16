@@ -4,7 +4,7 @@ let allControllers: any[] = [],
   allExtensions: any[] = [],
   allStaticFolders: any[] = [],
   allMiddleswares: any[] = [];
-export function getModuleMetaData(module: any) {
+export const getModuleMetaData = (module: any) => {
   const {MODULE_CONFIG} = module.prototype;
   let {
     controllers = [],
@@ -26,9 +26,9 @@ export function getModuleMetaData(module: any) {
       getModuleMetaData(childModule);
     });
   }
-}
+};
 
-export function getAllModuleMetaData(mainModule: any) {
+export const getAllModuleMetaData = (mainModule: any) => {
   getModuleMetaData(mainModule);
   injectProvidersToRootContainer([...allProviders]);
   injectControllerToRootContainer([...allExtensions, ...allControllers]);
@@ -40,16 +40,16 @@ export function getAllModuleMetaData(mainModule: any) {
     middleswares: allMiddleswares,
     staticFolders: allStaticFolders,
   };
-}
-function injectControllerToRootContainer(elements: any[] = []) {
+};
+const injectControllerToRootContainer = (elements: any[] = []) => {
   elements.forEach((element: any) => {
     InjectedContainer.inject(element);
   });
-}
+};
 
-function injectProvidersToRootContainer(elements: any[] = []) {
+const injectProvidersToRootContainer = (elements: any[] = []) => {
   elements.forEach((element: any) => {
     InjectedContainer.addProvider({provide: element, useClass: element});
     InjectedContainer.inject(element);
   });
-}
+};

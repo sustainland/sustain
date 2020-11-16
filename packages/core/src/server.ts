@@ -1,4 +1,9 @@
-import {SustainExtension} from './interfaces/IExtension.interface';
+import {Route} from './interfaces/route';
+import {SustainRequest} from './interfaces/sustain-request.interface';
+import {Application} from './interfaces/application.interface';
+import {Middleware} from './interfaces/middleware.interface';
+import {StaticFolder} from './interfaces/static-folder.interface';
+import {SustainExtension} from './interfaces/sustain-extension.interface';
 import {InjectedContainer} from './di/dependency-container';
 import {createServer, ServerResponse, Server} from 'http';
 import {ROUTE_ARGS_METADATA} from './constants';
@@ -14,14 +19,14 @@ const {domain = 'localhost', port = 5002} = yamlconfig;
 const mode = process.env.NODE_ENV;
 
 export class SustainServer {
-  requests: any;
-  config: any;
+  requests: SustainRequest;
+  config: Application;
   extensions: SustainExtension[] = [];
-  staticFolders: any[] = [];
-  middleswares: any[] = [];
+  staticFolders: StaticFolder[] = [];
+  middleswares: Middleware[] = [];
   loadedExtensions: SustainExtension[] = [];
   server: Server;
-  constructor(requests: any, config: any) {
+  constructor(requests: SustainRequest, config: Application) {
     this.requests = requests;
     this.config = config;
     const {extensions = [], staticFolders = [], middleswares = []} = this.config;
@@ -47,7 +52,7 @@ export class SustainServer {
       try {
         this.setPoweredByHeader(response);
         response.on('finish', () => {
-          this.extensions.forEach((extension: any) => {
+          this.extensions.forEach((extension: SustainExtension) => {
             if (extension.onResponseEndHook) {
               extension.onResponseEndHook(request, response);
             }
@@ -113,7 +118,8 @@ export class SustainServer {
     }
   }
 
-  async executeInterceptor(route: any, request: any, response: any) {
+  async executeInterceptor(route: Route, request: any, response: ServerResponse) {
+    console.log('SustainServer -> executeInterceptor -> route', route);
     const callstack = [];
     if (
       route.objectHanlder.config &&
@@ -140,7 +146,7 @@ export class SustainServer {
       const interception = new Promise(resolve => {
         const methodArgs: any[] = fillMethodsArgs(routeParamsHandler, {request, response, resolve});
         if (!interceptor.intercept) {
-          throw new Error('Invalid Interceptor : ' + routeInterceptor.interceptor.name);
+          throw new Error('Invalid Interceptor : ' + routeInterceptor.name);
         }
         return interceptor.intercept(...methodArgs);
       });
@@ -159,8 +165,8 @@ export class SustainServer {
   }
 }
 
-function requestSegmentMatch(requests: any, request: any) {
-  return requests[request.method].find((route: any) => {
+function requestSegmentMatch(requests: SustainRequest, request: any) {
+  return requests[request.method].find((route: Route) => {
     const requestRouteDetails = route.path.match(request.url.split('?')[0]);
     if (requestRouteDetails) {
       request.params = requestRouteDetails.params;
@@ -209,7 +215,6 @@ function fillMethodsArgs(routeParamsHandler: any, assets: any) {
         methodArgs[Number(arg_index)] = assets.request.params;
         break;
       case RouteParamtypes.QUERY:
-        // TODO: refactor this to a function
         const query = querystring.parse(assets.request.url.split('?')[1]);
         let askedQuery = {};
         if (additionalData) {

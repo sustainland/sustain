@@ -1,5 +1,5 @@
 import {SustainResponse} from './../../interfaces/SustainResponce.interface';
-import {SustainExtension} from './../../interfaces/IExtension.interface';
+import {SustainExtension} from '../../interfaces/sustain-extension.interface';
 import {Injectable} from './../../di/injectable';
 import {SustainRequest} from '../../interfaces';
 @Injectable()
