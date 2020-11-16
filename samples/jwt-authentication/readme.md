@@ -1,7 +1,7 @@
 ## Sustain project (JWT Authentication) used as a template
 
 ```
-$ sustain new my-project --templte_name=jwt-authentication
+$ sustain new my-project --template_name=jwt-authentication
 ```
 
 ### credentials
