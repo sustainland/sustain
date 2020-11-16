@@ -38,17 +38,10 @@ jobs:
         npm i 
         npm run build
         npm run copy:assets
-    - name: install and build extension sessions package
+    - name: install and build extension config package
       run: |
-        cd packages/extensions/sessions
+        cd packages/extensions/config
         npm i 
-        npm run build
-    - name: install and test basic router package
-      run: |
-        cd samples/basic-routers
-        npm i 
-        npm run build
-        npm run copy:assets
         npm run test
                  
       env:
