@@ -1,6 +1,6 @@
 {
   "name": "@sustain/swagger",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Sustain is a Framework that is barely used despedcies to make stable and sustainable apps",
   "main": "dist/index.js",
   "scripts": {
@@ -27,15 +27,15 @@
   ],
   "dependencies": {
     "@sustain/config": "^0.0.1",
-    "@sustain/core": "^0.9.0",
-    "@sustain/http": "^0.6.0",
+    "@sustain/core": "^0.11.0",
+    "@sustain/http": "^0.7.0",
     "path-to-regexp": "^6.2.0",
     "reflect-metadata": "^0.1.13"
   },
   "homepage": "https://github.com/sustainland/sustain#readme",
   "devDependencies": {
-    "@types/node": "^14.14.7",
+    "@types/node": "^14.14.9",
     "copyfiles": "^2.4.0",
-    "typescript": "4.0"
+    "typescript": "4.1"
   }
 }
