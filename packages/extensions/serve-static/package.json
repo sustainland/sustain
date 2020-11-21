@@ -1,7 +1,7 @@
 {
   "name": "@sustain/serve-static",
   "description": "Serve static files",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "contributors": [
     "Douglas Christopher Wilson <doug@somethingdoug.com>",
     "Labidi Aymen <labidi@aymen.co> (https://aymen.co)"

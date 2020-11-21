@@ -86,6 +86,10 @@ function serveStatic (root, options) {
     var forwardError = !fallthrough
     var originalUrl = parseUrl.original(req)
     var path = parseUrl(req).pathname
+    
+    if(opts.route){
+      path = path.replace(opts.route, '')
+    }
 
     // make sure redirect occurs at mount
     if (path === '/' && originalUrl.pathname.substr(-1) !== '/') {
