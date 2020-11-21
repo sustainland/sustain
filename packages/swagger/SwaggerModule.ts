@@ -1,13 +1,13 @@
-import {SwaggerddController} from './SwaggerController';
-import {resolve} from 'path';
+import {SwaggerController} from './SwaggerController';
+const swaggerUiAssetPath = require('swagger-ui-dist').getAbsoluteFSPath();
 
 import {Module} from '@sustain/core';
 @Module({
-  controllers: [SwaggerddController],
+  controllers: [SwaggerController],
   providers: [],
   staticFolders: [
     {
-      path: resolve(__dirname, 'public/'),
+      path: swaggerUiAssetPath,
     },
   ],
 })

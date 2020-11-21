@@ -4,7 +4,7 @@ import {Controller} from '@sustain/core';
 import {getOpenApi} from './generateOpenApi';
 
 @Controller()
-export class SwaggerddController {
+export class SwaggerController {
   constructor() {}
 
   @Get('/swagger.json')
