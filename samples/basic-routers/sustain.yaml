@@ -1,0 +1,21 @@
+# Sustain config file
+# documentation : https://sustainland.github.io/docs
+
+port: 5002
+domain: localhost
+core:
+  extensions:
+    swagger: true
+swagger:
+  securityDefinitions:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  security:
+    - ApiKeyAuth: []
+  info:
+    title: Sustain REST API
+    version: '1.0.0'
+    description: Generated with `Sustain`
+  swagger: '2.0.0'

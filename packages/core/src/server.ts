@@ -8,10 +8,9 @@ import {InjectedContainer} from './di/dependency-container';
 import {createServer, ServerResponse, Server} from 'http';
 import {ROUTE_ARGS_METADATA} from './constants';
 import * as querystring from 'querystring';
-import {generateMethodSpec} from '@sustain/common';
+// import {generateMethodSpec} from '@sustain/common';
 import {renderErrorPage} from './helpers/render-error-pages.helper';
 import {RouteParamtypes} from './enums/route-params.enum';
-const yenv = require('yenv');
 const serveStatic = require('@sustain/serve-static');
 const yamlconfig = require('@sustain/config');
 const {domain = 'localhost', port = 5002} = yamlconfig;
@@ -98,7 +97,7 @@ export class SustainServer {
   }
 
   generateOpenApiSchema(): void {
-    generateMethodSpec(this.requests, this.config);
+    //generateMethodSpec(this.requests, this.config);
   }
 
   async handleControllerOutput(controllerOutput: Promise<any> | string | number | object, response: ServerResponse) {
@@ -119,7 +118,6 @@ export class SustainServer {
   }
 
   async executeInterceptor(route: Route, request: any, response: ServerResponse) {
-    console.log('SustainServer -> executeInterceptor -> route', route);
     const callstack = [];
     if (
       route.objectHanlder.config &&

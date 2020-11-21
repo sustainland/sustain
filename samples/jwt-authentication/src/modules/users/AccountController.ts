@@ -1,7 +1,7 @@
 import {JWTInterceptor} from '../auth/AuthInterceptor';
 
 import {Controller} from '@sustain/core';
-import {Get} from '@sustain/common';
+import {Get} from '@sustain/http';
 
 @Controller('/account', {
   interceptors: [JWTInterceptor],

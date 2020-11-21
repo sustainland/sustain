@@ -2,7 +2,7 @@ import {SustainResponse} from './../../interfaces/SustainResponce.interface';
 import {SustainExtension} from '../../interfaces/sustain-extension.interface';
 import {Injectable} from './../../di/injectable';
 import {SustainRequest} from '../../interfaces';
-@Injectable()
+// @Injectable()
 export class RequestLoggerExtension implements SustainExtension {
   onResquestStartHook(request: SustainRequest) {
     request.startAt = new Date();

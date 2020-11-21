@@ -6,7 +6,7 @@ import {
     Get,
     Response,
     Param
-} from '@sustain/common';
+} from '@sustain/http';
 
 @Controller('/user')
 export default class UserController {

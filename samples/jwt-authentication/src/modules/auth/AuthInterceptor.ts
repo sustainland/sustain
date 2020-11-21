@@ -1,6 +1,6 @@
 import {ServerResponse} from 'http';
 import {AuthService} from './AuthService';
-import {Response, Next, Headers} from '@sustain/common';
+import {Response, Next, Headers} from '@sustain/http';
 import {Injectable, SustainInterceptor} from '@sustain/core';
 
 @Injectable()

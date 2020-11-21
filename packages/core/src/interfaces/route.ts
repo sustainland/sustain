@@ -1,9 +1,8 @@
 import {SustainInterceptor} from './sustain-interceptor.interface';
 import {Controller} from './controller.interface';
-import {RoutePath} from './route-path.interface.ts';
 export interface Route {
   interceptors: SustainInterceptor[];
-  path: RoutePath;
+  path: any;
   handler: Function;
   parent: Controller;
   objectHanlder: Controller;

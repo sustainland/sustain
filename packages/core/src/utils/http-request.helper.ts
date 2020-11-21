@@ -1,5 +1,5 @@
-import {RequestMethod} from './../enums/request-method.enum';
-import {InjectedContainer} from './../di/dependency-container';
+import {RequestMethod} from '../enums/request-method.enum';
+import {InjectedContainer} from '../di/dependency-container';
 import {
   CONTROLLER_ROUTE,
   CONTROLLER_CONFIG,
@@ -10,8 +10,8 @@ import {
   MATCH_METADATA,
   METHOD_RETURN,
   PATH_TYPES,
-} from './../constants';
-import {match} from '@sustain/common';
+} from '../constants';
+import {match} from '@sustain/http';
 import {getControllersMethods} from './extract-methods.util';
 const metadataKey = [INTERCEPTORS, MATCH_METADATA, PATH_METADATA, METHOD_METADATA, PATH_TYPE, METHOD_RETURN];
 const HttpRequests: any = {};

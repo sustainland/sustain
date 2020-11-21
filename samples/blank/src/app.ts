@@ -22,7 +22,7 @@ const bodyParser = require('@sustain/body-parser');
   controllers: [HelloController, BaseController],
   middleswares: [bodyParser.json()],
   providers: [HelloService],
-  extensions: [RequestLoggerExtension],
+  extensions: [],
   port: process.env.PORT || 5002,
   staticFolders: [{path: 'public'}],
 })

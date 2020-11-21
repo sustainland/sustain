@@ -1,10 +1,11 @@
+import {Application} from './interfaces/application.interface';
 import {DEFAULT_PORT} from './constants';
 import {SustainServer} from './server';
 import {getAllModuleMetaData} from './utils/module.helper';
 import {loadControllers} from './utils/http-request.helper';
 
 class BootstrapFramework {
-  application: any;
+  application: Application;
   mainModuleMetaData: any;
   applicationRequests: any;
   constructor(app: any) {

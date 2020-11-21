@@ -1,6 +1,6 @@
 import {AuthService} from './AuthService';
 import {Controller} from '@sustain/core';
-import {Body, Get, Post, Response} from '@sustain/common';
+import {Body, Get, Post, Response} from '@sustain/http';
 import {ServerResponse} from 'http';
 
 @Controller('/auth')
