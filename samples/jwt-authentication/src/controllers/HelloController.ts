@@ -1,5 +1,5 @@
 import {Controller} from '@sustain/core';
-import {Body, Get, Post} from '@sustain/common';
+import {Body, Get, Post} from '@sustain/http';
 
 @Controller('/hello')
 export default class HelloController {
