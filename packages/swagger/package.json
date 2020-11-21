@@ -1,6 +1,6 @@
 {
   "name": "@sustain/swagger",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Sustain is a Framework that is barely used despedcies to make stable and sustainable apps",
   "main": "dist/index.js",
   "scripts": {
