@@ -38,12 +38,17 @@ jobs:
         npm i 
         npm run build
         npm run copy:assets
-    - name: install and build extension config package
+     - name: install and build http package
       run: |
-        cd packages/extensions/config
+        cd packages/http
         npm i 
-        npm run test
-                 
+        npm run build
+     - name: install and build swagger package
+      run: |
+        cd packages/swagger
+        npm i 
+        npm run build
+
       env:
         CI: true  
       
