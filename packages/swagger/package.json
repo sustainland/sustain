@@ -1,6 +1,6 @@
 {
   "name": "@sustain/swagger",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "Sustain is a Framework that is barely used despedcies to make stable and sustainable apps",
   "main": "dist/index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   ],
   "dependencies": {
     "@sustain/config": "^0.0.1",
-    "@sustain/core": "^0.14.0",
+    "@sustain/core": "^0.15.0",
     "@sustain/http": "^0.7.0",
     "path-to-regexp": "^6.2.0",
     "reflect-metadata": "^0.1.13",
