@@ -1,4 +1,5 @@
 import {SwaggerController} from './SwaggerController';
+import {generateMethodSpec} from './generateOpenApi';
 import {resolve} from 'path';
 import {Module} from '@sustain/core';
 const swaggerUiAssetPath = require('swagger-ui-dist').getAbsoluteFSPath();
@@ -23,5 +24,7 @@ const swaggerUiAssetPath = require('swagger-ui-dist').getAbsoluteFSPath();
   ],
 })
 export class SwaggerModule {
-  onModuleLoadedInit(request: any) {}
+  onServerStart(applicationRequests: any) {
+    generateMethodSpec(applicationRequests);
+  }
 }

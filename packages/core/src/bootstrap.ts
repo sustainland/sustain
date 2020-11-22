@@ -1,7 +1,7 @@
 import {Application} from './interfaces/application.interface';
 import {DEFAULT_PORT} from './constants';
 import {SustainServer} from './server';
-import {getAllModuleMetaData} from './utils/module.helper';
+import {getAllModuleMetaData, executeOnServerStart} from './utils/module.helper';
 import {loadControllers} from './utils/http-request.helper';
 
 class BootstrapFramework {
@@ -12,10 +12,10 @@ class BootstrapFramework {
     this.application = app;
     this.mainModuleMetaData = getAllModuleMetaData(this.application);
 
-    const {controllers} = this.mainModuleMetaData;
+    const {controllers, modules} = this.mainModuleMetaData;
 
     this.applicationRequests = loadControllers(controllers);
-
+    executeOnServerStart(modules, this.applicationRequests);
     this.bootServer(this.applicationRequests, this.mainModuleMetaData);
   }
 
