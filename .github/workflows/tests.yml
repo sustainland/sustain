@@ -38,12 +38,12 @@ jobs:
         npm i 
         npm run build
         npm run copy:assets
-     - name: install and build http package
+    - name: install and build http package
       run: |
         cd packages/http
         npm i 
         npm run build
-     - name: install and build swagger package
+    - name: install and build swagger package
       run: |
         cd packages/swagger
         npm i 
