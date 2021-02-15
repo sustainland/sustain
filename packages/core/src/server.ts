@@ -13,7 +13,7 @@ import {renderErrorPage} from './helpers/render-error-pages.helper';
 import {RouteParamtypes} from './enums/route-params.enum';
 const serveStatic = require('@sustain/serve-static');
 const yamlconfig = require('@sustain/config');
-const {domain = 'localhost', port = 5002} = yamlconfig;
+const {domain = 'localhost', port = 5002, envirement} = yamlconfig;
 
 const mode = process.env.NODE_ENV;
 
@@ -91,7 +91,7 @@ export class SustainServer {
     })
       .listen(port)
       .on('listening', () => {
-        console.log('\x1b[32m%s\x1b[0m', ' App is running', `at ${domain}:${port} in ${mode} mode`);
+        console.log('\x1b[32m%s\x1b[0m', ' App is running', `at ${domain}:${port} in ${envirement} mode`);
         console.log(' Press CTRL-C to stop\n');
       });
   }
