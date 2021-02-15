@@ -1,6 +1,6 @@
 import {AuthModule} from './modules/auth/AuthModule';
 import {HelloService} from './services/HelloService';
-import {App, bootstrap, Injectable} from '@sustain/core';
+import {App, bootstrap} from '@sustain/core';
 import {SwaggerModule} from '@sustain/swagger';
 import BaseController from './controllers/BaseController';
 require('source-map-support').install();
