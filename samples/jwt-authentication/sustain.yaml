@@ -3,6 +3,7 @@
 
 port: 5003
 domain: localhost
+envirement: development
 core:
   extensions:
     swagger: true
