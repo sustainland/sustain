@@ -11,8 +11,6 @@ const bodyParser = require('@sustain/body-parser');
   controllers: [BaseController],
   middleswares: [bodyParser.json()],
   providers: [HelloService],
-  extensions: [],
-  port: process.env.PORT || 5002,
   staticFolders: [{path: 'public'}],
 })
 class AppModule {}
