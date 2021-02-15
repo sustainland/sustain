@@ -23,7 +23,7 @@
     "@sustain/body-parser": "0.3.0",
     "@sustain/cli": "0.7.0",
     "@sustain/common": "0.6.0",
-    "@sustain/core": "^0.16.0",
+    "@sustain/core": "^0.17.0",
     "@sustain/http": "^0.7.0",
     "@sustain/swagger": "^0.15.0",
     "body-parser": "^1.19.0",
