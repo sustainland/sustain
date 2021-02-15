@@ -1,5 +1,6 @@
 import {Module} from './../interfaces/module.interface';
-import {InjectedContainer} from './../di/dependency-container';
+import {DependencyContainer, InjectedContainer} from './../di/dependency-container';
+let usedInjectedContainer = InjectedContainer;
 let allControllers: any[] = [],
   allProviders: any[] = [],
   allExtensions: any[] = [],
@@ -33,7 +34,10 @@ export const getModuleMetaData = (module: any) => {
   executeOnModuleLoaded(module);
 };
 
-export const getAllModuleMetaData = (mainModule: any) => {
+export const getAllModuleMetaData = (mainModule: any, params?: {scoped: boolean; container: DependencyContainer}) => {
+  if (params?.scoped) {
+    usedInjectedContainer = params.container;
+  }
   getModuleMetaData(mainModule);
   return {
     controllers: allControllers,
@@ -41,24 +45,24 @@ export const getAllModuleMetaData = (mainModule: any) => {
     extensions: allExtensions,
     middleswares: allMiddleswares,
     staticFolders: allStaticFolders,
-    modules : allModules
+    modules: allModules,
   };
 };
 const injectControllerToRootContainer = (elements: any[] = []) => {
   elements.forEach((element: any) => {
-    InjectedContainer.inject(element);
+    usedInjectedContainer.inject(element);
   });
 };
 
 const injectProvidersToRootContainer = (elements: any[] = []) => {
   elements.forEach((element: any) => {
-    InjectedContainer.addProvider({provide: element, useClass: element});
-    InjectedContainer.inject(element);
+    usedInjectedContainer.addProvider({provide: element, useClass: element});
+    usedInjectedContainer.inject(element);
   });
 };
 const executeOnModuleLoaded = (module: Module) => {
-  InjectedContainer.inject(module);
-  const instance = InjectedContainer.get(module);
+  usedInjectedContainer.inject(module);
+  const instance = usedInjectedContainer.get(module);
   if (instance.onModuleLoaded) {
     instance.onModuleLoaded();
   }
@@ -66,8 +70,8 @@ const executeOnModuleLoaded = (module: Module) => {
 
 export const executeOnServerStart = (modules: Module[], applicationRequests: any) => {
   modules.forEach((module: Module) => {
-    InjectedContainer.inject(module);
-    const instance = InjectedContainer.get(module);
+    usedInjectedContainer.inject(module);
+    const instance = usedInjectedContainer.get(module);
     if (instance.onServerStart) {
       instance.onServerStart(applicationRequests);
     }

@@ -5,3 +5,4 @@ export * from './interfaces';
 export * from './decorators';
 export * from './context';
 export * from './extensions/logger/request-logger.extension';
+export * from './testing.module';

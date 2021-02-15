@@ -1,6 +1,6 @@
 import {Container} from './container';
 
-class DependencyContainer {
+export class DependencyContainer {
   container = new Container();
 
   containerMap = new Map<any, any>();
