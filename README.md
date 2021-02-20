@@ -42,6 +42,7 @@ sustain start
 ```
 
 Or you can start with a one file application
+# ![](public/quick-start.png) 
 
 ```typescript
 import { App, bootstrap, Controller } from '@sustain/core';
