@@ -46,7 +46,7 @@ Or you can start with a one file application
 
 ```typescript
 import { App, bootstrap, Controller } from '@sustain/core';
-import { Get } from '@sustain/common';
+import { Get } from '@sustain/http';
 
 @Controller()
 export default class HelloController {
