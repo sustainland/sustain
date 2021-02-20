@@ -17,13 +17,6 @@ This dependency will expose your application to eventual instability and vulnera
 
 Decoupling the application from the dependant packages by using the Sustain framework will make the maintenance focused on only one package.
 
-## Documentation
- [https://sustainland.github.io/docs](https://sustainland.github.io/docs)
-
-## Author
-
-* Website - [aymen.co](https://aymen.co)
-* Twitter - [@labidiaymen](https://twitter.com/labidiaymen)
 
 ## Installation
 
@@ -68,6 +61,14 @@ class AppModule { }
 module.exports = bootstrap(AppModule);
 
 ```
+
+## Documentation
+ [https://sustainland.github.io/docs](https://sustainland.github.io/docs)
+
+## Author
+
+* Website - [aymen.co](https://aymen.co)
+* Twitter - [@labidiaymen](https://twitter.com/labidiaymen)
 
 ## GA Release 🚀
 More about the first GA Release : https://github.com/sustainland/sustain/issues/1
