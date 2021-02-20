@@ -6,14 +6,13 @@ import {StaticFolder} from './interfaces/static-folder.interface';
 import {SustainExtension} from './interfaces/sustain-extension.interface';
 import {InjectedContainer} from './di/dependency-container';
 import {createServer, ServerResponse, Server} from 'http';
-import {ROUTE_ARGS_METADATA} from './constants';
+import {ROUTE_ARGS_METADATA, DEFAULT_PORT, DEFAULT_HOST} from './constants';
 import * as querystring from 'querystring';
-// import {generateMethodSpec} from '@sustain/common';
 import {renderErrorPage} from './helpers/render-error-pages.helper';
 import {RouteParamtypes} from './enums/route-params.enum';
 const serveStatic = require('@sustain/serve-static');
 const yamlconfig = require('@sustain/config');
-const {domain = 'localhost', port = 5002, envirement} = yamlconfig;
+const {domain = DEFAULT_HOST, port = DEFAULT_PORT} = yamlconfig;
 
 const mode = process.env.NODE_ENV;
 
@@ -25,9 +24,11 @@ export class SustainServer {
   middleswares: Middleware[] = [];
   loadedExtensions: SustainExtension[] = [];
   server: Server;
+  port: number;
   constructor(requests: SustainRequest, config: Application) {
     this.requests = requests;
     this.config = config;
+    this.port = this.config?.port || port;
     const {extensions = [], staticFolders = [], middleswares = []} = this.config;
     this.extensions = this.loadInjectedExtension(extensions);
     this.staticFolders = staticFolders;
@@ -89,9 +90,9 @@ export class SustainServer {
         console.error(error);
       }
     })
-      .listen(port)
+      .listen(this.port)
       .on('listening', () => {
-        console.log('\x1b[32m%s\x1b[0m', ' App is running', `at ${domain}:${port} in ${envirement} mode`);
+        console.log('\x1b[32m%s\x1b[0m', ' App is running', `at ${domain}:${this.port} in ${yamlconfig.envId} mode`);
         console.log(' Press CTRL-C to stop\n');
       });
   }

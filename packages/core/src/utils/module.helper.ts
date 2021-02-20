@@ -6,8 +6,9 @@ let allControllers: any[] = [],
   allExtensions: any[] = [],
   allStaticFolders: any[] = [],
   allMiddleswares: any[] = [],
-  allModules: any[] = [];
-export const getModuleMetaData = (module: any) => {
+  allModules: any[] = [],
+  applicationPort: number;
+export const getModuleMetaData = (module: any, config?: {mainModule: boolean}) => {
   const {MODULE_CONFIG} = module.prototype;
   let {
     controllers = [],
@@ -16,7 +17,12 @@ export const getModuleMetaData = (module: any) => {
     modules = [],
     staticFolders = [],
     middleswares = [],
+    port,
   } = MODULE_CONFIG;
+
+  if (config?.mainModule) {
+    applicationPort = port;
+  }
 
   allControllers = [...allControllers, ...controllers];
   allProviders = [...allProviders, ...providers];
@@ -38,7 +44,7 @@ export const getAllModuleMetaData = (mainModule: any, params?: {scoped: boolean;
   if (params?.scoped) {
     usedInjectedContainer = params.container;
   }
-  getModuleMetaData(mainModule);
+  getModuleMetaData(mainModule, {mainModule: true});
   return {
     controllers: allControllers,
     providers: allProviders,
@@ -46,6 +52,7 @@ export const getAllModuleMetaData = (mainModule: any, params?: {scoped: boolean;
     middleswares: allMiddleswares,
     staticFolders: allStaticFolders,
     modules: allModules,
+    port: applicationPort,
   };
 };
 const injectControllerToRootContainer = (elements: any[] = []) => {

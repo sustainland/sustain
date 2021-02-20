@@ -2,6 +2,7 @@ export const ROUTE_ARGS_METADATA = 'route-method-arguments';
 
 export const SWAGGER_ALLOWED_TYPES: any[] = ['Boolean', 'Number', 'String', 'Object', 'Array'];
 export const DEFAULT_PORT = 5002;
+export const DEFAULT_HOST = 'localhost';
 
 export enum OpenAPITypes {
   String = 'string',

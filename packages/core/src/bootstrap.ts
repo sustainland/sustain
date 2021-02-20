@@ -1,5 +1,4 @@
 import {Application} from './interfaces/application.interface';
-import {DEFAULT_PORT} from './constants';
 import {SustainServer} from './server';
 import {getAllModuleMetaData, executeOnServerStart} from './utils/module.helper';
 import {loadControllers} from './utils/http-request.helper';
@@ -21,9 +20,8 @@ class BootstrapFramework {
 
   bootServer(requests: any, mainModuleMetaData: any) {
     const {port, staticFolders = [], extensions = {}, middleswares = []} = mainModuleMetaData;
-
     new SustainServer(requests, {
-      port: port || DEFAULT_PORT,
+      port,
       staticFolders,
       extensions,
       middleswares,
