@@ -1,11 +1,11 @@
 import {Controller} from '@sustain/core';
-import {Body, Get, Post} from '@sustain/common';
+import {Body, Get, Post} from '@sustain/http';
 
 @Controller('/hello')
-export default class HelloController {
+export class HelloController {
   constructor() {}
 
-  @Get('/sayHello') 
+  @Get('/say-hello')
   singleUser(): string {
     return `Hello Sustainers`;
   }

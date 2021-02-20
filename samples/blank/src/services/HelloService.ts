@@ -1,9 +1,6 @@
-import { Injectable } from "@sustain/core";
+import {Injectable} from '@sustain/core';
 
 @Injectable()
 export class HelloService {
-
-    constructor() { }
-
+  constructor() {}
 }
-
