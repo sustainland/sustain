@@ -58,7 +58,7 @@ export default class HelloController {
 })
 class AppModule { }
 
-module.exports = bootstrap(AppModule);
+bootstrap(AppModule);
 
 ```
 
