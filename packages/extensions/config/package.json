@@ -1,0 +1,54 @@
+{
+  "name": "@sustain/config",
+  "version": "0.0.1",
+  "description": "Yaml Config for Sustain framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard | snazzy && mocha",
+    "coverage": "nyc --reporter=lcov --reporter=text mocha",
+    "coveralls": "nyc --reporter=text-lcov mocha | coveralls"
+  },
+  "repository": "sustainland/sustain/packages/extensions/config",
+  "keywords": [
+    "Config",
+    "Yaml",
+    "Yml",
+    "Configuration",
+    "Settings",
+    "Parameters",
+    "Node.js",
+    "Stack",
+    "Deploy"
+  ],
+  "author": "Andy Day",
+  "contributors": [
+    "Andy Day",
+    "Labidi Aymen <labidi@aymen.co> (https://aymen.co)"
+  ],
+  "license": "MIT",
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "before",
+      "after"
+    ]
+  },
+  "dependencies": {
+    "js-yaml": "^3.6.1",
+    "lodash": "^4.13.1",
+    "moment": "^2.13.0",
+    "shelljs": "^0.7.0",
+    "yargs": "^4.7.1"
+  },
+  "devDependencies": {
+    "coveralls": "^3.0.1",
+    "decache": "^3.1.0",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
+    "should": "^9.0.2",
+    "sinon": "^1.17.4",
+    "snazzy": "^7.0.0",
+    "standard": "^11.0.1"
+  }
+}
