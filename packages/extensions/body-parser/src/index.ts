@@ -4,21 +4,21 @@
  * MIT Licensed
  */
 
-'use strict'
+'use strict';
 
 /**
  * Module dependencies.
  * @private
  */
 
-var deprecate = require('depd')('body-parser')
+var deprecate = require('depd')('body-parser');
 
 /**
  * Cache of loaded parsers.
  * @private
  */
 
-var parsers = Object.create(null)
+var parsers = Object.create(null);
 
 /**
  * @typedef Parsers
@@ -34,8 +34,7 @@ var parsers = Object.create(null)
  * @type {Parsers}
  */
 
-exports = module.exports = deprecate.function(bodyParser,
-  'bodyParser: use individual json/urlencoded middlewares')
+exports = module.exports = deprecate.function(bodyParser, 'bodyParser: use individual json/urlencoded middlewares');
 
 /**
  * JSON parser.
@@ -45,8 +44,8 @@ exports = module.exports = deprecate.function(bodyParser,
 Object.defineProperty(exports, 'json', {
   configurable: true,
   enumerable: true,
-  get: createParserGetter('json')
-})
+  get: createParserGetter('json'),
+});
 
 /**
  * Raw parser.
@@ -56,8 +55,8 @@ Object.defineProperty(exports, 'json', {
 Object.defineProperty(exports, 'raw', {
   configurable: true,
   enumerable: true,
-  get: createParserGetter('raw')
-})
+  get: createParserGetter('raw'),
+});
 
 /**
  * Text parser.
@@ -67,8 +66,8 @@ Object.defineProperty(exports, 'raw', {
 Object.defineProperty(exports, 'text', {
   configurable: true,
   enumerable: true,
-  get: createParserGetter('text')
-})
+  get: createParserGetter('text'),
+});
 
 /**
  * URL-encoded parser.
@@ -78,8 +77,8 @@ Object.defineProperty(exports, 'text', {
 Object.defineProperty(exports, 'urlencoded', {
   configurable: true,
   enumerable: true,
-  get: createParserGetter('urlencoded')
-})
+  get: createParserGetter('urlencoded'),
+});
 
 /**
  * Create a middleware to parse json and urlencoded bodies.
@@ -90,27 +89,27 @@ Object.defineProperty(exports, 'urlencoded', {
  * @public
  */
 
-function bodyParser (options) {
-  var opts = {}
+function bodyParser(options: {[x: string]: any}) {
+  var opts = {};
 
   // exclude type option
   if (options) {
     for (var prop in options) {
       if (prop !== 'type') {
-        opts[prop] = options[prop]
+        opts[prop] = options[prop];
       }
     }
   }
 
-  var _urlencoded = exports.urlencoded(opts)
-  var _json = exports.json(opts)
+  var _urlencoded = exports.urlencoded(opts);
+  var _json = exports.json(opts);
 
-  return function bodyParser (req, res, next) {
-    _json(req, res, function (err) {
-      if (err) return next(err)
-      _urlencoded(req, res, next)
-    })
-  }
+  return function bodyParser(req: any, res: any, next: (arg0: any) => any) {
+    _json(req, res, function (err: any) {
+      if (err) return next(err);
+      _urlencoded(req, res, next);
+    });
+  };
 }
 
 /**
@@ -118,10 +117,10 @@ function bodyParser (options) {
  * @private
  */
 
-function createParserGetter (name) {
-  return function get () {
-    return loadParser(name)
-  }
+function createParserGetter(name: string) {
+  return function get() {
+    return loadParser(name);
+  };
 }
 
 /**
@@ -129,29 +128,29 @@ function createParserGetter (name) {
  * @private
  */
 
-function loadParser (parserName) {
-  var parser = parsers[parserName]
+function loadParser(parserName: string | number) {
+  var parser = parsers[parserName];
 
   if (parser !== undefined) {
-    return parser
+    return parser;
   }
 
   // this uses a switch for static require analysis
   switch (parserName) {
     case 'json':
-      parser = require('./lib/types/json')
-      break
+      parser = require('./lib/types/json');
+      break;
     case 'raw':
-      parser = require('./lib/types/raw')
-      break
+      parser = require('./lib/types/raw');
+      break;
     case 'text':
-      parser = require('./lib/types/text')
-      break
+      parser = require('./lib/types/text');
+      break;
     case 'urlencoded':
-      parser = require('./lib/types/urlencoded')
-      break
+      parser = require('./lib/types/urlencoded');
+      break;
   }
 
   // store to prevent invoking require()
-  return (parsers[parserName] = parser)
+  return (parsers[parserName] = parser);
 }

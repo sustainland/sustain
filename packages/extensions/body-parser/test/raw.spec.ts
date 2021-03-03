@@ -357,7 +357,7 @@ describe('bodyParser.raw()', function () {
   })
 })
 
-function createServer (opts) {
+function createServer (opts?) {
   var _bodyParser = typeof opts !== 'function'
     ? bodyParser.raw(opts)
     : opts

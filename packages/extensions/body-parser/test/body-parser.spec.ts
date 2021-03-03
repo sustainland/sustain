@@ -143,7 +143,7 @@ describe('bodyParser()', function () {
   })
 })
 
-function createServer (opts) {
+function createServer (opts?) {
   var _bodyParser = bodyParser(opts)
 
   return http.createServer(function (req, res) {
