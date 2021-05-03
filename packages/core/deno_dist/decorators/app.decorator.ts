@@ -1,5 +1,5 @@
-import { Application } from './../interfaces/application.interface';
-import 'reflect-metadata';
+import { Application } from './../interfaces/application.interface.ts';
+import 'https://raw.githubusercontent.com/rbuckton/reflect-metadata/master/Reflect.js';
 
 function createAppDecorator(): (config:Application)=>{} {
   return (config: Application) => {
