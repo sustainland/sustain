@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w --noImplicitAny",
-    "copy:assets": "copyfiles  public/** dist/"
+    "copy:assets": "copyfiles  public/** dist/",
+    "build:deno": "tsc && denoify"
   },
   "repository": {
     "type": "git",
