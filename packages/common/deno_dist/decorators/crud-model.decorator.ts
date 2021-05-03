@@ -1,4 +1,3 @@
-import 'https://raw.githubusercontent.com/rbuckton/reflect-metadata/master/Reflect.js';
 
 function createCrudModelDecorator<T>(): Function {
     return (model: T) => {
