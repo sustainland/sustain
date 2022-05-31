@@ -25,6 +25,5 @@
     "include": [
         "*.ts",
         "**/*.ts"
-    ],
-    "exclude": ["deno_dist", "dist"]
+    ]
 }
