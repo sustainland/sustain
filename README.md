@@ -70,9 +70,6 @@ bootstrap(AppModule);
 * Website - [aymen.co](https://aymen.co)
 * Twitter - [@labidiaymen](https://twitter.com/labidiaymen)
 
-## GA Release 🚀
-More about the first GA Release : https://github.com/sustainland/sustain/issues/1
-
 ## License
 
 [MIT licensed](LICENSE).
