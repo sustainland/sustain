@@ -6,8 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w --noImplicitAny",
-    "copy:assets": "copyfiles  public/** dist/",
-    "build:deno": "tsc && denoify"
+    "copy:assets": "copyfiles  public/** dist/"
   },
   "repository": {
     "type": "git",
@@ -35,7 +34,6 @@
   "devDependencies": {
     "@types/node": "^14.14.7",
     "copyfiles": "^2.4.0",
-    "denoify": "^0.6.5",
     "typescript": "4.0"
   }
 }

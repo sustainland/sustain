@@ -1,8 +1,7 @@
-import { Application } from './../interfaces/application.interface';
 import 'reflect-metadata';
 
-function createAppDecorator(): (config:Application)=>{} {
-  return (config: Application) => {
+function createAppDecorator(): Function {
+  return (config: any = '') => {
     return function (constructorFunction: Function) {
       constructorFunction.prototype.MODULE_CONFIG = config;
       constructorFunction.prototype.injectable = true;
@@ -11,6 +10,6 @@ function createAppDecorator(): (config:Application)=>{} {
 }
 
 /**
- * Create a @App decorator
+ * Create a @Get decorator
  */
 export const App = createAppDecorator();
