@@ -11,7 +11,7 @@ import {
   METHOD_RETURN,
   PATH_TYPES,
 } from '../constants.ts';
-import {match} from '@sustain/http DENOIFY: DEPENDENCY UNMET (BUILTIN)';
+import {match} from 'https://deno.land/x/sustain_http@0.20.2/mod.ts'';
 import {getControllersMethods} from './extract-methods.util.ts';
 const metadataKey = [INTERCEPTORS, MATCH_METADATA, PATH_METADATA, METHOD_METADATA, PATH_TYPE, METHOD_RETURN];
 const HttpRequests: any = {};
